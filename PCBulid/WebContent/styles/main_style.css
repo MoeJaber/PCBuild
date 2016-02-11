@@ -1,0 +1,243 @@
+BODY{
+    font-family: "Verdana";
+    font-size: 100%;
+    padding:0em;
+    margin: 0em;
+}
+
+H1{
+    color:pink;
+    margin: 0.625em;
+}
+
+HR{
+    width:75%;
+    position:absolute;left;
+    border: none;
+    height: 0.12em;
+    background-color: gray;
+    margin-top: -0.34em;
+}
+
+H6{
+    color:pink;
+    margin: 0em;
+}
+
+#HEADER {
+    font-size:16em;
+    text-align: center;
+}
+
+
+#MENUBANNER {
+    color:white;
+    font-size: 1.5em;
+    width: 100%;
+    padding-left: 3%;
+    font-family: Courier-Normal;
+}
+
+#MENU_IMAGE {
+    padding-top: 10%;
+    padding-right: 4%;
+}
+
+#MENU {
+    color: gray;
+    background-color: black;
+    position: absolute;
+    width: 101%;
+    height: 13%;
+    top: -1%;
+    left: -1%;
+    border-style: solid;
+    border-width: 0.3em;
+    border-color: gray;
+    display: flex;
+}
+
+#MENU a {
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 16px;
+    font-family: Courier-Normal;
+    text-decoration: none;
+    display: flex;
+}
+
+#MENU a:hover {
+    color: gray;
+}
+
+#BACKGROUND {
+    height: 100%;
+    width: 86.7%;
+    padding-top: 0em;
+    background-color: white;
+    background-image: url("images/background.jpg");
+    background-size: 102% 100%;
+    background-repeat: no-repeat;
+    margin-left: 12.9%;
+    z: -1;
+}
+
+#CONTENT {
+    color: black;
+    font-size: 1.063em;
+    font-family: calibri;
+    padding-top: 1%;
+    position: absolute;
+    z: -1;
+    width: 80%;
+    bottom: 15%;
+    top: 10%;
+    right: 7%;
+    padding-left: 3%;
+    text-align: justify;
+    overflow-y: auto;
+}
+#CONTENT TABLE {
+    width: 90%;
+    border-spacing: 0.2em;
+}
+#CONTENT P {
+    background-color: rgba(248, 248, 248, 0.7);
+    background-size: 200%;
+    }
+
+#CONTENT_BIO_LEFT {
+    font-family: "Tahoma";
+    font-size: 0.875em;
+    width: 50%;
+}
+
+#CONTENT_BIO_LEFT P {
+    padding-left: 30%;
+}
+
+#CONTENT_BIO_LEFT_LEFT {
+    float: left;
+    font-family: "Calibri";
+    font-size: 0.875em;
+    width: 28%;
+    height: 91%;
+}
+
+#CONTENT_BIO_LEFT_LEFT IMG {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+}
+
+.LEADER_NAME_LEFT {
+    padding-left: 30%;
+    font-weight: bold;
+    font-family: "Verdana";
+    font-size: 1.275em;
+}
+
+.LEADER_TITLE_LEFT {
+    padding-left: 30%;
+    font-weight: lighter;
+    font-family: "Verdana";
+    font-size: 1.075em;
+}
+
+
+
+
+#CONTENT_BANNER {
+    padding-top: 5%;
+    left: 17%;
+    position: absolute;
+}
+
+.TWITTER-ICON {
+    width: 5%;
+    top: 5%;
+}
+
+.TWITTER {
+    font-size: 1.075em;
+    position: absolute;
+    padding-top: 1%;
+    color: red;
+}
+
+.TWITTER a {
+    color: red;
+    text-decoration: none;
+}
+
+#CONTENT_BANNER_IN {
+    width: 70%;
+    padding-top: 5%;
+}
+#CONTENT_IMG {
+    top: 40%;
+    left: 37%;
+    position: absolute;
+}
+
+
+#FOOTER {
+    color: black;
+    font-size: 0.75em;
+    width: 75.9%;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+}
+
+#FOOTER a {
+    color: black;
+    text-decoration: underline;
+}
+
+.DROPBTN {
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 16px;
+    font-family: Courier-Normal;
+}
+
+.DROPBTN:hover, .DROPBTN:focus {
+    color: gray;
+}
+
+.DROPDOWN {
+    position: relative;
+    display: inline-block;
+}
+
+.DROPDOWN-CONTENT {
+    margin-left: 10%;
+    padding-left: 3px;
+    display: none;
+    border-radius: 15px;
+    position: absolute;
+    background-color: #3E3E3E;
+    color: grey;
+    min-width: 15em;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.DROPDOWN-CONTENT a {
+    color: black;
+    font-size: 0.8em;
+    padding-left: 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.DROPDOWN-CONTENT a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
