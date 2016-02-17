@@ -27,14 +27,4 @@ public class Cart
 	{
 		products.remove (removeIndex);
 	}
-	
-	public double getTotal ()
-	{
-		double total = 0.0d;
-		
-		for (Product product : products)
-			total += product.getPrice ();
-		
-		return total;
-	}
 }
