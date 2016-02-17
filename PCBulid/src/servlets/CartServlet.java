@@ -23,5 +23,6 @@ public class CartServlet extends HttpServlet
     	
     	Cart cart = (Cart) session.getAttribute ("Cart");
     	
+    	cart.addProduct ((Product) session.getAttribute ("addToCart"));
     }    
 }   

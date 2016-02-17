@@ -27,4 +27,24 @@ public class Cart
 	{
 		products.remove (removeIndex);
 	}
+	
+	@Override
+	public boolean equals (Object obj)
+	{
+		Cart equal = (Cart) obj;
+		
+		return products.equals (equal.products);
+	}
+	
+	@Override
+	public String toString ()
+	{
+		return products.toString ();
+	}
+	
+	@Override
+	public int hashCode ()
+	{
+		return products.hashCode ();
+	}
 }
