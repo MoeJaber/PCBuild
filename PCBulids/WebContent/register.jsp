@@ -7,35 +7,32 @@
     <title>View Template that use Bootstrap</title>
 
     <!-- Referencing Bootstrap CSS that is hosted locally -->
+    
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/spacelab/bootstrap.min.css" rel="stylesheet">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    
     <style>
 body{
   background: url("public/img/backdrop.png");
 }
 
-.centered-form .panel{
+.panel{
   background: rgba(255, 255, 255, 0.8);
   box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
 
-.centered-form{
-  margin-top: 60px;
+.panel {
+  margin-top: 45px;
 }
 	</style>
   </head>
   <body>
     <!-- Referencing Bootstrap JS that is hosted locally -->
     
-    <div class="jumbotron">
-		<div class="container text-center">
-    		<h1>Prestige Computers</h1>      
-    		<p>Bringing you quality computers, now</p>
-  		</div>
-	</div>
-	<nav class="navbar navbar-default" style = "margin-top: -3%;">
+	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -53,7 +50,7 @@ body{
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Login <span class="sr-only">(current)</span></a></li>
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Computer Hardware <span class="caret"></span></a>
+	          <a href = "#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Computer Hardware <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	          	<li class="dropdown-header">Computer Parts</li>
 	            <li><a href="#">Cases & Chassis</a></li>
@@ -84,52 +81,58 @@ body{
 	        <button type="submit" class="btn btn-default">Go</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-	        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-     	  </ul>
+	        
+	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
-	<div class="row centered-form">
+    
+    
+    
+	<div class="row">
 	  <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 	    <div class="panel panel-default">
 	      <div class="panel-heading">
-	        <h3 class="panel-title">Please Login</h3>
+	        <h3 class="panel-title">Please sign up <small>It's free!</small></h3>
 	      </div>
 	      <div class="panel-body">
 	        <form role="form">
+	          <div class="row">
+	            <div class="col-xs-6 col-sm-6 col-md-6">
+	              <div class="form-group">
+	                <input type="text" name="first_name" class="form-control input-sm" placeholder="First Name">
+	            </div>
+	            </div>
+	            <div class="col-xs-6 col-sm-6 col-md-6">
+	              <div class="form-group">
+	                <input type="text" name="last_name" class="form-control input-sm" placeholder="Last Name">
+	              </div>
+	            </div>
+	          </div>
 	
 	          <div class="form-group">
 	            <input type="email" name="email" class="form-control input-sm" placeholder="Email Address">
 	          </div>
 	
-	          <div class="form-group">
-	            <input type="password" name="password" class="form-control input-sm" placeholder="Password">
+	          <div class="row">
+	            <div class="col-xs-6 col-sm-6 col-md-6">
+	              <div class="form-group">
+	                <input type="password" name="password" class="form-control input-sm" placeholder="Password">
+	              </div>
+	            </div>
+	            <div class="col-xs-6 col-sm-6 col-md-6">
+	              <div class="form-group">
+	                <input type="password" name="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+	              </div>
+	            </div>
 	          </div>
 	
-	          <div class="checkbox">
-	            <label>
-	              <input name="remember" type="checkbox" value="Remember Me"> Remember Me
-	              <a href="/forgot" class="pull-right">Forgot Password?</a>
-	            </label>
-	          </div>
-	
-	          <input type="submit" value="Login" class="btn btn-info btn-block">
+	          <input type="submit" value="Register" class="btn btn-info btn-block">
 	
 	        </form>
 	      </div>
 	    </div>
-	    <div class="text-center">
-	      <a href="register.jsp" >Don't have an account? Register</a>
-	    </div>
 	  </div>
 	</div>
-	<footer class="container-fluid text-center">
-	  <p>Copyright © 2016, Prestige Computers </p>  
-	  <form class="form-inline">Get deals:
-	    <input type="email" class="form-control" size="50" placeholder="Email Address">
-	    <button type="button" class="btn btn-danger">Sign Up</button>
-	  </form>
-	</footer>
   </body>
 </html>

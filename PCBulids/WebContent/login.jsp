@@ -29,13 +29,8 @@ body{
   <body>
     <!-- Referencing Bootstrap JS that is hosted locally -->
     
-    <div class="jumbotron">
-		<div class="container text-center">
-    		<h1>Prestige Computers</h1>      
-    		<p>Bringing you quality computers, now</p>
-  		</div>
-	</div>
-	<nav class="navbar navbar-default" style = "margin-top: -3%;">
+    
+	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -84,9 +79,8 @@ body{
 	        <button type="submit" class="btn btn-default">Go</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-	        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-     	  </ul>
+	        
+	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
@@ -124,12 +118,5 @@ body{
 	    </div>
 	  </div>
 	</div>
-	<footer class="container-fluid text-center">
-	  <p>Copyright © 2016, Prestige Computers </p>  
-	  <form class="form-inline">Get deals:
-	    <input type="email" class="form-control" size="50" placeholder="Email Address">
-	    <button type="button" class="btn btn-danger">Sign Up</button>
-	  </form>
-	</footer>
   </body>
 </html>
