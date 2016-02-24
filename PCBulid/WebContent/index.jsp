@@ -232,9 +232,9 @@ body{
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/laptops.png" class="img-center"><p>Laptops</p></div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/printers.png" class="img-center"><p>Printers</p></div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/phones.png" class="img-center"><p>Phones</p></div>
-			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/videocards.png" class="img-center"><p>Video Cards</p></div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/videocards.png" class="img-center"><p>Video Cards</p><br><a href="welcome.jsp">Video Cards</a></div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/television.png" class="img-center"><p>Television</p></div>
-			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/ssd.png" class="img-center"><p>Solid State Drives</p></div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/ssd.png" class="img-center"><br><a href="google.com">Solid State Drives</a></div>
 		</div>
 	</div>
 	
