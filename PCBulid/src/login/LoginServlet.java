@@ -41,10 +41,10 @@ public class LoginServlet extends HttpServlet
         try
         {
         	String url = "jdbc:mysql://localhost:3306/";  
-            String dbName = "PrestigeComputers"; 
+            String dbName = "WebAppTest"; 
             String driver = "com.mysql.jdbc.Driver";  
             String dbUserName = "root";  
-            String dbPassword = "";  
+            String dbPassword = "WebApp";  
             
         	Class.forName (driver).newInstance ();  
             Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  

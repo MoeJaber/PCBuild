@@ -1,15 +1,17 @@
 package login;  
   
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.sql.Connection;  
 import java.sql.PreparedStatement;  
 import java.sql.ResultSet;  
-import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;  
+import javax.crypto.spec.PBEKeySpec;
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;  
   
 public class Login 
 {  
@@ -18,7 +20,7 @@ public class Login
         PreparedStatement select = null;  
         ResultSet results = null;
         
-        Random random = new Random ();
+        SecureRandom random = new SecureRandom ();
         byte [] salt = new byte [16];
         
         random.nextBytes (salt);
@@ -49,8 +51,9 @@ public class Login
         {  
             select = connection.prepareStatement ("select * from users where email=? and password=?");  
             select.setString (1, userEmail);  
-            select.setBytes (2, hash);
+            select.setString (2, Base64.encode (hash));
   
+            System.out.println ("Hash: " + Base64.encode (hash));
             results = select.executeQuery ();  
         } 
         catch (Exception e) 
