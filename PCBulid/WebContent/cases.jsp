@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>   
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"  
+    pageEncoding="ISO-8859-1"%>  
+    <%@page import= "parts_servlet.CasesServlet" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -207,8 +206,11 @@ body{
 			</div>
 		</div>
 	</div>
-
-
+	
+	 <%=request.getAttribute("str1") %>
+     <%=request.getAttribute("str2") %>
+	
+	
 <!--- Deals --->
 	<div class="container">
 		<h2>This Week's Top Deals</h2>
