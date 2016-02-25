@@ -124,10 +124,10 @@ body{
 			<li class="dropdown" id="menuLogin">
 		        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><span class="glyphicon glyphicon-user"></span> Your Account<span class="caret"></span></a>
 		        <div class="dropdown-menu" style="padding:17px; width: 25em !important;">
-		          <form>
-		            <div class="form-group"><input type="email" class="form-control"  class="form-control input-sm" placeholder="Email"></div>
-		            <div class="form-group"><input type="password" class="form-control"  class="form-control input-sm" placeholder="Password"></div>
-		            <div class="form-group"><button type="submit" class="btn btn-info btn-block">Sign in</button></div>
+		          <form action = "LoginServlet" method = "post">
+		            <div class="form-group"><input name = "email" required = "required" type="email" class="form-control"  class="form-control input-sm" placeholder="Email"></div>
+		            <div class="form-group"><input name = "password" required = "required" type="password" class="form-control"  class="form-control input-sm" placeholder="Password"></div>
+		            <div class="form-group"><button type="submit"  class="btn btn-info btn-block">Sign in</button></div>
 		            <div class="checkbox">
 			            <label><input name="remember" type="checkbox" value="Remember Me">Remember Me
 			            <a href="forgot.jsp" class="pull-right">Forgot Password?</a>
