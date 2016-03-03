@@ -49,11 +49,10 @@ public class Login
         
         try 
         {  
-            select = connection.prepareStatement ("select * from users where email=? and password=?");  
+            select = connection.prepareStatement ("select * from users where email = ? and password = ?");  
             select.setString (1, userEmail);  
-            select.setString (2, Base64.encode (hash));
+            select.setBytes (2, hash);
   
-            System.out.println ("Hash: " + Base64.encode (hash));
             results = select.executeQuery ();  
         } 
         catch (Exception e) 

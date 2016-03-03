@@ -96,7 +96,7 @@ body{
 	        <h3 class="panel-title">Please sign up <small>It's free!</small></h3>
 	      </div>
 	      <div class="panel-body">
-	        <form role="form">
+	        <form role="form" method = "post" action = "RegistrationServlet">
 	          <div class="row">
 	            <div class="col-xs-6 col-sm-6 col-md-6">
 	              <div class="form-group">

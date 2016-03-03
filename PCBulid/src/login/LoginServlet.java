@@ -36,15 +36,15 @@ public class LoginServlet extends HttpServlet
         if(session != null)  
         	session.setAttribute ("email", email);  
   
-        System.out.println ("In LoginServlet, Email: " + email + ", Password: " + password);
+        //System.out.println ("In LoginServlet, Email: " + email + ", Password: " + password);
         
         try
         {
-        	String url = "jdbc:mysql://localhost:3306/";  
-            String dbName = "WebAppTest"; 
-            String driver = "com.mysql.jdbc.Driver";  
-            String dbUserName = "root";  
-            String dbPassword = "WebApp";  
+        	final String url = "jdbc:mysql://localhost:3306/";  
+            final String dbName = "form"; 
+            final String driver = "com.mysql.jdbc.Driver";  
+            final String dbUserName = "root";  
+            final String dbPassword = "admin";  
             
         	Class.forName (driver).newInstance ();  
             Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet
 			
 	        	session.setAttribute ("user", new User (email, firstName, lastName, created));
         	
-	        	System.out.println ("User Logged In: " + ((User) session.getAttribute ("user")).toString ());
+	        	//System.out.println ("User Logged In: " + ((User) session.getAttribute ("user")).toString ());
 	        	
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher ("welcome.jsp");    
 	        	dispatcher.forward (request, response);    
