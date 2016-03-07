@@ -29,125 +29,7 @@ body{
 	</style>
   </head>
   <body>
-  	<!--- Jumbotron Prestige Computers --->
-    <div class="jumbotron">
-		<div class="container text-center">
-    		<img src = "public/img/website/banner.png" class="img-responsive center-block" alt="Prestige Computers">
-  		</div>
-	</div>
-	<nav class="navbar navbar-default" style = "margin-top: -2.1em;">
-	  <div class="container-fluid">
-	    <!-- Navigation -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-globe logo"></span> Prestige Computers</a>
-	    </div>
-	
-	    <!-- Departments -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Department<span class="caret"></span></a>
-	          <ul class="dropdown-menu" style = "padding-top: 1em;">
-	            <li><a href="#">Computer Hardware</a></li>
-	            <li><a href="#">Laptop & Tablet</a></li>
-	            <li><a href="#">Networking</a></li>
-	            <li><a href="#">TV & Home Theatre</a></li>
-	            <li><a href="#">Mobile Phones</a></li>
-	            <li><a href="#">Electronics</a></li>
-	            <li><a href="#">Monitors</a></li>
-	            <li><a href="#">Desktop</a></li>
-	            <li><a href="#">Accessories</a></li>
-	            <li><a href="#">Gadget & Toys</a></li>
-	            <li><a href="#">Game Consoles</a></li>
-	            <li><a href="#">Printers</a></li>
-	            <li><a href="#">Point of Sale</a></li>
-	            <li><a href="#">Software</a></li>
-	          </ul>
-	        </li>
-	        <!--- Brands --->
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands<span class="caret"></span></a>
-	          <div class="dropdown-menu" style = "width: 50em !important;">
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/adata.gif" class="img-responsive" alt="ADATA"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/amd.gif" class="img-responsive" alt="AMD"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/asus.gif" class="img-responsive" alt="ASUS"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/benq.gif" class="img-responsive" alt="BENQ"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/corsair.gif" class="img-responsive" alt="Corsair"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/evga.gif" class="img-responsive" alt="EVGA"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/gigabyte.gif" class="img-responsive" alt="Gigabyte"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/gopro.gif" class="img-responsive" alt="GoPro"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/intel.gif" class="img-responsive" alt="Intel"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/kingston.gif" class="img-responsive" alt="Kingston"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/lenovo.gif" class="img-responsive" alt="Lenovo"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/linksys.gif" class="img-responsive" alt="Linksys"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/logitech.gif" class="img-responsive" alt="Logitech"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/microsoft.gif" class="img-responsive" alt="Microsoft"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/msi.gif" class="img-responsive" alt="MSi"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/nvidia.gif" class="img-responsive" alt="nVidia"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/samsung.gif" class="img-responsive" alt="Samsung"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/sandisk.gif" class="img-responsive" alt="SanDisk"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="#"><img src="public/img/brands/seagate.gif" class="img-responsive" alt="Seagate"></a></div>
-	          </div>
-	        </li>
-	        <!--- Communities Dropdown --->
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Communities<span class="caret"></span></a>
-	          <div class="dropdown-menu" style = "width: 50em !important;">
-	          	<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan" style="padding-top: 1em;"><a href="#"><img src="public/img/website/icons/ico-sale.jpg" class="img-center" alt="Weekly Sale"></a><h3><a href="#"  style = "text-decoration: none;">Weekly Sale</a></h3>
-				<p>Get great deals every week with our weekly sale. Starts 6pm EST every Wednesday!</p></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan" style="padding-top: 1em;"><a href="#"><img src="public/img/website/icons/ico-store.jpg" class="img-center" alt="Clearance"></a><h3><a href="#"  style = "text-decoration: none;">Clearance</a></h3>
-				<p>Discounts on clearance and end-of-life items!</p></div>
-				<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan" style="padding-top: 1em;"><a href="#"><img src="public/img/website/icons/ico-deals.jpg" class="img-center" alt="Weekend Deals"></a><h3><a href="#"  style = "text-decoration: none;">Weekend Deals</a></h3>
-				<p>End your week with some great technology deals, posted every Friday.</p></div>
-				<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan" style="padding-top: 1em;"><a href="#"><img src="public/img/website/icons/ico-subscribe.jpg" class="img-center" alt="Subscribe"></a><h3><a href="#"  style = "text-decoration: none;">Subscribe & Win!</a></h3>
-				<p>Get email alerts on all our great deals and offers. Get a chance to win great prizes!</p></div>
-	          </div>
-	        </li>
-	      </ul>
-	      
-	      <!--- Search Bar --->
-	      <form class="navbar-form navbar-left" role="search">
-	        <div class="form-group">
-	          <input type="text" class="form-control" placeholder="Search Products">
-	        </div>
-	        <button type="submit" class="btn btn-default">Go</button>
-	      </form>
-	      
-	      <!--- Right Side Nav --->
-	      <ul class="nav navbar-nav navbar-right">
-			<li class="dropdown" id="menuLogin">
-		        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><span class="glyphicon glyphicon-user"></span> Your Account<span class="caret"></span></a>
-		        <div class="dropdown-menu" style="padding:17px; width: 25em !important;">
-		          <form action = "LoginServlet" method = "post">
-		            <div class="form-group"><input name = "email" required = "required" type="email" class="form-control"  class="form-control input-sm" placeholder="Email"></div>
-		            <div class="form-group"><input name = "password" required = "required" type="password" class="form-control"  class="form-control input-sm" placeholder="Password"></div>
-		            <div class="form-group"><button type="submit"  class="btn btn-info btn-block">Sign in</button></div>
-		            <div class="checkbox">
-			            <label><input name="remember" type="checkbox" value="Remember Me">Remember Me
-			            <a href="forgot.jsp" class="pull-right">Forgot Password?</a>
-			            </label>
-					</div>
-		          </form>
-		          <div class="text-center">
-					<a href="register.jsp" >Don't have an account? Register</a>
-				  </div>
-				</div>
-		      </li>
-	        
-	        
-	        
-	        
-	        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-     	  </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
+  	<jsp:include page="components/navbar.jsp"/>
 	
 	
 	
@@ -232,9 +114,9 @@ body{
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/laptops.png" class="img-center"><p>Laptops</p></div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/printers.png" class="img-center"><p>Printers</p></div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/phones.png" class="img-center"><p>Phones</p></div>
-			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/videocards.png" class="img-center"><p>Video Cards</p><br><a href="welcome.jsp">Video Cards</a></div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/videocards.png" class="img-center"><p>Video Cards</p></div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/television.png" class="img-center"><p>Television</p></div>
-			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/ssd.png" class="img-center"><br><a href="google.com">Solid State Drives</a></div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><img src="public/img/website/categories/ssd.png" class="img-center"><p>Solid State Drives</p></div>
 		</div>
 	</div>
 	

@@ -97,7 +97,7 @@ body{
 	        <h3 class="panel-title">Please Login</h3>
 	      </div>
 	      <div class="panel-body">
-	        <form role="form" action = "LoginServlet.java" method = "post">
+	        <form role="form">
 	
 	          <div class="form-group">
 	            <input type="email" name="email" class="form-control input-sm" placeholder="Email Address">

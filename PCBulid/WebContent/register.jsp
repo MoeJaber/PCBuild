@@ -110,10 +110,18 @@ body{
 	            </div>
 	          </div>
 	
-	          <div class="form-group">
-	            <input type="email" name="email" class="form-control input-sm" placeholder="Email Address">
+	          <div class="row">
+	            <div class="col-xs-6 col-sm-6 col-md-6">
+	              <div class="form-group">
+	                <input type="email" name="email" class="form-control input-sm" placeholder="Email">
+	              </div>
+	            </div>
+	            <div class="col-xs-6 col-sm-6 col-md-6">
+	              <div class="form-group">
+	                <input type="email" name="email_confirm" class="form-control input-sm" placeholder="Confirm Email">
+	              </div>
+	            </div>
 	          </div>
-	
 	          <div class="row">
 	            <div class="col-xs-6 col-sm-6 col-md-6">
 	              <div class="form-group">

@@ -35,6 +35,9 @@ public class LoginServlet extends HttpServlet
         HttpSession session = request.getSession ();  
         if(session != null)  
         	session.setAttribute ("email", email);  
+        
+        if (session.getAttribute ("user") != null)
+        	return;
   
         //System.out.println ("In LoginServlet, Email: " + email + ", Password: " + password);
         

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -17,8 +19,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.fabric.Response;
+
+import user.User;
 
 public class RegistrationServlet extends HttpServlet
 {
@@ -29,14 +34,23 @@ public class RegistrationServlet extends HttpServlet
 		final String firstName = request.getParameter ("first_name");
 		final String lastName = request.getParameter ("last_name");
 		final String email = request.getParameter ("email");
+		final String emailConfirm = request.getParameter ("email_confirm");
 		final String password = request.getParameter ("password");
 		final String passwordConfirm = request.getParameter ("password_confirmation");
 		
 		/**
-		 * TODO: Implement validator instead, add email confirmation as well
+		 * TODO: Implement validator instead
 		 */
+		if (!email.equals (emailConfirm))
+			return;
+		
 		if (!password.equals (passwordConfirm))
 			return;
+		
+		HttpSession session = request.getSession ();
+		
+		if (session.getAttribute ("user") != null)
+        	return;
 		
 		try
         {
@@ -66,6 +80,8 @@ public class RegistrationServlet extends HttpServlet
             insert.setBytes (4, hash);
   
             insert.execute ();  
+            
+            session.setAttribute ("user", new User (email, firstName, lastName, new Timestamp (new Date ().getTime ())));
             
             RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
     		dispatcher.include (request, response);    
