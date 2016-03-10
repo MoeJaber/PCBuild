@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.DriverManager;  
 
 import javax.servlet.RequestDispatcher;  
 import javax.servlet.ServletException;  
@@ -43,11 +41,11 @@ public class LoginServlet extends HttpServlet
         
         try
         {
-        	final String url = "jdbc:mysql://localhost:3306/";  
-            final String dbName = "form"; 
+        	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
+            final String dbName = "web app testing"; 
             final String driver = "com.mysql.jdbc.Driver";  
-            final String dbUserName = "root";  
-            final String dbPassword = "admin";  
+            final String dbUserName = "b8ebfad0623483";  
+            final String dbPassword = "b8df9f4f";  
             
         	Class.forName (driver).newInstance ();  
             Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
@@ -58,9 +56,8 @@ public class LoginServlet extends HttpServlet
         	{ 
 				String firstName = results.getString ("firstname");
 				String lastName = results.getString ("lastname");
-	        	Timestamp created = results.getTimestamp ("created");
 			
-	        	session.setAttribute ("user", new User (email, firstName, lastName, created));
+	        	session.setAttribute ("user", new User (email, firstName, lastName));
         	
 	        	//System.out.println ("User Logged In: " + ((User) session.getAttribute ("user")).toString ());
 	        	

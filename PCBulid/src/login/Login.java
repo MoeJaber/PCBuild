@@ -1,17 +1,16 @@
 package login;  
   
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.sql.Connection;  
 import java.sql.PreparedStatement;  
-import java.sql.ResultSet;  
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;  
   
 public class Login 
 {  
@@ -19,11 +18,24 @@ public class Login
     {          
         PreparedStatement select = null;  
         ResultSet results = null;
+        byte [] salt = null;
         
-        SecureRandom random = new SecureRandom ();
-        byte [] salt = new byte [16];
+        try 
+        {
+			PreparedStatement selectSalt = connection.prepareStatement ("Select salt from users where email = ?");
+			selectSalt.setString (1, userEmail);
+			ResultSet saltResults = selectSalt.executeQuery ();
+			
+			if (!saltResults.next ())
+				return saltResults;
+			
+			salt = saltResults.getBytes ("salt");
+		} 
+        catch (SQLException e2) 
+        {
+			e2.printStackTrace();
+		}
         
-        random.nextBytes (salt);
         KeySpec spec = new PBEKeySpec (userPassword.toCharArray (), salt, 65536, 128);
         SecretKeyFactory factory = null;
         
@@ -36,7 +48,7 @@ public class Login
 			e1.printStackTrace ();
 		}
 		
-        byte[] hash = null;
+        byte [] hash = null;
         
 		try 
 		{

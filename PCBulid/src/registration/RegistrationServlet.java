@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -20,8 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.mysql.fabric.Response;
 
 import user.User;
 
@@ -54,11 +50,11 @@ public class RegistrationServlet extends HttpServlet
 		
 		try
         {
-        	final String url = "jdbc:mysql://localhost:3306/";  
-            final String dbName = "webapptest"; 
+        	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
+            final String dbName = "web app testing"; 
             final String driver = "com.mysql.jdbc.Driver";  
-            final String dbUserName = "root";  
-            final String dbPassword = "admin";  
+            final String dbUserName = "b8ebfad0623483";  
+            final String dbPassword = "b8df9f4f";  
             
         	Class.forName (driver).newInstance ();  
             Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
@@ -73,15 +69,16 @@ public class RegistrationServlet extends HttpServlet
     		
     		byte [] hash = factory.generateSecret (spec).getEncoded ();
     		
-    		PreparedStatement insert = connection.prepareStatement ("Insert into users (firstname, lastname, email, password) values (?, ?, ?, ?)");  
+    		PreparedStatement insert = connection.prepareStatement ("Insert into users (firstname, lastname, email, password, salt) values (?, ?, ?, ?, ?)");  
             insert.setString (1, firstName);  
             insert.setString (2, lastName);  
             insert.setString (3, email);  
             insert.setBytes (4, hash);
+            insert.setBytes (5, salt);
   
             insert.execute ();  
             
-            session.setAttribute ("user", new User (email, firstName, lastName, new Timestamp (new Date ().getTime ())));
+            session.setAttribute ("user", new User (email, firstName, lastName));
             
             RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
     		dispatcher.include (request, response);    
