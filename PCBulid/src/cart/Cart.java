@@ -1,25 +1,31 @@
 package cart;
 
 import java.util.ArrayList;
+import java.lang.StringBuilder;
 
-import cart.CartItem;
+import cart.Item;
 
 public class Cart 
 {
-	private ArrayList <CartItem> items = null;
+	private ArrayList <Item> items = null;
 	private double total = 0.0d;
 	
 	private double updateTotal ()
 	{
 		double total = 0.0d;
 		
-		for (CartItem item : items)
+		for (Item item : items)
 			total += item.getPrice ();
 		
 		return total;
 	}
 	
-	public void addItem (CartItem item)
+	public ArrayList <Item> getItems ()
+	{
+		return items;
+	}
+	
+	public void addItem (Item item)
 	{
 		if (item == null)
 			throw new IllegalArgumentException ();
@@ -29,7 +35,7 @@ public class Cart
 		total = updateTotal ();
 	}
 	
-	public void removeItem (CartItem item)
+	public void removeItem (Item item)
 	{
 		if (item == null)
 			throw new IllegalArgumentException ();
@@ -63,7 +69,34 @@ public class Cart
 	
 	public Cart ()
 	{
-		items = new ArrayList <CartItem> ();
+		items = new ArrayList <Item> ();
 		total = 0.0d;
+	}
+	
+	@Override
+	public boolean equals (Object obj)
+	{
+		Cart equal = (Cart) obj;
+		
+		return (items.equals (equal.items) && total == equal.total);
+	}
+	
+	@Override
+	public int hashCode ()
+	{
+		return items.hashCode () * (int) total;
+	}
+	
+	@Override
+	public String toString ()
+	{
+		StringBuilder returnString = new StringBuilder ("Items: \n");
+		
+		for (Item item : items)
+			returnString.append (item.toString () + "\n");
+		
+		returnString.append ("Total: " + total);
+		
+		return returnString.toString ();
 	}
 }
