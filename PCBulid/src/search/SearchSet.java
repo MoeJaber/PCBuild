@@ -15,7 +15,10 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.MultiTermQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
@@ -26,7 +29,10 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 public class SearchSet 
 {
-	final static int PAGE_HITS = 30;
+	/**
+	 * Number of results to display (per page?)
+	 */
+	final static int PAGE_RESULTS = 30;
 	
 	private Directory items = null;
 
@@ -38,6 +44,7 @@ public class SearchSet
 		Class.forName (driver).newInstance ();  
         Connection dbConnection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
         
+        //Cases
         PreparedStatement selectCases = dbConnection.prepareStatement ("Select * from pc_cases");
         ResultSet casesResults = selectCases.executeQuery ();
         
@@ -58,6 +65,8 @@ public class SearchSet
 			}
         }
         
+        
+        //CPUs
         PreparedStatement selectCPU = dbConnection.prepareStatement ("Select * from pc_cpu");
         ResultSet cpuResults = selectCPU.executeQuery ();
         
@@ -78,6 +87,7 @@ public class SearchSet
 			}
         }
         
+        //GPUs
         PreparedStatement selectGPU = dbConnection.prepareStatement ("Select * from pc_gpu");
         ResultSet gpuResults = selectGPU.executeQuery ();
         
@@ -98,6 +108,7 @@ public class SearchSet
 			}
         }
         
+        //HDD
         PreparedStatement selectHDD = dbConnection.prepareStatement ("Select * from pc_harddrive");
         ResultSet hddResults = selectHDD.executeQuery ();
         
@@ -118,6 +129,7 @@ public class SearchSet
 			}
         }
         
+        //Headset
         PreparedStatement selectHeadset = dbConnection.prepareStatement ("Select * from pc_headset");
         ResultSet headsetResults = selectHeadset.executeQuery ();
         
@@ -138,6 +150,7 @@ public class SearchSet
 			}
         }
         
+        //Memory
         PreparedStatement selectMemory = dbConnection.prepareStatement ("Select * from pc_memory");
         ResultSet memoryResults = selectMemory.executeQuery ();
         
@@ -158,6 +171,7 @@ public class SearchSet
 			}
         }
         
+        //Motherboard
         PreparedStatement selectMotherboard = dbConnection.prepareStatement ("Select * from pc_motherboard");
         ResultSet motherboardResults = selectMotherboard.executeQuery ();
         
@@ -178,6 +192,7 @@ public class SearchSet
 			}
         }
         
+        //PSU
         PreparedStatement selectPSU = dbConnection.prepareStatement ("Select * from pc_psu");
         ResultSet psuResults = selectPSU.executeQuery ();
         
@@ -198,6 +213,7 @@ public class SearchSet
 			}
         }
         
+        //SSD
         PreparedStatement selectSSD = dbConnection.prepareStatement ("Select * from pc_ssd");
         ResultSet ssdResults = selectSSD.executeQuery ();
         
@@ -226,18 +242,18 @@ public class SearchSet
 		return items;
 	}
 	
-	public ScoreDoc [] search (final String field, final String searchQuery) throws IOException
+	public ScoreDoc [] search (final String [] fields, final String searchQuery) throws IOException, ParseException
 	{
-		if (field == null || searchQuery == null)
+		if (fields == null || searchQuery == null)
 			throw new InvalidParameterException ();
 		
 		StandardAnalyzer analyzer = new StandardAnalyzer();
 		
-		Query query = new QueryBuilder (analyzer).createBooleanQuery (field, searchQuery);
+		Query query = new MultiFieldQueryParser (fields, analyzer).parse (searchQuery);
 		
 		IndexReader reader = DirectoryReader.open (items);
 		IndexSearcher searcher = new IndexSearcher (reader);
-		TopDocs docs = searcher.search (query, PAGE_HITS);
+		TopDocs docs = searcher.search (query, PAGE_RESULTS);
 		
 		return docs.scoreDocs;
 	}
