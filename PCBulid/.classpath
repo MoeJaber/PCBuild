@@ -9,7 +9,30 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-analyzers-common-5.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-core-5.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-5.5.0/analysis/common/lucene-analyzers-common-5.5.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-5.5.0/core/lucene-core-5.5.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-5.5.0/grouping/lucene-grouping-5.5.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-5.5.0/queries/lucene-queries-5.5.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/kiera/Mega/College/Current Semester/Workspaces/Eclipse Workspace/PCBulid/PCBulid/lucene-5.5.0/queryparser/lucene-queryparser-5.5.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

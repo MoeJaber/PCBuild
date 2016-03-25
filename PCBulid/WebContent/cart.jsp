@@ -1,3 +1,4 @@
+<%@ page import = "cart.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +11,14 @@
 <link
 	href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/united/bootstrap.min.css"
 	rel="stylesheet">
-<link href="../public/css/colorbox.css" rel="stylesheet">
+<link href="public/css/colorbox.css" rel="stylesheet">
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.6.3/jquery.colorbox-min.js"></script>
 <style>
 body {
-	background: url("../public/img/backdrop.png");
+	background: url("public/img/backdrop.png");
 	font: 400 15px Lato, sans-serif;
 }
 
@@ -51,18 +52,49 @@ body {
 		<h2>
 			<a href="index.jsp">Home</a> >> <a href="cart.jsp">My Shopping Cart</a>
 		</h2>
-
-		<p>
-			<%
-				if (session.getAttribute ("cart") == null)
+		<% Cart cart = ((Cart)session.getAttribute("cart"));
+		if(cart == null){ %>
+		<p>Your shopping cart is empty!</p>
+		<% } else if( cart.getProductCount() <= 0 ){ %>
+		<p>Your shopping cart is empty!</p>
+		<% } else if(cart.getProductCount() > 0){ 
+			out.print("Items: <hr>");
+			for(int i = 0; i < cart.getProductCount(); i++){
+				Item item = cart.getItem(i);%>
 				
-			%>
-		</p>
-	
-		<hr>
+				<div class="col-sm-12">
+					<div class="panel panel-danger">
+						<div class="panel-heading"><%out.print(item.getName());%>
+						<p style="font-size: 0.7em;"><%out.print(item.getModel());%></p>
+						</div>
+						<div class="panel-body">
+							<img
+								src="<%out.print(item.getImagePath().substring(6));%>" style = "height: 6em;" />
+						</div>
+						<div class="panel-footer" style="height: 5.35em;">
+
+							<form action = "http://localhost:8081/PCBulid/RemoveItemServlet" method = "post">
+								<input type="hidden" name="index" value="<%out.print(i);%>">
+								<input type="submit" value="Remove" class="btn pull-right"/>
+							</form>
+							<h5>$<%out.print(item.getPrice());%></h5>
+						</div>
+					</div>
+				</div>
+			<% }
+			out.print("Total: $" + String.format ("%.2d", cart.getTotal ()));%>
+			<hr>
+			<form action = "http://localhost:8081/PCBulid/EmptyCartServlet" method = "post">
+				<input type="submit" value="Empty Cart" class="btn btn-danger pull-right"/>
+			</form>
+		<% } %>
 		
-		<a type="button" class="btn btn-danger" href = "index.jsp">Continue Shopping</a>
+		<a type="button" class="btn btn-info" href = "index.jsp">Continue Shopping</a>
 		<br>
+		<% if(cart.getProductCount() > 0){ %>
+		<hr>
+		<a type="button" class="btn btn-info btn-block" href = "index.jsp">Checkout</a>
+		<% } %>
 	</div>
 
 	<br>

@@ -1,16 +1,20 @@
 package search;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.Field.Index;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -18,24 +22,25 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.MultiTermQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
-import org.apache.lucene.util.QueryBuilder;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 public class SearchSet 
 {
-	/**
-	 * Number of results to display (per page?)
-	 */
+	final static Path INDEX_PATH = Paths.get (Paths.get ("").toAbsolutePath ().toString () + "/PCBulid/lucene-index");
 	final static int PAGE_RESULTS = 30;
 	
-	private Directory items = null;
-
+	Directory items = null;
+	
 	private void addItems (final IndexWriter writer, final String url, final String dbName, final String driver, final String dbUserName, final String dbPassword) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		if (writer == null || url == null || dbName == null || driver == null || dbUserName == null || dbPassword == null)
@@ -51,10 +56,11 @@ public class SearchSet
         while (casesResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", casesResults.getString ("cases_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", casesResults.getString ("cases_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", casesResults.getString ("cases_name"), Field.Store.YES, Index.ANALYZED));
-        	
+        	record.add (new IntField ("id", casesResults.getInt ("cases_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", casesResults.getString ("cases_model"), Field.Store.YES));
+        	record.add (new TextField ("name", casesResults.getString ("cases_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", casesResults.getString ("cases_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (casesResults.getDouble ("cases_price")), Field.Store.YES));
         	try 
         	{
 				writer.addDocument (record);
@@ -73,9 +79,11 @@ public class SearchSet
         while (cpuResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", cpuResults.getString ("cpu_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", cpuResults.getString ("cpu_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", cpuResults.getString ("cpu_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", cpuResults.getInt ("cpu_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", cpuResults.getString ("cpu_model"), Field.Store.YES));
+        	record.add (new TextField ("name", cpuResults.getString ("cpu_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", cpuResults.getString ("cpu_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (cpuResults.getDouble ("cpu_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -94,9 +102,11 @@ public class SearchSet
         while (gpuResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", gpuResults.getString ("gpu_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", gpuResults.getString ("gpu_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", gpuResults.getString ("gpu_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", gpuResults.getInt ("gpu_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", gpuResults.getString ("gpu_model"), Field.Store.YES));
+        	record.add (new TextField ("name", gpuResults.getString ("gpu_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", gpuResults.getString ("gpu_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (gpuResults.getDouble ("gpu_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -115,9 +125,11 @@ public class SearchSet
         while (hddResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", hddResults.getString ("harddrive_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", hddResults.getString ("harddrive_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", hddResults.getString ("harddrive_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", hddResults.getInt ("harddrive_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", hddResults.getString ("harddrive_model"), Field.Store.YES));
+        	record.add (new TextField ("name", hddResults.getString ("harddrive_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", hddResults.getString ("harddrive_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (hddResults.getDouble ("harddrive_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -136,9 +148,11 @@ public class SearchSet
         while (headsetResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", headsetResults.getString ("headset_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", headsetResults.getString ("headset_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", headsetResults.getString ("headset_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", headsetResults.getInt ("headset_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", headsetResults.getString ("headset_model"), Field.Store.YES));
+        	record.add (new TextField ("name", headsetResults.getString ("headset_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", headsetResults.getString ("headset_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (headsetResults.getDouble ("headset_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -157,9 +171,11 @@ public class SearchSet
         while (memoryResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", memoryResults.getString ("memory_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", memoryResults.getString ("memory_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", memoryResults.getString ("memory_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", memoryResults.getInt ("memory_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", memoryResults.getString ("memory_model"), Field.Store.YES));
+        	record.add (new TextField ("name", memoryResults.getString ("memory_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", memoryResults.getString ("memory_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (memoryResults.getDouble ("memory_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -178,9 +194,11 @@ public class SearchSet
         while (motherboardResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", motherboardResults.getString ("motherboard_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", motherboardResults.getString ("motherboard_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", motherboardResults.getString ("motherboard_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", motherboardResults.getInt ("motherboard_ID"), Field.Store.YES));
+        	record.add (new TextField ("model", motherboardResults.getString ("motherboard_model"), Field.Store.YES));
+        	record.add (new TextField ("name", motherboardResults.getString ("motherboard_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", motherboardResults.getString ("motherboard_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (motherboardResults.getDouble ("motherboard_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -199,9 +217,11 @@ public class SearchSet
         while (psuResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", psuResults.getString ("psu_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", psuResults.getString ("psu_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", psuResults.getString ("psu_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", psuResults.getInt ("psu_id"), Field.Store.YES));
+        	record.add (new TextField ("model", psuResults.getString ("psu_model"), Field.Store.YES));
+        	record.add (new TextField ("name", psuResults.getString ("psu_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", psuResults.getString ("psu_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (psuResults.getDouble ("psu_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -220,9 +240,11 @@ public class SearchSet
         while (ssdResults.next ())
         {
         	Document record = new Document ();
-        	record.add (new Field ("id", ssdResults.getString ("ssd_ID"), Field.Store.YES, Index.NO));
-        	record.add (new Field ("model", ssdResults.getString ("ssd_model"), Field.Store.YES, Index.ANALYZED));
-        	record.add (new Field ("name", ssdResults.getString ("ssd_name"), Field.Store.YES, Index.ANALYZED));
+        	record.add (new IntField ("id", ssdResults.getInt ("ssd_id"), Field.Store.YES));
+        	record.add (new TextField ("model", ssdResults.getString ("ssd_model"), Field.Store.YES));
+        	record.add (new TextField ("name", ssdResults.getString ("ssd_name"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", ssdResults.getString ("ssd_imagepath"), Field.Store.YES));
+        	record.add (new StringField ("price", Double.toString (ssdResults.getDouble ("ssd_price")), Field.Store.YES));
         	
         	try 
         	{
@@ -237,25 +259,41 @@ public class SearchSet
         dbConnection.close ();
 	}
 	
-	public Directory getItems ()
+	public ArrayList <Document> search (final String [] fields, final String searchQuery) throws IOException
 	{
-		return items;
-	}
-	
-	public ScoreDoc [] search (final String [] fields, final String searchQuery) throws IOException, ParseException
-	{
-		if (fields == null || searchQuery == null)
+		if (fields == null || fields.length == 0 || searchQuery == null || searchQuery.length () == 0)
 			throw new InvalidParameterException ();
 		
 		StandardAnalyzer analyzer = new StandardAnalyzer();
 		
-		Query query = new MultiFieldQueryParser (fields, analyzer).parse (searchQuery);
+		Query query = null;
+		
+		try 
+		{
+			query = new MultiFieldQueryParser (fields, analyzer).parse (searchQuery);
+		} 
+		catch (ParseException e) 
+		{
+			e.printStackTrace ();
+		}
 		
 		IndexReader reader = DirectoryReader.open (items);
 		IndexSearcher searcher = new IndexSearcher (reader);
 		TopDocs docs = searcher.search (query, PAGE_RESULTS);
 		
-		return docs.scoreDocs;
+		ScoreDoc [] hits = docs.scoreDocs;
+		
+		ArrayList <Document> results = new ArrayList <Document> ();
+		
+		for (ScoreDoc hit : hits)
+		{
+			int docID = hit.doc;
+			results.add (searcher.doc (docID));
+		}
+		
+		reader.close ();
+		
+		return results;
 	}
 	
 	public SearchSet (final String url, final String dbName, final String driver, final String dbUserName, final String dbPassword) throws IOException
@@ -263,12 +301,13 @@ public class SearchSet
 		if (url == null || dbName == null || driver == null || dbUserName == null || dbPassword == null)
 			throw new InvalidParameterException ();
 		
-		StandardAnalyzer analyzer = new StandardAnalyzer ();
-		items = new RAMDirectory ();
-		IndexWriterConfig config = new IndexWriterConfig (analyzer);
+		if (Files.exists (INDEX_PATH))
+			FileUtils.deleteDirectory (new File (INDEX_PATH.toString ()));
 		
-		IndexWriter writer = new IndexWriter (items, config);
+		items = FSDirectory.open (INDEX_PATH);
 		
+		IndexWriter writer = new IndexWriter (items, new IndexWriterConfig (new StandardAnalyzer ()));
+
 		try 
 		{
 			addItems (writer, url, dbName, driver, dbUserName, dbPassword);
@@ -277,6 +316,8 @@ public class SearchSet
 		{
 			e.printStackTrace ();
 		}
+		
+		writer.close ();
 	}
 		
 	@Override

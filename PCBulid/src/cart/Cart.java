@@ -99,4 +99,15 @@ public class Cart
 		
 		return returnString.toString ();
 	}
+	public Item getItem(int returnIndex){
+		for(int i = 0; i < getProductCount(); i++){
+			if(items.get(i) == items.get(returnIndex)) return items.get(i);
+		}
+		return null;
+		
+	}
+	
+	public double getTotal(){
+		return total;
+	}
 }

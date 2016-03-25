@@ -30,7 +30,7 @@ public class RegistrationServlet extends HttpServlet
 		final String firstName = request.getParameter ("first_name");
 		final String lastName = request.getParameter ("last_name");
 		final String email = request.getParameter ("email");
-		final String emailConfirm = request.getParameter ("email_confirm");
+		final String emailConfirm = request.getParameter ("email");
 		final String password = request.getParameter ("password");
 		final String passwordConfirm = request.getParameter ("password_confirmation");
 		
@@ -50,11 +50,11 @@ public class RegistrationServlet extends HttpServlet
 		
 		try
         {
-        	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
-            final String dbName = "web app testing"; 
-            final String driver = "com.mysql.jdbc.Driver";  
-            final String dbUserName = "b8ebfad0623483";  
-            final String dbPassword = "b8df9f4f";  
+			final String url = "us-cdbr-azure-east-a.cloudapp.net";  
+	        final String dbName = "web app testing"; 
+	        final String driver = "com.mysql.jdbc.Driver";  
+	        final String dbUserName = "b8ebfad0623483";  
+	        final String dbPassword = "b8df9f4f";  
             
         	Class.forName (driver).newInstance ();  
             Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  

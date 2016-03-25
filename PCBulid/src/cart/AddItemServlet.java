@@ -29,7 +29,7 @@ public class AddItemServlet extends HttpServlet
 		final String categoryName = (String) request.getAttribute ("category");
 		final int itemID = (int) request.getAttribute ("id");
 		
-		final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
+		final String url = "us-cdbr-azure-east-a.cloudapp.net";  
         final String dbName = "web app testing"; 
         final String driver = "com.mysql.jdbc.Driver";  
         final String dbUserName = "b8ebfad0623483";  

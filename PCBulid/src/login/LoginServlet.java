@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet
         
         try
         {
-        	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
+        	final String url = "us-cdbr-azure-east-a.cloudapp.net";  
             final String dbName = "web app testing"; 
             final String driver = "com.mysql.jdbc.Driver";  
             final String dbUserName = "b8ebfad0623483";  
@@ -60,14 +60,15 @@ public class LoginServlet extends HttpServlet
 	        	session.setAttribute ("user", new User (email, firstName, lastName));
         	
 	        	//System.out.println ("User Logged In: " + ((User) session.getAttribute ("user")).toString ());
-	        	
-	        	RequestDispatcher dispatcher = request.getRequestDispatcher ("welcome.jsp");    
+	        	session.setAttribute("warning", null);
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
 	        	dispatcher.forward (request, response);    
         	}    
         	//Incorrect username/password shitty markup right now
         	else
         	{    
-        		out.print ("<p style=\"color:red\">Sorry username or password error</p>");    
+        		//out.print ("alert(<p style=\"color:red\">Sorry username or password error</p>);"); 
+        		session.setAttribute("warning","Invalid username or password.");
         		RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
         		dispatcher.include (request, response);    
         	}   

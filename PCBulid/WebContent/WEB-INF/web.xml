@@ -71,6 +71,16 @@
     <url-pattern>/RemoveItemServlet</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>Search</servlet-name>
+    <servlet-class>search.SearchServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Search</servlet-name>
+    <url-pattern>/SearchServlet</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
