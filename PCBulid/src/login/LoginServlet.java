@@ -41,11 +41,11 @@ public class LoginServlet extends HttpServlet
         
         try
         {
-        	final String url = "us-cdbr-azure-east-a.cloudapp.net";  
+        	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
             final String dbName = "web app testing"; 
             final String driver = "com.mysql.jdbc.Driver";  
             final String dbUserName = "b8ebfad0623483";  
-            final String dbPassword = "b8df9f4f";  
+            final String dbPassword = "b8df9f4f";
             
         	Class.forName (driver).newInstance ();  
             Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  

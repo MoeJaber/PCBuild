@@ -20,11 +20,11 @@ public class SearchServlet extends HttpServlet
 	@Override
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-    	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net/";  
+    	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
         final String dbName = "web app testing"; 
         final String driver = "com.mysql.jdbc.Driver";  
         final String dbUserName = "b8ebfad0623483";  
-        final String dbPassword = "b8df9f4f";  
+        final String dbPassword = "b8df9f4f"; 
         
 		HttpSession session = request.getSession ();
 		SearchSet searchSet = null;
@@ -32,7 +32,7 @@ public class SearchServlet extends HttpServlet
 		/**
 		 * List of fields to search for now, implement checkboxes later
 		 */
-		final String [] FIELDS = {"model", "name"};
+		final String [] FIELDS = {"model", "name", "price", "brand", "series", "modelnum", "type", "capacity", "interface"};
 		
 		if (request.getParameter ("search") == null)
 			return;

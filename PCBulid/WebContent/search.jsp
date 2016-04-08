@@ -1,4 +1,7 @@
-<%@ page import = "cart.*" %>
+<%@ page import = "search.*" %>
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "org.apache.lucene.document.Document" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,53 +53,39 @@ body {
 	<!--- Main --->
 	<div class="container">
 		<h2>
-			<a href="index.jsp">Home</a> >> <a href="cart.jsp">My Shopping Cart</a>
+			<a href="index.jsp">Home</a> >> <a href="search.jsp">Search Results</a>
 		</h2>
-		<% Cart cart = ((Cart)session.getAttribute("cart"));
-		if(cart == null){ %>
-		<p>Your shopping cart is empty!</p>
-		<% } else if( cart.getProductCount() <= 0 ){ %>
-		<p>Your shopping cart is empty!</p>
-		<% } else if(cart.getProductCount() > 0){ 
-			out.print("Items: <hr>");
-			for(int i = 0; i < cart.getProductCount(); i++){
-				Item item = cart.getItem(i);%>
+		<% ArrayList <Document> results = ((ArrayList <Document>) session.getAttribute ("searchResults"));
+		if(results == null){ %>
+		<p>No results found!</p>
+		<% } else if( results.size () == 0 ){ %>
+		<p>No results found!</p>
+		<% } else
+			{ 
+			out.print("Search Results: <hr>");
+			for(Document result : results){
+				%>
 				
 				<div class="col-sm-12">
 					<div class="panel panel-danger">
-						<div class="panel-heading"><%out.print(item.getName());%>
-						<p style="font-size: 0.7em;"><%out.print(item.getModel());%></p>
+						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%result.get ("id");%>"><%out.print(result.get("name"));%></a>
+						<p style="font-size: 0.7em;"><%out.print(result.get("model"));%></p>
 						</div>
 						<div class="panel-body">
 							<img
-								src="<%out.print(item.getImagePath().substring(6));%>" style = "height: 6em;" />
+								src="<%out.print(result.get ("imagePath").substring (6));%>" style = "height: 6em;" />
 						</div>
 						<div class="panel-footer" style="height: 5.35em;">
 
-							<form action = "http://localhost:8081/PCBulid/RemoveItemServlet" method = "post">
-								<input type="hidden" name="index" value="<%out.print(i);%>">
-								<input type="submit" value="Remove" class="btn pull-right"/>
-							</form>
-							<h5>$<%out.print(item.getPrice());%></h5>
+							<h5>$<%out.print(result.get ("price"));%></h5>
 						</div>
 					</div>
 				</div>
-			<% }
-			out.print("Total: $" + String.format ("%.2d", cart.getTotal ()));%>
+			<% }%>
 			<hr>
-			<form action = "http://localhost:8081/PCBulid/EmptyCartServlet" method = "post">
-				<input type="submit" value="Empty Cart" class="btn btn-danger pull-right"/>
-			</form>
 		<% } %>
 		
 		<a type="button" class="btn btn-info" href = "index.jsp">Continue Shopping</a>
-		<br>
-		<% if(cart!=null) {
-			if(cart.getProductCount() > 0){ %>
-		<hr>
-		<a type="button" class="btn btn-info btn-block" href = "index.jsp">Checkout</a>
-		<% }
-			} %>
 	</div>
 
 	<br>

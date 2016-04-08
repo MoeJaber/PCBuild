@@ -50,7 +50,7 @@ public class RegistrationServlet extends HttpServlet
 		
 		try
         {
-			final String url = "us-cdbr-azure-east-a.cloudapp.net";  
+			final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
 	        final String dbName = "web app testing"; 
 	        final String driver = "com.mysql.jdbc.Driver";  
 	        final String dbUserName = "b8ebfad0623483";  
@@ -69,12 +69,13 @@ public class RegistrationServlet extends HttpServlet
     		
     		byte [] hash = factory.generateSecret (spec).getEncoded ();
     		
-    		PreparedStatement insert = connection.prepareStatement ("Insert into users (firstname, lastname, email, password, salt) values (?, ?, ?, ?, ?)");  
+    		PreparedStatement insert = connection.prepareStatement ("Insert into users (firstname, lastname, email, password, salt, isAdmin) values (?, ?, ?, ?, ?, ?)");  
             insert.setString (1, firstName);  
             insert.setString (2, lastName);  
             insert.setString (3, email);  
             insert.setBytes (4, hash);
             insert.setBytes (5, salt);
+            insert.setBoolean (6, false); //Not admin by default
   
             insert.execute ();  
             

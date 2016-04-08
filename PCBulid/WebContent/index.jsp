@@ -1,3 +1,10 @@
+
+<%
+	String language = (String) request.getParameter("lang");
+	if (language == null)
+		language = "english";
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +51,7 @@ body {
 </style>
 </head>
 <body>
-  	<jsp:include page="components/navbar.jsp"/>
+	<jsp:include page="components/navbar.jsp" />
 
 	<!--- Advertisement Carousel --->
 	<div id="topAdvert" class="carousel slide" data-ride="carousel"
@@ -112,11 +119,28 @@ body {
 					class="panel-heading">Toshiba DT01AC1300 3TB SATA3 7200RPM
 						64MB Cache 3.5in Internal Hard Disk Drive HDD</span>
 					<div class="panel-footer">
-						<span class="pull-right">You save $36.99</span>
+						<span class="pull-right"> <%
+ 	if (language.equals("english")) {
+ %>You save $36.99 <%
+ 	} else if (language.equals("french")) {
+ %>Vous sauvegardez $36.99<%
+ 	}
+ %>
+						</span>
 						<p style="text-decoration: line-through;">Reg: 146.99</p>
 						<h4>$109.99</h4>
 						<button type="button" class="btn pull-right"
-							style="margin-top: -3em;">Buy now</button>
+							style="margin-top: -3em;">
+							<%
+								if (language.equals("english")) {
+							%>Buy now
+							<%
+								} else if (language.equals("french")) {
+							%>Acheter maintenant
+							<%
+								}
+							%>
+						</button>
 					</div>
 				</span>
 			</div>
@@ -129,7 +153,17 @@ body {
 
 	<!--- Featured Vendors --->
 	<div class="container">
+		<%
+			if (language.equals("english")) {
+		%>
 		<h2>Featured Vendors</h2>
+		<%
+			} else if (language.equals("french")) {
+		%>
+		<h2>Fournisseurs en Vedette</h2>
+		<%
+			}
+		%>
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
@@ -171,55 +205,135 @@ body {
 
 	<!--- Categories --->
 	<div class="container">
+		<%
+			if (language.equals("english")) {
+		%>
 		<h2>Featured Categories</h2>
+		<%
+			} else if (language.equals("french")) {
+		%>
+		<h2>Catégories en Vedette</h2>
+		<%
+			}
+		%>
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="category/accessories/headsets.jsp"><img
 					src="public/img/website/categories/headsets.png" class="img-center">
-				<p>Headsets</a>
+					<%if(language.equals("english")){%><p>Headsets</a>
+				<% } %>
+				<%if(language.equals("french")){ %><p>
+					Casques d'écoute</a>
+					<% } %>
 				</p>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/monitors.png"
 					class="img-center">
-				<p>Monitors</p>
+				<%if(language.equals("english")){%><p>
+					Monitors</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Moniteurs</a>
+					<% } %>
+				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/laptops.png"
 					class="img-center">
-				<p>Laptops</p>
+				<%if(language.equals("english")){%><p>
+					Laptops</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Ordinateurs portables</a>
+					<% } %>
+				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/printers.png"
 					class="img-center">
-				<p>Printers</p>
+				<%if(language.equals("english")){%><p>
+					Printers</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Imprimantes</a>
+					<% } %>
+				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/phones.png"
 					class="img-center">
-				<p>Phones</p>
+				<%if(language.equals("english")){%><p>
+					Phones</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Téléphones</a>
+					<% } %>
+				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/videocards.png"
 					class="img-center">
-				<p>Video Cards</p>
+				<%if(language.equals("english")){%><p>
+					Video Cards</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Cartes vidéo</a>
+					<% } %>
+				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/television.png"
 					class="img-center">
-				<p>Television</p>
+				<%if(language.equals("english")){%><p>
+					Television</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Télévision</a>
+					<% } %>
+				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<img src="public/img/website/categories/ssd.png" class="img-center">
-				<p>Solid State Drives</p>
+				<%if(language.equals("english")){%><p>
+					Solid State Drives</a>
+					<% } %>
+					<%if(language.equals("french")){ %>
+				
+				<p>
+					Un seul disque dur État</a>
+					<% } %>
+				
 			</div>
 		</div>
 	</div>
 
 	<!--- Deals --->
 	<div class="container">
+		<%
+			if (language.equals("english")) {
+		%>
 		<h2>This Week's Top Deals</h2>
+		<%
+			} else if (language.equals("french")) {
+		%>
+		<h2>Top de cette Semaine</h2>
+		<%
+			}
+		%>
 		<hr>
 		<br>
 		<div class="row">
@@ -233,7 +347,10 @@ body {
 					</div>
 					<div class="panel-footer">
 						$519.00
+						<%if(language.equals("english")){ %>
 						<button type="button" class="btn pull-right">Buy now</button>
+						<%} if(language.equals("french")){ %>
+						<button type="button" class="btn pull-right">Acheter maintenant</button> <% } %>
 						<p style="color: red;">Save $40.00</p>
 					</div>
 				</div>
@@ -248,7 +365,10 @@ body {
 					</div>
 					<div class="panel-footer">
 						$169.99
+						<%if(language.equals("english")){ %>
 						<button type="button" class="btn pull-right">Buy now</button>
+						<%} if(language.equals("french")){ %>
+						<button type="button" class="btn pull-right">Acheter maintenant</button> <% } %>
 						<p style="color: red;">Save $10.00</p>
 					</div>
 				</div>
@@ -262,7 +382,10 @@ body {
 					</div>
 					<div class="panel-footer">
 						$1,459.00
+						<%if(language.equals("english")){ %>
 						<button type="button" class="btn pull-right">Buy now</button>
+						<%} if(language.equals("french")){ %>
+						<button type="button" class="btn pull-right">Acheter maintenant</button> <% } %>
 						<p style="color: red;">Save $40.00</p>
 					</div>
 				</div>
