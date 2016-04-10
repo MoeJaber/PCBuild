@@ -2,6 +2,15 @@
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "org.apache.lucene.document.Document" %>
 
+<!-- 
+	Search results page, user is redirected here after entering a search query.
+	
+	- Kieran Gillibrand
+	
+	- Uses site CSS by Nick Horlings	
+
+-->
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>

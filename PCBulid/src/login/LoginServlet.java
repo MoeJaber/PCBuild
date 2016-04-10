@@ -1,3 +1,12 @@
+/**
+ * Web Application Programming 2016: Prestige Computers
+ * Algonquin College
+ * 
+ * - Kieran Gillibrand
+ * - Moe Jaber
+ * - Nick Horlings
+ */
+
 package login;  
   
 import java.io.IOException;  
@@ -15,13 +24,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;  
 import javax.servlet.http.HttpSession;
 
-
+import dbconstants.DBConstants;
 import user.User;  
-  
+
+/**
+ * Servlet that validates a user in order to login
+ * @author Kieran Gillibrand, Student 040-756-866
+ * @see HttpServlet
+ */
 public class LoginServlet extends HttpServlet
 {  
     private static final long serialVersionUID = 1L;  
   
+	/**
+	 * Handles an HTTP post request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student 040-756-866
+	 */
+    @Override
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {    
         response.setContentType ("text/html");    
@@ -36,19 +61,11 @@ public class LoginServlet extends HttpServlet
         
         if (session.getAttribute ("user") != null)
         	return;
-  
-        //System.out.println ("In LoginServlet, Email: " + email + ", Password: " + password);
-        
+          
         try
         {
-        	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
-            final String dbName = "web app testing"; 
-            final String driver = "com.mysql.jdbc.Driver";  
-            final String dbUserName = "b8ebfad0623483";  
-            final String dbPassword = "b8df9f4f";
-            
-        	Class.forName (driver).newInstance ();  
-            Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
+        	Class.forName (DBConstants.DRIVER).newInstance ();
+			Connection connection = DriverManager.getConnection (DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);  
             
             ResultSet results = Login.validate (email, password, connection);
         	//Correct username/password
@@ -67,7 +84,6 @@ public class LoginServlet extends HttpServlet
         	//Incorrect username/password shitty markup right now
         	else
         	{    
-        		//out.print ("alert(<p style=\"color:red\">Sorry username or password error</p>);"); 
         		session.setAttribute("warning","Invalid username or password.");
         		RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
         		dispatcher.include (request, response);    

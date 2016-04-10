@@ -1,3 +1,12 @@
+/**
+ * Web Application Programming 2016: Prestige Computers
+ * Algonquin College
+ * 
+ * - Kieran Gillibrand
+ * - Moe Jaber
+ * - Nick Horlings
+ */
+
 package registration;
 
 import java.io.IOException;
@@ -19,45 +28,54 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dbconstants.DBConstants;
 import user.User;
 
+/**
+ * Servlet that registers a user
+ * @author Kieran Gillibrand, Student 040-756-866
+ * @see HttpServlet
+ */
 public class RegistrationServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Handles an HTTP post request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student 040-756-866
+	 */
+	@Override
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		if (request.getParameter ("first_name") == null || request.getParameter ("last_name") == null || request.getParameter ("email") == null || request.getParameter ("password") == null || request.getParameter ("password_confirm") == null)
+			return;
+		
 		final String firstName = request.getParameter ("first_name");
 		final String lastName = request.getParameter ("last_name");
 		final String email = request.getParameter ("email");
-		final String emailConfirm = request.getParameter ("email");
 		final String password = request.getParameter ("password");
 		final String passwordConfirm = request.getParameter ("password_confirmation");
 		
-		/**
-		 * TODO: Implement validator instead
-		 */
-		if (!email.equals (emailConfirm))
-			return;
-		
+		//Check password confirmation match
 		if (!password.equals (passwordConfirm))
 			return;
 		
 		HttpSession session = request.getSession ();
 		
+		//Check if user is already logged in
 		if (session.getAttribute ("user") != null)
         	return;
 		
 		try
         {
-			final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
-	        final String dbName = "web app testing"; 
-	        final String driver = "com.mysql.jdbc.Driver";  
-	        final String dbUserName = "b8ebfad0623483";  
-	        final String dbPassword = "b8df9f4f";  
-            
-        	Class.forName (driver).newInstance ();  
-            Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
+			Class.forName (DBConstants.DRIVER).newInstance ();
+			Connection connection = DriverManager.getConnection (DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);  
             
             SecureRandom random = new SecureRandom ();
             byte [] salt = new byte [16];
@@ -69,6 +87,7 @@ public class RegistrationServlet extends HttpServlet
     		
     		byte [] hash = factory.generateSecret (spec).getEncoded ();
     		
+    		//Insert new user
     		PreparedStatement insert = connection.prepareStatement ("Insert into users (firstname, lastname, email, password, salt, isAdmin) values (?, ?, ?, ?, ?, ?)");  
             insert.setString (1, firstName);  
             insert.setString (2, lastName);  

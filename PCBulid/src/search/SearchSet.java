@@ -1,3 +1,12 @@
+/**
+ * Web Application Programming 2016: Prestige Computers
+ * Algonquin College
+ * 
+ * - Kieran Gillibrand
+ * - Moe Jaber
+ * - Nick Horlings
+ */
+
 package search;
 
 import java.io.File;
@@ -33,28 +42,54 @@ import org.apache.lucene.document.IntField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-
+/**
+ * Class that is stored in the session and contains a list of Lucene document objects that represent store items used in search queries.
+ * @author Kieran Gillibrand, Student: 040-756-866
+ * @see org.apache.lucene
+ */
 public class SearchSet 
 {
-	final static Path INDEX_PATH = Paths.get (Paths.get ("").toAbsolutePath ().toString () + "/PCBulid/lucene-index");
+	/**
+	 * Constant path to store the Lucene document cache in: <br /> <br />
+	 * <b>Program Directory</b>/PCBuild/lucene-index
+	 */
+	final static Path INDEX_PATH = Paths.get (Paths.get ("").toAbsolutePath ().toString () + "/PCBuild/lucene-index");
+	/**
+	 * Max amount of results to display per page
+	 */
 	final static int PAGE_RESULTS = 30;
 	
 	Directory items = null;
 	
-	private void addItems (final IndexWriter writer, final String url, final String dbName, final String driver, final String dbUserName, final String dbPassword) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	/**
+	 * Private utility method to add Documents to the index
+	 * @param writer Writer to add documents to the index
+	 * @param url Database url to use
+	 * @param driver Database driver to use
+	 * @param dbUserName Database username to use
+	 * @param dbPassword Database password to use
+	 * @throws InstantiationException Issue with instantiating database driver
+	 * @throws IllegalAccessException Issue with instantiating database driver
+	 * @throws ClassNotFoundException Issue with instantiating database driver
+	 * @throws SQLException SQL connection issue
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	private void addItems (final IndexWriter writer, final String url, final String driver, final String dbUserName, final String dbPassword) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
-		if (writer == null || url == null || dbName == null || driver == null || dbUserName == null || dbPassword == null)
+		if (writer == null || url == null || driver == null || dbUserName == null || dbPassword == null)
 			throw new InvalidParameterException ();
 		
 		Class.forName (driver).newInstance ();  
-        Connection dbConnection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
+        Connection dbConnection = DriverManager.getConnection (url, dbUserName, dbPassword);  
         
         //Cases
         PreparedStatement selectCases = dbConnection.prepareStatement ("Select * from pc_cases");
         ResultSet casesResults = selectCases.executeQuery ();
         
+        //Add all results as a document
         while (casesResults.next ())
         {
+        	//TextField is parsed and tokenized (searchable), StringField is a solid string (exact matches)
         	Document record = new Document ();
         	record.add (new IntField ("id", casesResults.getInt ("cases_ID"), Field.Store.YES));
         	record.add (new TextField ("model", casesResults.getString ("cases_model"), Field.Store.YES));
@@ -62,6 +97,7 @@ public class SearchSet
         	record.add (new StringField ("imagePath", casesResults.getString ("cases_imagepath"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (casesResults.getDouble ("cases_price")), Field.Store.YES));
         	
+        	//Add document
         	try 
         	{
 				writer.addDocument (record);
@@ -266,6 +302,14 @@ public class SearchSet
         dbConnection.close ();
 	}
 	
+	/**
+	 * Searches the given fields in the lucene index for the given query
+	 * @param fields The document fields to search in
+	 * @param searchQuery The query to search with
+	 * @return The search results as a list of documents
+	 * @throws IOException If things go wrong
+	 *  @author Kieran Gillibrand, Student: 040-756-866
+	 */
 	public ArrayList <Document> search (final String [] fields, final String searchQuery) throws IOException
 	{
 		if (fields == null || fields.length == 0 || searchQuery == null || searchQuery.length () == 0)
@@ -275,6 +319,7 @@ public class SearchSet
 		
 		Query query = null;
 		
+		//Parse the query
 		try 
 		{
 			query = new MultiFieldQueryParser (fields, analyzer).parse (searchQuery);
@@ -284,10 +329,12 @@ public class SearchSet
 			e.printStackTrace ();
 		}
 		
+		//Read the index
 		IndexReader reader = DirectoryReader.open (items);
 		IndexSearcher searcher = new IndexSearcher (reader);
 		TopDocs docs = searcher.search (query, PAGE_RESULTS);
 		
+		//Get the results and get the matching documents
 		ScoreDoc [] hits = docs.scoreDocs;
 		
 		ArrayList <Document> results = new ArrayList <Document> ();
@@ -303,11 +350,21 @@ public class SearchSet
 		return results;
 	}
 	
-	public SearchSet (final String url, final String dbName, final String driver, final String dbUserName, final String dbPassword) throws IOException
+	/**
+	 * Constructor that takes a database url, driver, username, and password
+	 * @param url The database URL to use
+	 * @param driver The database driver to use
+	 * @param dbUserName The database username to use
+	 * @param dbPassword The database password to use
+	 * @throws IOException If things go wrong
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	public SearchSet (final String url, final String driver, final String dbUserName, final String dbPassword) throws IOException
 	{
-		if (url == null || dbName == null || driver == null || dbUserName == null || dbPassword == null)
+		if (url == null || driver == null || dbUserName == null || dbPassword == null)
 			throw new InvalidParameterException ();
 		
+		//Recreate the index if it exists (DB might have changed)
 		if (Files.exists (INDEX_PATH))
 			FileUtils.deleteDirectory (new File (INDEX_PATH.toString ()));
 		
@@ -315,9 +372,10 @@ public class SearchSet
 		
 		IndexWriter writer = new IndexWriter (items, new IndexWriterConfig (new StandardAnalyzer ()));
 
+		//Add items to the index
 		try 
 		{
-			addItems (writer, url, dbName, driver, dbUserName, dbPassword);
+			addItems (writer, url, driver, dbUserName, dbPassword);
 		} 
 		catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) 
 		{

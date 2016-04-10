@@ -1,3 +1,12 @@
+/**
+ * Web Application Programming 2016: Prestige Computers
+ * Algonquin College
+ * 
+ * - Kieran Gillibrand
+ * - Moe Jaber
+ * - Nick Horlings
+ */
+
 package cart;
 
 import java.io.IOException;
@@ -14,11 +23,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cart.Cart;
+import dbconstants.DBConstants;
 
+/**
+ * Servlet that adds an item to the database and list of items on the admin page
+ * @author Kieran Gillibrand, Student 040-756-866
+ * @see HttpServlet
+ */
 public class AddItemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Handles an HTTP post request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student 040-756-866
+	 */
+	@Override
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession ();
@@ -28,20 +54,16 @@ public class AddItemServlet extends HttpServlet
 		
 		final String categoryName = (String) request.getAttribute ("category");
 		final int itemID = (int) request.getAttribute ("id");
-		
-		final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
-        final String dbName = "web app testing"; 
-        final String driver = "com.mysql.jdbc.Driver";  
-        final String dbUserName = "b8ebfad0623483";  
-        final String dbPassword = "b8df9f4f";
         
-    	try {
-			Class.forName (driver).newInstance ();
-			Connection connection = DriverManager.getConnection (url + dbName, dbUserName, dbPassword);  
+    	try 
+    	{
+    		Class.forName (DBConstants.DRIVER).newInstance ();
+			Connection connection = DriverManager.getConnection (DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);  
 			
 			PreparedStatement select = null;
 			ResultSet item = null;
 			
+			//Select based on the category name request parameter and add the cart item
 			switch (categoryName)
 			{
 				case "Cases":
@@ -51,7 +73,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cases_ID"), item.getString ("cases_name"), item.getString ("cases_model"), item.getString ("cases_imagepath"), item.getDouble ("cases_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cases_ID"), item.getString ("cases_name"), categoryName, item.getString ("cases_model"), item.getString ("cases_imagepath"), item.getDouble ("cases_price")));
 				break;
 				
 				case "CPU":
@@ -61,7 +83,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cpu_ID"), item.getString ("cpu_name"), item.getString ("cpu_model"), item.getString ("cpu_imagepath"), item.getDouble ("cpu_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cpu_ID"), item.getString ("cpu_name"), categoryName, item.getString ("cpu_model"), item.getString ("cpu_imagepath"), item.getDouble ("cpu_price")));
 				break;
 					
 				case "GPU":
@@ -71,7 +93,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-				((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("gpu_ID"), item.getString ("gpu_name"), item.getString ("gpu_model"), item.getString ("gpu_imagepath"), item.getDouble ("gpu_price")));
+				((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("gpu_ID"), item.getString ("gpu_name"), categoryName, item.getString ("gpu_model"), item.getString ("gpu_imagepath"), item.getDouble ("gpu_price")));
 				break;
 					
 				case "Harddrive":
@@ -81,7 +103,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("harddrive_ID"), item.getString ("harddrive_name"), item.getString ("harddrive_model"), item.getString ("harddrive_imagepath"), item.getDouble ("harddrive_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("harddrive_ID"), item.getString ("harddrive_name"), categoryName, item.getString ("harddrive_model"), item.getString ("harddrive_imagepath"), item.getDouble ("harddrive_price")));
 				break;
 					
 				case "Headset":
@@ -91,7 +113,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("headset_ID"), item.getString ("headset_name"), item.getString ("headset_model"), item.getString ("headset_imagepath"), item.getDouble ("headset_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("headset_ID"), item.getString ("headset_name"), categoryName, item.getString ("headset_model"), item.getString ("headset_imagepath"), item.getDouble ("headset_price")));
 				break;
 					
 				case "Memory":
@@ -101,7 +123,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("memory_ID"), item.getString ("memory_name"), item.getString ("memory_model"), item.getString ("memory_imagepath"), item.getDouble ("memory_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("memory_ID"), item.getString ("memory_name"), categoryName, item.getString ("memory_model"), item.getString ("memory_imagepath"), item.getDouble ("memory_price")));
 				break;
 					
 				case "Motherboard":
@@ -111,7 +133,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("motherboard_ID"), item.getString ("motherboard_name"), item.getString ("motherboard_model"), item.getString ("motherboard_imagepath"), item.getDouble ("motherboard_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("motherboard_ID"), item.getString ("motherboard_name"), categoryName, item.getString ("motherboard_model"), item.getString ("motherboard_imagepath"), item.getDouble ("motherboard_price")));
 				break;
 				
 				case "PSU":
@@ -121,7 +143,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("psu_ID"), item.getString ("psu_name"), item.getString ("psu_model"), item.getString ("psu_imagepath"), item.getDouble ("psu_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("psu_ID"), item.getString ("psu_name"), categoryName, item.getString ("psu_model"), item.getString ("psu_imagepath"), item.getDouble ("psu_price")));
 				break;
 					
 				case "SSD":
@@ -131,7 +153,7 @@ public class AddItemServlet extends HttpServlet
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("ssd_ID"), item.getString ("ssd_name"), item.getString ("ssd_model"), item.getString ("ssd_imagepath"), item.getDouble ("ssd_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("ssd_ID"), item.getString ("ssd_name"), categoryName, item.getString ("ssd_model"), item.getString ("ssd_imagepath"), item.getDouble ("ssd_price")));
 				break;
 			}
 			request.getRequestDispatcher ("cart.jsp").forward (request, response);

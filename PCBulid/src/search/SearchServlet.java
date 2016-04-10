@@ -1,3 +1,12 @@
+/**
+ * Web Application Programming 2016: Prestige Computers
+ * Algonquin College
+ * 
+ * - Kieran Gillibrand
+ * - Moe Jaber
+ * - Nick Horlings
+ */
+
 package search;
 
 import java.io.IOException;
@@ -11,21 +20,31 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.lucene.document.Document;
 
+import dbconstants.DBConstants;
 import search.SearchSet;
 
+/**
+ * Servlet that registers a user
+ * @author Kieran Gillibrand, Student 040-756-866
+ * @see HttpServlet
+ */
 public class SearchServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Handles an HTTP post request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student 040-756-866
+	 */
 	@Override
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-    	final String url = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
-        final String dbName = "web app testing"; 
-        final String driver = "com.mysql.jdbc.Driver";  
-        final String dbUserName = "b8ebfad0623483";  
-        final String dbPassword = "b8df9f4f"; 
-        
+	{   
 		HttpSession session = request.getSession ();
 		SearchSet searchSet = null;
 		
@@ -39,7 +58,7 @@ public class SearchServlet extends HttpServlet
 		
 		if (session.getAttribute ("searchSet") == null)
 		{
-			searchSet = new SearchSet (url, dbName, driver, dbUserName, dbPassword);
+			searchSet = new SearchSet (DBConstants.URL, DBConstants.DRIVER, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
 			session.setAttribute ("searchSet", searchSet);
 		}
 		else
