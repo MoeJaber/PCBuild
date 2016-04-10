@@ -77,7 +77,7 @@ public class AdminRemoveItemServlet extends HttpServlet
 
 			PreparedStatement remove = null;
 			
-			//Create staement based on category name request parameter
+			//Create statement based on category name request parameter
 			switch (categoryName)
 			{
 				case "Cases":
