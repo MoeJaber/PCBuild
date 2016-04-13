@@ -96,7 +96,7 @@ body {
 							src="<%=resultSet.getString("cases_imagepath")%>" style = "height: 6em;" />
 					</div>
 					<div class="panel-footer" style="height: 5.35em;">
-						<form action = "http://localhost:8081/PCBulid/AddItemServlet" method = "post">
+						<form action = "/PCBulid/AddItemServlet" method = "post">
 							<input type="hidden" name="category" value="Cases">
 							<input type="hidden" name="id" value="<%out.print(resultSet.getString("cases_ID"));%>">
 							<input type="submit" value="Add to Cart" class="btn pull-right"/>

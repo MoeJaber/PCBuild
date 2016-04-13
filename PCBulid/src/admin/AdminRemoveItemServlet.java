@@ -121,6 +121,9 @@ public class AdminRemoveItemServlet extends HttpServlet
 			remove.setLong (1, removeID);
 			remove.execute ();
 			
+			remove.close ();
+			connection.close ();
+			
 			items.remove (removeIndex);
 			
 			//Delete image

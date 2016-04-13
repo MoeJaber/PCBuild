@@ -17,6 +17,10 @@ package user;
 public class User 
 {
 	/**
+	 * A user's database id
+	 */
+	private long id = 0L;
+	/**
 	 * A user's email
 	 */
 	private String email = null;
@@ -28,24 +32,42 @@ public class User
 	 * A user's last name
 	 */
 	private String lastName = null;
+	/**
+	 * Boolean representing a user's admin status
+	 */
+	private boolean isAdmin = false;
 	
 	/**
-	 * Constructor that takes an email, first name, and last name
+	 * Constructor that takes an id, email, first name, last name, and admin status
+	 * @param id The database id of the user
 	 * @param email The email to use
 	 * @param firstName The first name to use
 	 * @param lastName The last name to use
+	 * @param isAdmin The user's admin status
 	 * @author Kieran Gillibrand, Student: 040-756-866
 	 */
-	public User (String email, String firstName, String lastName) throws IllegalArgumentException
+	public User (long id, String email, String firstName, String lastName, boolean isAdmin) throws IllegalArgumentException
 	{
-		if (email == null || firstName == null || lastName == null)
+		if (id < 0L || email == null || firstName == null || lastName == null)
 			throw new IllegalArgumentException ();
 		
+		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.isAdmin = isAdmin;
 	}
 
+	/**
+	 * Gets the user's database id
+	 * @return The database id as a long
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	public long getID ()
+	{
+		return id;
+	}
+	
 	/**
 	 * Gets the user email
 	 * @return The email as a String
@@ -76,23 +98,33 @@ public class User
 		return lastName;
 	}
 	
+	/**
+	 * Gets the user's admin status
+	 * @return The admin status as a boolean
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	public boolean getAdmin ()
+	{
+		return isAdmin;
+	}
+	
 	@Override
 	public boolean equals (Object obj)
 	{
 		User equal = (User) obj;
 		
-		return (email.equals (equal.email) && firstName.equals (equal.firstName) && lastName.equals (equal.lastName));
+		return (id == equal.id && email.equals (equal.email) && firstName.equals (equal.firstName) && lastName.equals (equal.lastName) && isAdmin == equal.isAdmin);
 	}
 	
 	@Override
 	public int hashCode ()
 	{
-		return email.hashCode () * firstName.hashCode () * lastName.hashCode ();
+		return (int) id + email.hashCode () + firstName.hashCode () + lastName.hashCode ();
 	}
 	
 	@Override
 	public String toString ()
 	{
-		return "Email: " + email + ", First Name: " + firstName + ", Last Name: " + lastName;
+		return "Database ID: " + id + ", Email: " + email + ", First Name: " + firstName + ", Last Name: " + lastName + ", Is Admin: " + isAdmin;
 	}
 }

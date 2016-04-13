@@ -17,6 +17,7 @@ import java.security.spec.KeySpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.crypto.SecretKeyFactory;
@@ -97,11 +98,20 @@ public class RegistrationServlet extends HttpServlet
             insert.setBoolean (6, false); //Not admin by default
   
             insert.execute ();  
+            insert.close ();
             
-            session.setAttribute ("user", new User (email, firstName, lastName));
+            PreparedStatement selectID = connection.prepareStatement ("Select max(id) from users");
+            ResultSet result = selectID.executeQuery ();
+            long id = result.getLong ("id");
+            selectID.close ();
+            result.close ();
+            
+            session.setAttribute ("user", new User (id, email, firstName, lastName, false));
             
             RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
-    		dispatcher.include (request, response);    
+    		dispatcher.include (request, response);   
+    		
+    		connection.close ();
         }
 		catch (SQLException e)
         {

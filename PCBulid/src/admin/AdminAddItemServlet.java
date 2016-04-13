@@ -58,17 +58,16 @@ public class AdminAddItemServlet extends HttpServlet
 
 		//Check session attributes and request parameters for null
 		if (session.getAttribute ("items") == null || request.getParameter ("categoryName") == null || request.getParameter ("itemName") == null || request.getParameter ("itemModel") == null || request.getParameter ("itemImagePath") == null || request.getParameter ("itemPrice") == null || request.getAttribute ("image") == null)
-			request.getRequestDispatcher ("admin.jsp").forward (request, response);
+			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
 		
 		if (request.getParameter ("itemBrand") == null || request.getParameter ("itemSeries") == null || request.getParameter ("itemModelNumber") == null || request.getParameter ("itemType") == null || request.getParameter ("itemCapacity") == null || request.getAttribute ("itemInterface") == null || request.getAttribute ("itemDescription") == null || request.getParameter ("imageName") == null)
-			request.getRequestDispatcher ("admin.jsp").forward (request, response);
+			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
 		
 		//Session attributes and request parameters
 		final ArrayList <Item> items = (ArrayList <Item>) session.getAttribute ("items");
 		final String categoryName = request.getParameter ("categoryName");
 		final String itemName = request.getParameter ("itemName");
 		final String itemModel = request.getParameter ("itemModel");
-		final String itemImagePath = request.getParameter ("itemImagePath");
 		Double itemPrice = 0.0d;
 		final String itemBrand = request.getParameter ("itemBrand");
 		final String itemSeries = request.getParameter ("itemSeries");
@@ -79,9 +78,11 @@ public class AdminAddItemServlet extends HttpServlet
 		final String itemDescription = request.getParameter ("itemDescription");
 		
 		//Image file parameters
+		final String IMAGE_PATH = "/PCBulid/public/img";
 		final Part image = (Part) request.getAttribute ("image");
-		final File uploadLocation = new File (itemImagePath);
-		final String imageName = request.getParameter ("imageName");
+		final File uploadLocation = new File (IMAGE_PATH);
+		final String imageName = image.getName ();
+		final String itemImagePath = IMAGE_PATH + "/" + imageName;
 		
 		//Parse price String to double
 		try 
@@ -90,7 +91,7 @@ public class AdminAddItemServlet extends HttpServlet
 		}
 		catch (NumberFormatException format)
 		{
-			format.printStackTrace ();
+			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
 		}
 
 		try 
@@ -123,6 +124,10 @@ public class AdminAddItemServlet extends HttpServlet
 					
 					//Add item to Admin page item list
 					items.add (new Item (reader.getLong ("cases_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "CPU":
@@ -140,6 +145,10 @@ public class AdminAddItemServlet extends HttpServlet
 					reader.next ();
 					
 					items.add (new Item (reader.getLong ("cpu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "GPU":
@@ -156,7 +165,11 @@ public class AdminAddItemServlet extends HttpServlet
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("gpu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("gpu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));	
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "Harddrive":
@@ -181,6 +194,10 @@ public class AdminAddItemServlet extends HttpServlet
 					reader.next ();
 					
 					items.add (new Item (reader.getLong ("harddrive_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "Headset":
@@ -197,7 +214,11 @@ public class AdminAddItemServlet extends HttpServlet
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("headset_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("headset_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));		
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "Memory":
@@ -214,7 +235,11 @@ public class AdminAddItemServlet extends HttpServlet
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("memory_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("memory_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));			
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "Motherboard":
@@ -232,6 +257,10 @@ public class AdminAddItemServlet extends HttpServlet
 					reader.next ();
 					
 					items.add (new Item (reader.getLong ("motherboard_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "PSU":
@@ -248,7 +277,11 @@ public class AdminAddItemServlet extends HttpServlet
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("psu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("psu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					
+					select.close ();
+					insert.close ();
+					reader.close ();
 				break;
 	
 				case "SSD":
@@ -260,15 +293,20 @@ public class AdminAddItemServlet extends HttpServlet
 					insert.setDouble (4, itemPrice);
 				
 					insert.execute ();
+					insert.close ();
 					
 					select = connection.prepareStatement ("select * from pc_ssd order by ssd_ID limit 1");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("ssd_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("ssd_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					
+					select.close ();
+					reader.close ();
 				break;
 			}
 			
+			connection.close ();
 			//Create new file with image name
 			File newImage = new File (uploadLocation, "ImageName");
 			

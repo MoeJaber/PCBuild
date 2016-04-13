@@ -63,36 +63,24 @@ body {
 		<h2>
 			<a href="index.jsp">Home</a> >> <a href="search.jsp">Search Results</a>
 		</h2>
-		<% ArrayList <Document> results = ((ArrayList <Document>) session.getAttribute ("searchResults"));
-		if(results == null){ %>
-		<p>No results found!</p>
-		<% } else if( results.size () == 0 ){ %>
-		<p>No results found!</p>
-		<% } else
-			{ 
-			out.print("Search Results: <hr>");
-			for(Document result : results){
-				%>
-				
-				<div class="col-sm-12">
-					<div class="panel panel-danger">
-						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%result.get ("id");%>"><%out.print(result.get("name"));%></a>
-						<p style="font-size: 0.7em;"><%out.print(result.get("model"));%></p>
-						</div>
-						<div class="panel-body">
-							<img
-								src="<%out.print(result.get ("imagePath").substring (6));%>" style = "height: 6em;" />
-						</div>
-						<div class="panel-footer" style="height: 5.35em;">
-
-							<h5>$<%out.print(result.get ("price"));%></h5>
-						</div>
-					</div>
-				</div>
-			<% }%>
-			<hr>
-		<% } %>
 		
+		<form action = "/PCBulid/AdminAddItemServlet" method = "post">
+			<div class="form-group"><input name = "categoryName" type="text" class="form-control"  class="form-control input-sm" placeholder="Category Name"></div>
+		    <div class="form-group"><input name = "itemName" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Name"></div>
+		    <div class="form-group"><input name = "itemModel" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Model"></div>
+		    <div class="form-group"><input name = "itemPrice" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Price"></div>
+		    <div class="form-group"><input name = "itemBrand" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Brand"></div>
+		    <div class="form-group"><input name = "itemSeries" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Series"></div>
+		    <div class="form-group"><input name = "itemModelNumber" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Model Number"></div>
+		    <div class="form-group"><input name = "itemType" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Type"></div>
+		    <div class="form-group"><input name = "itemCapacity" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Capacity"></div>
+		    <div class="form-group"><input name = "itemInterface" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Interface"></div>
+		    <div class="form-group"><input name = "itemDescription" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Description"></div>
+		    <div class="form-group"><input name = "item" type="file" class="form-control"  class="form-control input-sm" placeholder="Item Image"></div>
+		    <div class="form-group"><button type="submit" class="btn btn-info btn-block">Add Item</button></div>
+		</form>
+		
+		<a type="button" class="btn btn-info" href = "admin.jsp">Admin Home</a> <br />
 		<a type="button" class="btn btn-info" href = "index.jsp">Home Page</a>
 	</div>
 

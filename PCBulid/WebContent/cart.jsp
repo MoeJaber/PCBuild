@@ -73,7 +73,7 @@ body {
 						</div>
 						<div class="panel-footer" style="height: 5.35em;">
 
-							<form action = "http://localhost:8081/PCBulid/RemoveItemServlet" method = "post">
+							<form action = "/PCBulid/RemoveItemServlet" method = "post">
 								<input type="hidden" name="index" value="<%out.print(i);%>">
 								<input type="submit" value="Remove" class="btn pull-right"/>
 							</form>
@@ -84,7 +84,7 @@ body {
 			<% }
 			out.print("Total: $" + String.format ("%.2d", cart.getTotal ()));%>
 			<hr>
-			<form action = "http://localhost:8081/PCBulid/EmptyCartServlet" method = "post">
+			<form action = "/PCBulid/EmptyCartServlet" method = "post">
 				<input type="submit" value="Empty Cart" class="btn btn-danger pull-right"/>
 			</form>
 		<% } %>

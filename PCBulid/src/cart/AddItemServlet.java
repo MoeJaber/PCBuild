@@ -156,6 +156,11 @@ public class AddItemServlet extends HttpServlet
 					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("ssd_ID"), item.getString ("ssd_name"), categoryName, item.getString ("ssd_model"), item.getString ("ssd_imagepath"), item.getDouble ("ssd_price")));
 				break;
 			}
+			
+			select.close ();
+			connection.close ();
+			item.close ();
+			
 			request.getRequestDispatcher ("cart.jsp").forward (request, response);
 		} 
     	catch (InstantiationException e) 

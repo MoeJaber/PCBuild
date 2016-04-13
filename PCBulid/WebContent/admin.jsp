@@ -1,6 +1,7 @@
 <%@ page import = "admin.*" %>
 <%@ page import = "cart.Item" %>
 <%@ page import = "java.util.ArrayList" %>
+<%@ page import = "user.User" %>
 
 <!-- 
 	Admin home page, displays all items and allows removing them.
@@ -62,8 +63,15 @@ body {
 	<!--- Main --->
 	<div class="container">
 		<h2>
-			<a href="index.jsp">Home</a> >> <a href="search.jsp">Search Results</a>
+			<a href="index.jsp">Home</a> >> <a href="admin.jsp">Admin Home</a>
 		</h2>
+		<% if (!((User) session.getAttribute ("user")).getAdmin ()) 
+		   		request.getRequestDispatcher ("index.jsp").forward (request, response);
+		%>
+		
+		<form action = "/PCBulid/AdminRemoveItemServlet" method = "post">
+		</form>
+		
 		<% ArrayList <Item> items = ((ArrayList <Item>) session.getAttribute ("items"));
 		if(items == null){ %>
 		<p>No items found!</p>
@@ -71,22 +79,26 @@ body {
 		<p>No items found!</p>
 		<% } else
 			{ 
-			out.print("Search Results: <hr>");
-			for(Item item : items){
+			out.print("All Items: <hr>");
+			for (int itemIndex = 0; itemIndex < items.size (); ++itemIndex){
 				%>
 				
 				<div class="col-sm-12">
 					<div class="panel panel-danger">
-						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%result.get ("id");%>"><%out.print(result.get("name"));%></a>
-						<p style="font-size: 0.7em;"><%out.print(result.get("model"));%></p>
+						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%items.get (itemIndex).getID ();%>"><%out.print(items.get (itemIndex).getName ());%></a>
+						<p style="font-size: 0.7em;"><%out.print(items.get (itemIndex).getModel ());%></p>
 						</div>
 						<div class="panel-body">
 							<img
-								src="<%out.print(result.get ("imagePath").substring (6));%>" style = "height: 6em;" />
+								src="<%out.print(items.get (itemIndex).getImagePath ().substring (6));%>" style = "height: 6em;" />
 						</div>
 						<div class="panel-footer" style="height: 5.35em;">
-
-							<h5>$<%out.print(result.get ("price"));%></h5>
+							<form action = "/PCBulid/AdminRemoveItemServlet" method = "post">
+								<input type="hidden" name="removeIndex" value="<%out.print(itemIndex);%>">
+								<input type="hidden" name="removeID" value="<%out.print(items.get (itemIndex).getID ());%>">
+								<input type="submit" value="Remove" class="btn pull-right"/>
+							</form>
+							<h5>$<%items.get (itemIndex).getPrice ();%></h5>
 						</div>
 					</div>
 				</div>
@@ -94,6 +106,7 @@ body {
 			<hr>
 		<% } %>
 		
+		<a type="button" class="btn btn-info" href = "addItem.jsp">Add Item</a> <br />
 		<a type="button" class="btn btn-info" href = "index.jsp">Home Page</a>
 	</div>
 

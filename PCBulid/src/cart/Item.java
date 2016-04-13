@@ -87,7 +87,7 @@ public class Item
 	 * @return The imagePath as a String
 	 * @author Kieran Gillibrand, Student 040-756-866
 	 */
-	public String imagePath ()
+	public String getImagePath ()
 	{
 		return imagePath;
 	}

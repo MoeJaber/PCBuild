@@ -71,10 +71,12 @@ public class LoginServlet extends HttpServlet
         	//Correct username/password
         	if (results.next ())
         	{ 
+        		long id = results.getLong ("id");
 				String firstName = results.getString ("firstname");
 				String lastName = results.getString ("lastname");
-			
-	        	session.setAttribute ("user", new User (email, firstName, lastName));
+				boolean isAdmin = results.getBoolean ("isAdmin");
+				
+	        	session.setAttribute ("user", new User (id, email, firstName, lastName, isAdmin));
         	
 	        	//System.out.println ("User Logged In: " + ((User) session.getAttribute ("user")).toString ());
 	        	session.setAttribute("warning", null);
@@ -89,6 +91,7 @@ public class LoginServlet extends HttpServlet
         		dispatcher.include (request, response);    
         	}   
         	results.close();
+        	connection.close ();
         	out.close();  
         }
         catch (SQLException e)

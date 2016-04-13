@@ -99,7 +99,7 @@ body {
 						<span class="pull-right" style="color: red; font-size: 0.8em;">
 						</span>
 						<p style="text-decoration: line-through; font-size: 0.6em;"></p>
-						<form action = "http://localhost:8081/PCBulid/AddItemServlet" method = "post">
+						<form action = "/PCBulid/AddItemServlet" method = "post">
 							<input type="hidden" name="category" value="PSU">
 							<input type="hidden" name="id" value="<%out.print(resultSet.getString("psu_ID"));%>">
 							<input type="submit" value="Add to Cart" class="btn pull-right"/>

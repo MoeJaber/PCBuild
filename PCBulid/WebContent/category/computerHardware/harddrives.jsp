@@ -2,6 +2,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import = "dbconstants.DBConstants" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,15 +47,8 @@ body{
 <div class="row">
 
  <%
-String id = request.getParameter("userId");
-String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://us-cdbr-azure-east-a.cloudapp.net:3306/";  
-String dbName = "web app testing";
-String userId = "b8ebfad0623483";
-String password = "b8df9f4f";
-
 try {
-Class.forName(driverName);
+Class.forName(DBConstants.DRIVER);
 } catch (ClassNotFoundException e) {
 e.printStackTrace();
 }
@@ -66,7 +61,7 @@ ResultSet resultSet = null;
 
 <%
 try{ 
-connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
+connection = DriverManager.getConnection(DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
 statement=connection.createStatement();
 String sql ="SELECT * FROM pc_harddrive";
 
@@ -97,6 +92,8 @@ while(resultSet.next()){
 <% 
 }
 resultSet.close ();
+statement.close ();
+connection.close ();
 
 } catch (Exception e) {
 e.printStackTrace();
