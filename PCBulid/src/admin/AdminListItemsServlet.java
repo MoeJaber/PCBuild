@@ -57,92 +57,92 @@ public class AdminListItemsServlet extends HttpServlet
         Connection dbConnection = DriverManager.getConnection (url, dbUserName, dbPassword);  
         
         //Cases
-        PreparedStatement select = dbConnection.prepareStatement ("Select * from pc_cases");
+        PreparedStatement select = dbConnection.prepareStatement ("Select * from cases");
         ResultSet results = select.executeQuery ();
         
         //Add all items in the ResultSet
         while (results.next ())
-        	items.add (new Item (results.getLong ("cases_ID"), results.getString ("cases_name"), "Cases", results.getString ("cases_model"), results.getString ("cases_imagepath"), results.getDouble ("cases_price")));
+        	items.add (new Item (results.getLong ("casesID"), results.getString ("casesName"), "Cases", results.getString ("casesModel"), results.getString ("casesImagePath"), results.getDouble ("casesPrice")));
         
         select.close ();
         results.close ();
         
         //CPUs
-        select = dbConnection.prepareStatement ("Select * from pc_cpu");
+        select = dbConnection.prepareStatement ("Select * from cpu");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("cpu_ID"), results.getString ("cpu_name"), "CPU", results.getString ("cpu_model"), results.getString ("cpu_imagepath"), results.getDouble ("cpu_price")));
+        	items.add (new Item (results.getLong ("cpuID"), results.getString ("cpuName"), "CPU", results.getString ("cpuModel"), results.getString ("cpuImagePath"), results.getDouble ("cpuPrice")));
         
         select.close ();
         results.close ();
         
         //GPUs
-        select = dbConnection.prepareStatement ("Select * from pc_gpu");
+        select = dbConnection.prepareStatement ("Select * from gpu");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("gpu_ID"), results.getString ("gpu_name"), "GPU", results.getString ("gpu_model"), results.getString ("gpu_imagepath"), results.getDouble ("gpu_price")));
+        	items.add (new Item (results.getLong ("gpuID"), results.getString ("gpuNaame"), "GPU", results.getString ("gpuModel"), results.getString ("gpuImagePath"), results.getDouble ("gpuPrice")));
         
         select.close ();
         results.close ();
         
         //HDD
-        select = dbConnection.prepareStatement ("Select * from pc_harddrive");
+        select = dbConnection.prepareStatement ("Select * from hdd");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("harddrive_ID"), results.getString ("harddrive_name"), "Harddrive", results.getString ("harddrive_model"), results.getString ("harddrive_imagepath"), results.getDouble ("harddrive_price")));
+        	items.add (new Item (results.getLong ("hddID"), results.getString ("hddName"), "Harddrive", results.getString ("hddModel"), results.getString ("hddImagePath"), results.getDouble ("hddPrice")));
         
         select.close ();
         results.close ();
         
         //Headset
-        select = dbConnection.prepareStatement ("Select * from pc_headset");
+        select = dbConnection.prepareStatement ("Select * from headset");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("headset_ID"), results.getString ("headset_name"), "Headset", results.getString ("headset_model"), results.getString ("headset_imagepath"), results.getDouble ("headset_price")));
+        	items.add (new Item (results.getLong ("headsetID"), results.getString ("headsetName"), "Headset", results.getString ("headsetModel"), results.getString ("headsetImagePath"), results.getDouble ("headsetPrice")));
         
         select.close ();
         results.close ();
         
         //Memory
-        select = dbConnection.prepareStatement ("Select * from pc_memory");
+        select = dbConnection.prepareStatement ("Select * from memory");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("memory_ID"), results.getString ("memory_name"), "Memory", results.getString ("memory_model"), results.getString ("memory_imagepath"), results.getDouble ("memory_price")));
+        	items.add (new Item (results.getLong ("memoryID"), results.getString ("memoryName"), "Memory", results.getString ("memoryModel"), results.getString ("memoryImagePath"), results.getDouble ("memoryPrice")));
         
         select.close ();
         results.close ();
         
         //Motherboard
-        select = dbConnection.prepareStatement ("Select * from pc_motherboard");
+        select = dbConnection.prepareStatement ("Select * from motherboard");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("motherboard_ID"), results.getString ("motherboard_name"), "Motherboard", results.getString ("motherboard_model"), results.getString ("motherboard_imagepath"), results.getDouble ("motherboard_price")));
+        	items.add (new Item (results.getLong ("motherboardID"), results.getString ("motherboardName"), "Motherboard", results.getString ("motherboardModel"), results.getString ("motherboardImagePath"), results.getDouble ("motherboardPrice")));
         
         select.close ();
         results.close ();
         
         //PSU
-        select = dbConnection.prepareStatement ("Select * from pc_psu");
+        select = dbConnection.prepareStatement ("Select * from psu");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("psu_ID"), results.getString ("psu_name"), "PSU", results.getString ("psu_model"), results.getString ("psu_imagepath"), results.getDouble ("psu_price")));
+        	items.add (new Item (results.getLong ("psuID"), results.getString ("psuName"), "PSU", results.getString ("psuModel"), results.getString ("psuImagePath"), results.getDouble ("psuPrice")));
         
         select.close ();
         results.close ();
         
         //SSD
-        select = dbConnection.prepareStatement ("Select * from pc_ssd");
+        select = dbConnection.prepareStatement ("Select * from ssd");
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("ssd_ID"), results.getString ("ssd_name"), "SSD", results.getString ("ssd_model"), results.getString ("ssd_imagepath"), results.getDouble ("ssd_price")));
+        	items.add (new Item (results.getLong ("ssdID"), results.getString ("ssdName"), "SSD", results.getString ("ssdModel"), results.getString ("ssdImagePath"), results.getDouble ("ssdPrice")));
         
         select.close ();
         results.close ();
@@ -151,7 +151,7 @@ public class AdminListItemsServlet extends HttpServlet
 	}
 	
 	/**
-	 * Handles an HTTP post request
+	 * Handles an HTTP get request
 	 * 
 	 * @param request The HTTP request
 	 * @param response The HTTP response
@@ -161,7 +161,7 @@ public class AdminListItemsServlet extends HttpServlet
 	 * @author Kieran Gillibrand, Student: 040-756-866
 	 */
     @Override
-    public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
     	HttpSession session = request.getSession ();
     	ArrayList <Item> items = null;

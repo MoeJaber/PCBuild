@@ -61,26 +61,41 @@ body {
 	<!--- Main --->
 	<div class="container">
 		<h2>
-			<a href="index.jsp">Home</a> >> <a href="search.jsp">Search Results</a>
+			<a href="index.jsp">Home</a> >> <a href="addItem.jsp">Add Item</a>
 		</h2>
+		Add Item: <hr> <br />
 		
-		<form action = "/PCBulid/AdminAddItemServlet" method = "post">
-			<div class="form-group"><input name = "categoryName" type="text" class="form-control"  class="form-control input-sm" placeholder="Category Name"></div>
-		    <div class="form-group"><input name = "itemName" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Name"></div>
-		    <div class="form-group"><input name = "itemModel" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Model"></div>
-		    <div class="form-group"><input name = "itemPrice" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Price"></div>
-		    <div class="form-group"><input name = "itemBrand" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Brand"></div>
-		    <div class="form-group"><input name = "itemSeries" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Series"></div>
-		    <div class="form-group"><input name = "itemModelNumber" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Model Number"></div>
-		    <div class="form-group"><input name = "itemType" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Type"></div>
-		    <div class="form-group"><input name = "itemCapacity" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Capacity"></div>
-		    <div class="form-group"><input name = "itemInterface" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Interface"></div>
-		    <div class="form-group"><input name = "itemDescription" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Description"></div>
-		    <div class="form-group"><input name = "item" type="file" class="form-control"  class="form-control input-sm" placeholder="Item Image"></div>
+		<form action = "/PCBulid/AdminAddItemServlet" method = "post" enctype = "multipart/form-data">
+			<div class="form-group">
+				<select class="form-control"  class="form-control input-sm" required = "required" name = "categoryName">
+					<option>Select an item category</option>
+					<option value = "Cases">Cases</option>
+					<option value = "CPU">CPU</option>
+					<option value = "GPU">GPU</option>
+					<option value = "Harddrive">Harddrive</option>
+					<option value = "Headset">Headset</option>
+					<option value = "Memory">Memory</option>
+					<option value = "Motherboard">Motherboard</option>
+					<option value = "PSU">PSU</option>
+					<option value = "SSD">SSD</option>
+				</select>
+			</div>
+			
+		    <div class="form-group"><input name = "itemName" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Name" required = "required"></div>
+		    <div class="form-group"><input name = "itemModel" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Model" required = "required"></div>
+		    <div class="form-group"><input name = "itemPrice" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Price" required = "required"></div>
+		    <div class="form-group"><input name = "itemBrand" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Brand" required = "required"></div>
+		    <div class="form-group"><input name = "itemSeries" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Series" required = "required"></div>
+		    <div class="form-group"><input name = "itemModelNumber" type="number" class="form-control"  class="form-control input-sm" placeholder="Item Model Number" required = "required"></div>
+		    <div class="form-group"><input name = "itemType" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Type" required = "required"></div>
+		    <div class="form-group"><input name = "itemCapacity" type="number" class="form-control"  class="form-control input-sm" placeholder="Item Capacity" required = "required"></div>
+		    <div class="form-group"><input name = "itemInterface" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Interface" required = "required"></div>
+		    <div class="form-group"><input name = "itemDescription" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Description" required = "required"></div>
+		    <div>Select an image to upload:</div><div class="form-group"><input name = "image" type="file" class="form-control" accept = ".png, .jpg, .jpeg, .bmp, .gif, image/*" class="form-control input-sm" placeholder="Item Image"></div>
 		    <div class="form-group"><button type="submit" class="btn btn-info btn-block">Add Item</button></div>
 		</form>
 		
-		<a type="button" class="btn btn-info" href = "admin.jsp">Admin Home</a> <br />
+		<a type="button" class="btn btn-info" href = "admin.jsp">Admin Home</a> <br /> <br />
 		<a type="button" class="btn btn-info" href = "index.jsp">Home Page</a>
 	</div>
 

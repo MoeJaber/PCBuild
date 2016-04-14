@@ -92,8 +92,8 @@
 		        <div class="dropdown-menu" style="padding:17px; width: 25em !important;">
 		          <% if(session.getAttribute("user")==null){ %>
 		          <form action = "/PCBulid/LoginServlet" method = "post">
-		            <div class="form-group"><input name = "email" 'type="email" class="form-control"  class="form-control input-sm" placeholder="Email"></div>
-		            <div class="form-group"><input name = "password" type="password" class="form-control"  class="form-control input-sm" placeholder="Password"></div>
+		            <div class="form-group"><input name = "email" type="email" class="form-control" required = "required" class="form-control input-sm" placeholder="Email"></div>
+		            <div class="form-group"><input name = "password" type="password" class="form-control"  required = "required" class="form-control input-sm" placeholder="Password"></div>
 		            <% if(session.getAttribute("warning")!=null){ %> <div class="alert alert-danger"> <% out.print(session.getAttribute("warning")); %> </div> <% } %>
 		            <div class="form-group"><button type="submit" class="btn btn-info btn-block">Sign in</button></div>
 		            <div class="checkbox">
@@ -119,10 +119,17 @@
 	            	out.print(user.getFirstName()); %>!</p>
 	            	<p>You have 0 items in your cart.</p>
 	            	<p>Select a language: <a href = "/PCBulid/index.jsp?lang=english">English</a>      <a href = "/PCBulid/index.jsp?lang=french">French</a></p>
-		          	<form action = "/PCBulid/LogOutServlet" method = "post">
-						<input type="submit" value="Logout" class="btn btn-info btn-block"/>
-					</form>
-		          
+		          	
+					<%if (((User) session.getAttribute ("user")).getAdmin ())
+						{
+						%>
+						<p><a href = "/PCBulid/admin.jsp">Admin Home</a> <br /> <a href = "/PCBulid/addItem.jsp">Add Item</a></p>
+						<%} %>
+						
+						<form action = "/PCBulid/LogoutServlet" method = "post">
+							<input type="submit" value="Logout" class="btn btn-info btn-block"/>
+						</form>
+					
 		          <% }%>
 				</div>
 		      </li>
@@ -153,7 +160,7 @@
 						<label class="control-label" for="username">First Name</label>
 						<div class="controls">
 							<input type="text" name="first_name"
-								class="form-control input-sm" placeholder="First Name">
+								class="form-control input-sm" placeholder="First Name" required = "required"> 
 							<p class="help-block">First name, eg. John</p>
 						</div>
 					</div>
@@ -162,7 +169,7 @@
 						<label class="control-label" for="username">Last Name</label>
 						<div class="controls">
 							<input type="text" name="last_name" class="form-control input-sm"
-								placeholder="Last Name">
+								placeholder="Last Name" required = "required">
 							<p class="help-block">Last name, eg. Smith</p>
 						</div>
 					</div>
@@ -172,7 +179,7 @@
 						<label class="control-label" for="email">E-mail</label>
 						<div class="controls">
 							<input type="email" id="email" name="email"
-								placeholder="Email Address" class="form-control input-sm">
+								placeholder="Email Address" class="form-control input-sm" required = "required">
 							<p class="help-block">Please provide your E-mail</p>
 						</div>
 					</div>
@@ -182,7 +189,7 @@
 						<label class="control-label" for="password">Password</label>
 						<div class="controls">
 							<input type="password" id="password" name="password"
-								placeholder="Password" class="form-control input-sm">
+								placeholder="Password" class="form-control input-sm" required = "required">
 							<p class="help-block">Password should be at least 4
 								characters</p>
 						</div>
@@ -195,7 +202,7 @@
 						<div class="controls">
 							<input type="password" id="password_confirmation"
 								name="password_confirmation" placeholder="Confirm Password"
-								class="form-control input-sm">
+								class="form-control input-sm" required = "required">
 							<p class="help-block">Please confirm password</p>
 						</div>
 					</div>

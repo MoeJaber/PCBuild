@@ -10,6 +10,7 @@
 package cart;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.lang.StringBuilder;
 
 import cart.Item;
@@ -169,6 +170,13 @@ public class Cart
 	public boolean equals (Object obj)
 	{
 		Cart equal = (Cart) obj;
+		
+		if (equal == null)
+			return false;
+		
+		//Reference equals
+		if (Objects.equals(this, equal))
+			return true;
 		
 		return (items.equals (equal.items) && total == equal.total);
 	}

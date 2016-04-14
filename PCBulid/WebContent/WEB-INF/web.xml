@@ -81,6 +81,36 @@
     <url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>AdminAddItemServlet</servlet-name>
+    <servlet-class>admin.AdminAddItemServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AdminAddItemServlet</servlet-name>
+    <url-pattern>/AdminAddItemServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminListItemsServlet</servlet-name>
+    <servlet-class>admin.AdminListItemsServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AdminListItemsServlet</servlet-name>
+    <url-pattern>/AdminListItemsServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminRemoveItemServlet</servlet-name>
+    <servlet-class>admin.AdminRemoveItemServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AdminRemoveItemServlet</servlet-name>
+    <url-pattern>/AdminRemoveItemServlet</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

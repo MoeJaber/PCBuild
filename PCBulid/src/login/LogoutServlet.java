@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author Kieran Gillibrand, Student 040-756-866
  * @see HttpServlet
  */
-public class LogOutServlet extends HttpServlet
+public class LogoutServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	

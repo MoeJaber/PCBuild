@@ -99,7 +99,6 @@ public class Login
             select.setBytes (2, hash);
   
             results = select.executeQuery ();  
-            select.close ();
         } 
         catch (Exception e) 
         {  

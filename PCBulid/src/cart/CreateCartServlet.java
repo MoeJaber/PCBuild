@@ -28,7 +28,7 @@ public class CreateCartServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Handles an HTTP post request
+	 * Handles an HTTP get request
 	 * 
 	 * @param request The HTTP request
 	 * @param response The HTTP response
@@ -37,7 +37,8 @@ public class CreateCartServlet extends HttpServlet
 	 * @exception IOException Bad things might happen
 	 * @author Kieran Gillibrand, Student 040-756-866
 	 */
-	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession ();
 		

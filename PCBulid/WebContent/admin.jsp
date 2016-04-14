@@ -65,13 +65,12 @@ body {
 		<h2>
 			<a href="index.jsp">Home</a> >> <a href="admin.jsp">Admin Home</a>
 		</h2>
-		<% if (!((User) session.getAttribute ("user")).getAdmin ()) 
+		<% if (session.getAttribute ("user") == null || !((User) session.getAttribute ("user")).getAdmin ()) 
 		   		request.getRequestDispatcher ("index.jsp").forward (request, response);
 		%>
 		
-		<form action = "/PCBulid/AdminRemoveItemServlet" method = "post">
-		</form>
-		
+		<jsp:include page = "/AdminListItemsServlet"></jsp:include>
+
 		<% ArrayList <Item> items = ((ArrayList <Item>) session.getAttribute ("items"));
 		if(items == null){ %>
 		<p>No items found!</p>
@@ -79,13 +78,13 @@ body {
 		<p>No items found!</p>
 		<% } else
 			{ 
-			out.print("All Items: <hr>");
+			out.print("All Items: <hr><br />");
 			for (int itemIndex = 0; itemIndex < items.size (); ++itemIndex){
 				%>
 				
 				<div class="col-sm-12">
 					<div class="panel panel-danger">
-						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%items.get (itemIndex).getID ();%>"><%out.print(items.get (itemIndex).getName ());%></a>
+						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%out.print (items.get (itemIndex).getID ());%>"><%out.print(items.get (itemIndex).getName ());%></a>
 						<p style="font-size: 0.7em;"><%out.print(items.get (itemIndex).getModel ());%></p>
 						</div>
 						<div class="panel-body">
@@ -96,6 +95,8 @@ body {
 							<form action = "/PCBulid/AdminRemoveItemServlet" method = "post">
 								<input type="hidden" name="removeIndex" value="<%out.print(itemIndex);%>">
 								<input type="hidden" name="removeID" value="<%out.print(items.get (itemIndex).getID ());%>">
+								<input type="hidden" name="categoryName" value="<%out.print(items.get (itemIndex).getCategoryName ());%>">
+								<input type="hidden" name="imagePath" value="<%out.print(items.get (itemIndex).getImagePath ());%>">
 								<input type="submit" value="Remove" class="btn pull-right"/>
 							</form>
 							<h5>$<%items.get (itemIndex).getPrice ();%></h5>
@@ -106,7 +107,7 @@ body {
 			<hr>
 		<% } %>
 		
-		<a type="button" class="btn btn-info" href = "addItem.jsp">Add Item</a> <br />
+		<a type="button" class="btn btn-info" href = "addItem.jsp">Add Item</a> <br /> <br />
 		<a type="button" class="btn btn-info" href = "index.jsp">Home Page</a>
 	</div>
 

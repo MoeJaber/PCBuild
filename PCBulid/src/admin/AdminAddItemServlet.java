@@ -19,7 +19,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +39,7 @@ import dbconstants.DBConstants;
  * @see HttpServlet
  * @see Item
  */
+@MultipartConfig
 public class AdminAddItemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -55,12 +58,8 @@ public class AdminAddItemServlet extends HttpServlet
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession ();
-
-		//Check session attributes and request parameters for null
-		if (session.getAttribute ("items") == null || request.getParameter ("categoryName") == null || request.getParameter ("itemName") == null || request.getParameter ("itemModel") == null || request.getParameter ("itemImagePath") == null || request.getParameter ("itemPrice") == null || request.getAttribute ("image") == null)
-			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
 		
-		if (request.getParameter ("itemBrand") == null || request.getParameter ("itemSeries") == null || request.getParameter ("itemModelNumber") == null || request.getParameter ("itemType") == null || request.getParameter ("itemCapacity") == null || request.getAttribute ("itemInterface") == null || request.getAttribute ("itemDescription") == null || request.getParameter ("imageName") == null)
+		if (session.getAttribute ("items") == null || request.getParameter ("categoryName") == null || request.getParameter ("itemName") == null || request.getParameter ("itemModel") == null || request.getParameter ("itemBrand") == null || request.getParameter ("itemSeries") == null || request.getParameter ("itemModelNumber") == null || request.getParameter ("itemType") == null || request.getParameter ("itemCapacity") == null || request.getParameter ("itemInterface") == null || request.getParameter ("itemDescription") == null || request.getParameter ("itemPrice") == null)
 			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
 		
 		//Session attributes and request parameters
@@ -77,13 +76,6 @@ public class AdminAddItemServlet extends HttpServlet
 		final String itemInterface = request.getParameter ("itemInterface");
 		final String itemDescription = request.getParameter ("itemDescription");
 		
-		//Image file parameters
-		final String IMAGE_PATH = "/PCBulid/public/img";
-		final Part image = (Part) request.getAttribute ("image");
-		final File uploadLocation = new File (IMAGE_PATH);
-		final String imageName = image.getName ();
-		final String itemImagePath = IMAGE_PATH + "/" + imageName;
-		
 		//Parse price String to double
 		try 
 		{
@@ -94,6 +86,26 @@ public class AdminAddItemServlet extends HttpServlet
 			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
 		}
 
+		String itemImagePath = "No Image";
+		
+		if (request.getPart ("image") != null && request.getPart ("image").getSize () > 0)
+		{
+			//Image file parameters
+			final Part image = request.getPart ("image");
+			
+			itemImagePath = "/PCBulid/public/img/" + image.getName ();
+			final File uploadLocation = new File (itemImagePath);
+			
+			//Create new file with image name
+			File newImage = new File (uploadLocation, itemImagePath);
+			
+			//Copy file
+			try (InputStream imageContent = image.getInputStream ())
+			{
+			    Files.copy (imageContent, newImage.toPath ());
+			}
+		}
+				
 		try 
 		{
 			Class.forName (DBConstants.DRIVER).newInstance ();
@@ -107,7 +119,7 @@ public class AdminAddItemServlet extends HttpServlet
 			switch (categoryName)
 			{
 				case "Cases":
-					insert = connection.prepareStatement ("insert into pc_cases (cases_model, cases_name, cases_imagepath, cases_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into cases (casesModel, casesName, casesImagePath, casesPrice) values (?, ?, ?, ?)");
 					
 					//Set parameters
 					insert.setString (1, itemModel);
@@ -118,12 +130,12 @@ public class AdminAddItemServlet extends HttpServlet
 					insert.execute ();
 					
 					//Get id
-					select = connection.prepareStatement ("select * from pc_cases order by cases_ID limit 1");
-					reader = select.executeQuery (); 
+					select = connection.prepareStatement ("select max(casesID) as casesID from cases");
+					reader = select.executeQuery ();
 					reader.next ();
 					
 					//Add item to Admin page item list
-					items.add (new Item (reader.getLong ("cases_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					items.add (new Item (reader.getLong ("casesID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
 					
 					select.close ();
 					insert.close ();
@@ -131,7 +143,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "CPU":
-					insert = connection.prepareStatement ("insert into pc_cpu (cpu_model, cpu_name, cpu_imagepath, cpu_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into cpu (cpuModel, cpuName, cpuImagePath, cpuPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -140,11 +152,11 @@ public class AdminAddItemServlet extends HttpServlet
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_cpu order by cpu_ID limit 1");
+					select = connection.prepareStatement ("select max(cpuID) as cpuID from cpu");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("cpu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					items.add (new Item (reader.getLong ("cpuID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
 					
 					select.close ();
 					insert.close ();
@@ -152,7 +164,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "GPU":
-					insert = connection.prepareStatement ("insert into pc_gpu (gpu_model, gpu_name, gpu_imagepath, cases_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into gpu (gpuModel, gpuName, gpuImagePath, gpuPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -161,11 +173,11 @@ public class AdminAddItemServlet extends HttpServlet
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_gpu order by gpu_ID limit 1");
+					select = connection.prepareStatement ("select max(gpu_ID) as gpuID from gpu");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("gpu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));	
+					items.add (new Item (reader.getLong ("gpuID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));	
 					
 					select.close ();
 					insert.close ();
@@ -173,7 +185,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "Harddrive":
-					insert = connection.prepareStatement ("insert into pc_harddrives (harddrive_model, harddrive_name, harddrive_imagepath, harddrive_price, harddrive_brand, harddrive_series, harddrive_modelnum, harddrive_type, harddrive_capacity, harddrive_interface, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into hdd (hddModel, hddName, hddImagePath, hddPrice, hddBrand, hddSeries, hddModelNumber, hddCapacity, hddInterface, hddDescription) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -189,11 +201,11 @@ public class AdminAddItemServlet extends HttpServlet
 
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_harddrives order by harddrive_ID limit 1");
+					select = connection.prepareStatement ("select max(hddID) as hddID from harddrive");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("harddrive_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("hddID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
 					
 					select.close ();
 					insert.close ();
@@ -201,7 +213,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "Headset":
-					insert = connection.prepareStatement ("insert into pc_headset (headset_model, headset_name, headset_imagepath, headset_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into headset (headsetModel, headsetName, headsetImagePath, headsetPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -210,11 +222,11 @@ public class AdminAddItemServlet extends HttpServlet
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_headset order by headset_ID limit 1");
+					select = connection.prepareStatement ("select max(headsetID) as headsetID from headset");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("headset_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));		
+					items.add (new Item (reader.getLong ("headsetID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));		
 					
 					select.close ();
 					insert.close ();
@@ -222,7 +234,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "Memory":
-					insert = connection.prepareStatement ("insert into pc_memory (memory_model, memory_name, memory_imagepath, memory_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into memory (memoryModel, memoryName, memoryImagePath, memoryPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -231,11 +243,11 @@ public class AdminAddItemServlet extends HttpServlet
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_memory order by memory_ID limit 1");
+					select = connection.prepareStatement ("select max(memoryID) as memoryID from memory");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("memory_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));			
+					items.add (new Item (reader.getLong ("memoryID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));			
 					
 					select.close ();
 					insert.close ();
@@ -243,7 +255,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "Motherboard":
-					insert = connection.prepareStatement ("insert into pc_motherboard (motherboard_model, motherboard_name, motherboard_imagepath, motherboard_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into motherboard (motherboardModel, motherboardName, motherboardImagePath, motherboardPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -252,11 +264,11 @@ public class AdminAddItemServlet extends HttpServlet
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_motherboard order by motherboard_ID limit 1");
+					select = connection.prepareStatement ("select max(motherboardID) as motherboardID from motherboard");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("motherboard_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
+					items.add (new Item (reader.getLong ("motherboardID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));				
 					
 					select.close ();
 					insert.close ();
@@ -264,7 +276,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "PSU":
-					insert = connection.prepareStatement ("insert into pc_psu (psu_model, psu_name, psu_imagepath, psu_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into psu (psuModel, psuName, psuImagePath, psuPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -273,11 +285,11 @@ public class AdminAddItemServlet extends HttpServlet
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select * from pc_psu order by psu_ID limit 1");
+					select = connection.prepareStatement ("select max(psuID) as psuID from psu");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("psu_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					items.add (new Item (reader.getLong ("psuID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
 					
 					select.close ();
 					insert.close ();
@@ -285,7 +297,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "SSD":
-					insert = connection.prepareStatement ("insert into pc_ssd (ssd_model, ssd_name, ssd_imagepath, ssd_price) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into ssd (ssdModel, ssdName, ssdImagePath, ssdPrice) values (?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -295,11 +307,11 @@ public class AdminAddItemServlet extends HttpServlet
 					insert.execute ();
 					insert.close ();
 					
-					select = connection.prepareStatement ("select * from pc_ssd order by ssd_ID limit 1");
+					select = connection.prepareStatement ("select max(ssdID) as ssdID from ssd");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
-					items.add (new Item (reader.getLong ("ssd_ID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
+					items.add (new Item (reader.getLong ("ssdID"), itemName, categoryName, itemModel, itemImagePath, itemPrice));
 					
 					select.close ();
 					reader.close ();
@@ -307,14 +319,6 @@ public class AdminAddItemServlet extends HttpServlet
 			}
 			
 			connection.close ();
-			//Create new file with image name
-			File newImage = new File (uploadLocation, "ImageName");
-			
-			//Copy file
-			try (InputStream imageContent = image.getInputStream ())
-			{
-			    Files.copy (imageContent, newImage.toPath ());
-			}
 			
 			//Redirect back to admin page
 			request.getRequestDispatcher ("admin.jsp").forward (request, response);

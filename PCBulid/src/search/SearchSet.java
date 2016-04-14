@@ -86,7 +86,7 @@ public class SearchSet
         ResultSet results = null;
         
         //Cases
-        select = dbConnection.prepareStatement ("Select * from pc_cases");
+        select = dbConnection.prepareStatement ("Select * from cases");
         results = select.executeQuery ();
         
         //Add all results as a document
@@ -94,11 +94,11 @@ public class SearchSet
         {
         	//TextField is parsed and tokenized (searchable), StringField is a solid string (exact matches)
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("cases_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("cases_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("cases_name"), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("cases_imagepath"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("cases_price")), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("casesID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("casesModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("casesName"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("casesImagePath"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("casesPrice")), Field.Store.YES));
         	
         	//Add document
         	try 
@@ -115,17 +115,17 @@ public class SearchSet
         results.close ();
         
         //CPUs
-        select = dbConnection.prepareStatement ("Select * from pc_cpu");
+        select = dbConnection.prepareStatement ("Select * from cpu");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("cpu_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("cpu_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("cpu_name"), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("cpu_imagepath"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("cpu_price")), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("cpuID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("cpuModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("cpuName"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("cpuImagePath"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("cpuPrice")), Field.Store.YES));
         	
         	try 
         	{
@@ -141,17 +141,17 @@ public class SearchSet
         results.close ();
         
         //GPUs
-        select = dbConnection.prepareStatement ("Select * from pc_gpu");
+        select = dbConnection.prepareStatement ("Select * from gpu");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("gpu_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("gpu_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("gpu_name"), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("gpu_imagepath"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("gpu_price")), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("gpuID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("gpuModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("gpuName"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("gpuImagePath"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("gpuPrice")), Field.Store.YES));
         	
         	try 
         	{
@@ -167,23 +167,22 @@ public class SearchSet
         results.close ();
         
         //HDD
-        select = dbConnection.prepareStatement ("Select * from pc_harddrive");
+        select = dbConnection.prepareStatement ("Select * from hdd");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("harddrive_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("harddrive_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("harddrive_name"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("harddrive_price")), Field.Store.YES));
-        	record.add (new TextField ("brand", results.getString ("harddrive_brand"), Field.Store.YES));
-        	record.add (new TextField ("series", results.getString ("harddrive_series"), Field.Store.YES));
-        	record.add (new TextField ("modelnum", results.getString ("harddrive_modelnum"), Field.Store.YES));
-        	record.add (new TextField ("type", results.getString ("harddrive_type"), Field.Store.YES));
-        	record.add (new TextField ("capacity", results.getString ("harddrive_capacity"), Field.Store.YES));
-        	record.add (new TextField ("interface", results.getString ("harddrive_interface"), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("harddrive_imagepath"), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("hddID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("hddModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("hddName"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("hddPrice")), Field.Store.YES));
+        	record.add (new TextField ("brand", results.getString ("hddBrand"), Field.Store.YES));
+        	record.add (new TextField ("series", results.getString ("hddSerues"), Field.Store.YES));
+        	record.add (new TextField ("modelnum", results.getString ("hddModelNumber"), Field.Store.YES));
+        	record.add (new TextField ("capacity", results.getString ("hddCapacity"), Field.Store.YES));
+        	record.add (new TextField ("interface", results.getString ("hddInterface"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("hddImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -199,17 +198,17 @@ public class SearchSet
         results.close ();
         
         //Headset
-        select = dbConnection.prepareStatement ("Select * from pc_headset");
+        select = dbConnection.prepareStatement ("Select * from headset");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("headset_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("headset_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("headset_name"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("headset_price")), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("headset_imagepath"), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("headsetID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("headsetModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("headsetName"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("headsetPrice")), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("headsetImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -225,17 +224,17 @@ public class SearchSet
         results.close ();
         
         //Memory
-        select = dbConnection.prepareStatement ("Select * from pc_memory");
+        select = dbConnection.prepareStatement ("Select * from memory");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("memory_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("memory_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("memory_name"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("memory_price")), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("memory_imagepath"), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("memoryID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("memoryModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("memoryName"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("memoryPrice")), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("memoryImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -251,17 +250,17 @@ public class SearchSet
         results.close ();
         
         //Motherboard
-        select = dbConnection.prepareStatement ("Select * from pc_motherboard");
+        select = dbConnection.prepareStatement ("Select * from motherboard");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("motherboard_ID"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("motherboard_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("motherboard_name"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("motherboard_price")), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("motherboard_imagepath"), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("motherboardID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("motherboardModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("motherboardName"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("motherboardPrice")), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("motherboardImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -277,17 +276,17 @@ public class SearchSet
         results.close ();
         
         //PSU
-        select = dbConnection.prepareStatement ("Select * from pc_psu");
+        select = dbConnection.prepareStatement ("Select * from psu");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("psu_id"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("psu_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("psu_name"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("psu_price")), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("psu_imagepath"), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("psuID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("psuModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("psuName"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("psuPrice")), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("psuImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -303,17 +302,17 @@ public class SearchSet
         results.close ();
         
         //SSD
-        select = dbConnection.prepareStatement ("Select * from pc_ssd");
+        select = dbConnection.prepareStatement ("Select * from ssd");
         results = select.executeQuery ();
         
         while (results.next ())
         {
         	Document record = new Document ();
-        	record.add (new IntField ("id", results.getInt ("ssd_id"), Field.Store.YES));
-        	record.add (new TextField ("model", results.getString ("ssd_model"), Field.Store.YES));
-        	record.add (new TextField ("name", results.getString ("ssd_name"), Field.Store.YES));
-        	record.add (new TextField ("price", Double.toString (results.getDouble ("ssd_price")), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("ssd_imagepath"), Field.Store.YES));
+        	record.add (new IntField ("id", results.getInt ("ssdID"), Field.Store.YES));
+        	record.add (new TextField ("model", results.getString ("ssdModel"), Field.Store.YES));
+        	record.add (new TextField ("name", results.getString ("ssdName"), Field.Store.YES));
+        	record.add (new TextField ("price", Double.toString (results.getDouble ("ssdPrice")), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("ssdImagePath"), Field.Store.YES));
         	
         	try 
         	{

@@ -81,15 +81,15 @@ public class AdminRemoveItemServlet extends HttpServlet
 			switch (categoryName)
 			{
 				case "Cases":
-					remove = connection.prepareStatement ("delete from pc_cases where cases_ID = ?");
+					remove = connection.prepareStatement ("delete from cases where cases_ID = ?");
 				break;
 	
 				case "CPU":
-					remove = connection.prepareStatement ("delete from pc_cpu where cpu_ID = ?");
+					remove = connection.prepareStatement ("delete from cpu where cpu_ID = ?");
 				break;
 	
 				case "GPU":
-					remove = connection.prepareStatement ("delete from pc_gpu where gpu_ID = ?");
+					remove = connection.prepareStatement ("delete from gpu where gpu_ID = ?");
 				break;
 	
 				case "Harddrive":
@@ -97,23 +97,23 @@ public class AdminRemoveItemServlet extends HttpServlet
 				break;
 	
 				case "Headset":
-					remove = connection.prepareStatement ("delete from pc_headset where headset_ID = ?");
+					remove = connection.prepareStatement ("delete from headset where headset_ID = ?");
 				break;
 	
 				case "Memory":
-					remove = connection.prepareStatement ("delete from pc_memory where memory_ID = ?");
+					remove = connection.prepareStatement ("delete from memory where memory_ID = ?");
 				break;
 	
 				case "Motherboard":
-					remove = connection.prepareStatement ("delete from pc_motherboard where motherboard_ID = ?");
+					remove = connection.prepareStatement ("delete from motherboard where motherboard_ID = ?");
 				break;
 	
 				case "PSU":
-					remove = connection.prepareStatement ("delete from pc_psu where psu_ID = ?");
+					remove = connection.prepareStatement ("delete from psu where psu_ID = ?");
 				break;
 	
 				case "SSD":
-					remove = connection.prepareStatement ("delete from pc_ssd where ssd_ID = ?");
+					remove = connection.prepareStatement ("delete from ssd where ssd_ID = ?");
 				break;
 			}
 			

@@ -64,7 +64,7 @@ ResultSet resultSet = null;
 <%
 try{ 
 connection = DriverManager.getConnection(DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
-statement=connection.prepareStatement("SELECT * FROM pc_harddrive where harddrive_ID = ?");
+statement=connection.prepareStatement("SELECT * FROM hdd where hddID = ?");
 
 
 long itemId = 0;

@@ -54,8 +54,8 @@ public class RegistrationServlet extends HttpServlet
 	@Override
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		if (request.getParameter ("first_name") == null || request.getParameter ("last_name") == null || request.getParameter ("email") == null || request.getParameter ("password") == null || request.getParameter ("password_confirm") == null)
-			return;
+		if (request.getParameter ("first_name") == null || request.getParameter ("last_name") == null || request.getParameter ("email") == null || request.getParameter ("password") == null || request.getParameter ("password_confirmation") == null)
+			request.getRequestDispatcher ("index.jsp").forward (request, response);
 		
 		final String firstName = request.getParameter ("first_name");
 		final String lastName = request.getParameter ("last_name");
@@ -71,7 +71,7 @@ public class RegistrationServlet extends HttpServlet
 		
 		//Check if user is already logged in
 		if (session.getAttribute ("user") != null)
-        	return;
+			request.getRequestDispatcher ("index.jsp").forward (request, response);
 		
 		try
         {
@@ -100,18 +100,18 @@ public class RegistrationServlet extends HttpServlet
             insert.execute ();  
             insert.close ();
             
-            PreparedStatement selectID = connection.prepareStatement ("Select max(id) from users");
+            PreparedStatement selectID = connection.prepareStatement ("Select max(id) as id from users");
             ResultSet result = selectID.executeQuery ();
+            result.next ();
             long id = result.getLong ("id");
             selectID.close ();
             result.close ();
+            connection.close ();
             
             session.setAttribute ("user", new User (id, email, firstName, lastName, false));
             
             RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
-    		dispatcher.include (request, response);   
-    		
-    		connection.close ();
+    		dispatcher.forward (request, response);
         }
 		catch (SQLException e)
         {

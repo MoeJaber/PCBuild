@@ -121,7 +121,7 @@ ResultSet resultSet = null;
 try{ 
 connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 statement=connection.createStatement();
-String sql ="SELECT * FROM pc_cases";
+String sql ="SELECT * FROM cases";
 
 resultSet = statement.executeQuery(sql);
 

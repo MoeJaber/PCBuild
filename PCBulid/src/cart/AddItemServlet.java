@@ -67,93 +67,93 @@ public class AddItemServlet extends HttpServlet
 			switch (categoryName)
 			{
 				case "Cases":
-					select = connection.prepareStatement ("Select * from pc_cases where cases_ID = ?");
+					select = connection.prepareStatement ("Select * from cases where casesID = ?");
 					select.setInt (1, itemID);
 
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cases_ID"), item.getString ("cases_name"), categoryName, item.getString ("cases_model"), item.getString ("cases_imagepath"), item.getDouble ("cases_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("casesID"), item.getString ("casesName"), categoryName, item.getString ("casesModel"), item.getString ("casesImagePath"), item.getDouble ("casesPrice")));
 				break;
 				
 				case "CPU":
-					select = connection.prepareStatement ("Select * from pc_cpu where cpu_ID = ?");
+					select = connection.prepareStatement ("Select * from cpu where cpuID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cpu_ID"), item.getString ("cpu_name"), categoryName, item.getString ("cpu_model"), item.getString ("cpu_imagepath"), item.getDouble ("cpu_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("cpuID"), item.getString ("cpuName"), categoryName, item.getString ("cpuModel"), item.getString ("cpuImagePath"), item.getDouble ("cpuPrice")));
 				break;
 					
 				case "GPU":
-					select = connection.prepareStatement ("Select * from pc_gpu where gpu_ID = ?");
+					select = connection.prepareStatement ("Select * from gpu where gpuID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-				((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("gpu_ID"), item.getString ("gpu_name"), categoryName, item.getString ("gpu_model"), item.getString ("gpu_imagepath"), item.getDouble ("gpu_price")));
+				((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("gpuID"), item.getString ("gpuName"), categoryName, item.getString ("gpuModel"), item.getString ("gpuImagePath"), item.getDouble ("gpuPrice")));
 				break;
 					
 				case "Harddrive":
-					select = connection.prepareStatement ("Select * from pc_harddrive where harddrive_ID = ?");
+					select = connection.prepareStatement ("Select * from hdd where hddID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("harddrive_ID"), item.getString ("harddrive_name"), categoryName, item.getString ("harddrive_model"), item.getString ("harddrive_imagepath"), item.getDouble ("harddrive_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("hddID"), item.getString ("hddName"), categoryName, item.getString ("hddModel"), item.getString ("hddImagePath"), item.getDouble ("hddPrice")));
 				break;
 					
 				case "Headset":
-					select = connection.prepareStatement ("Select * from pc_headset where headset_ID = ?");
+					select = connection.prepareStatement ("Select * from headset where headsetID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("headset_ID"), item.getString ("headset_name"), categoryName, item.getString ("headset_model"), item.getString ("headset_imagepath"), item.getDouble ("headset_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("headsetID"), item.getString ("headsetName"), categoryName, item.getString ("headsetModel"), item.getString ("headsetImagePath"), item.getDouble ("headsetPrice")));
 				break;
 					
 				case "Memory":
-					select = connection.prepareStatement ("Select * from pc_memory where memory_ID = ?");
+					select = connection.prepareStatement ("Select * from memory where memoryID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("memory_ID"), item.getString ("memory_name"), categoryName, item.getString ("memory_model"), item.getString ("memory_imagepath"), item.getDouble ("memory_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("memoryID"), item.getString ("memoryName"), categoryName, item.getString ("memoryModel"), item.getString ("memoryImagePath"), item.getDouble ("memoryPrice")));
 				break;
 					
 				case "Motherboard":
-					select = connection.prepareStatement ("Select * from pc_motherboard where motherboard_ID = ?");
+					select = connection.prepareStatement ("Select * from motherboard where motherboardID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("motherboard_ID"), item.getString ("motherboard_name"), categoryName, item.getString ("motherboard_model"), item.getString ("motherboard_imagepath"), item.getDouble ("motherboard_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("motherboardID"), item.getString ("motherboardName"), categoryName, item.getString ("motherboardModel"), item.getString ("motherboardImagePath"), item.getDouble ("motherboardPrice")));
 				break;
 				
 				case "PSU":
-					select = connection.prepareStatement ("Select * from pc_psu where psu_ID = ?");
+					select = connection.prepareStatement ("Select * from psu where psuID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("psu_ID"), item.getString ("psu_name"), categoryName, item.getString ("psu_model"), item.getString ("psu_imagepath"), item.getDouble ("psu_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("psuID"), item.getString ("psuName"), categoryName, item.getString ("psuModel"), item.getString ("psuImagePath"), item.getDouble ("psuPrice")));
 				break;
 					
 				case "SSD":
-					select = connection.prepareStatement ("Select * from pc_ssd where ssd_ID = ?");
+					select = connection.prepareStatement ("Select * from ssd where ssdID = ?");
 					select.setInt (1, itemID);
 					
 					item = select.executeQuery ();
 					item.next ();
 					
-					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("ssd_ID"), item.getString ("ssd_name"), categoryName, item.getString ("ssd_model"), item.getString ("ssd_imagepath"), item.getDouble ("ssd_price")));
+					((Cart) session.getAttribute ("cart")).addItem (new Item (item.getLong ("ssdID"), item.getString ("ssdName"), categoryName, item.getString ("ssdModel"), item.getString ("ssdImagePath"), item.getDouble ("ssdPrice")));
 				break;
 			}
 			

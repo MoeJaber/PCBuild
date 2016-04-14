@@ -63,7 +63,7 @@ ResultSet resultSet = null;
 try{ 
 connection = DriverManager.getConnection(DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
 statement=connection.createStatement();
-String sql ="SELECT * FROM pc_harddrive";
+String sql ="SELECT * FROM hdd";
 
 resultSet = statement.executeQuery(sql);
 

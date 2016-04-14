@@ -76,7 +76,7 @@ body {
 				try {
 					connection = DriverManager.getConnection(connectionUrl + dbName, userId, password);
 					statement = connection.createStatement();
-					String sql = "SELECT * FROM pc_gpu";
+					String sql = "SELECT * FROM gpu";
 
 					resultSet = statement.executeQuery(sql);
 

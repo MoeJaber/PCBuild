@@ -76,7 +76,7 @@ body {
 				try {
 					connection = DriverManager.getConnection(connectionUrl + dbName, userId, password);
 					statement = connection.createStatement();
-					String sql = "SELECT * FROM pc_ssd";
+					String sql = "SELECT * FROM ssd";
 
 					resultSet = statement.executeQuery(sql);
 

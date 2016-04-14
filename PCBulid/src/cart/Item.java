@@ -10,6 +10,7 @@
 package cart;
 
 import java.security.InvalidParameterException;
+import java.util.Objects;
 
 /**
  * A class that represents an item in the store, more detailed information is not stored by these objects but is retreived from the database by the specs.jsp page
@@ -41,7 +42,7 @@ public class Item
 	 * The price of the item
 	 */
 	private double price = 0.0d;
-	
+
 	/**
 	 * Get the database id
 	 * @return The id as a long int
@@ -130,6 +131,13 @@ public class Item
 	public boolean equals (Object obj)
 	{
 		Item equal = (Item) obj;
+		
+		if (equal == null)
+			return false;
+		
+		//Reference equals
+		if (Objects.equals(this, equal))
+			return true;
 		
 		return (id == equal.id && name.equals (equal.name) && categoryName.equals (equal.categoryName) && model.equals (equal.model) && imagePath.equals (imagePath) && price == price);
 	}
