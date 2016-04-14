@@ -40,14 +40,13 @@ body{
 	<br>
 	<div class="container">
 <h2><a href = "../../index.jsp">Home</a> >> <a href = "../computerhardware.jsp">Computer Hardware</a> >> <a href = "harddrives.jsp">Harddrives</a></h2>
-<p>Showing 1 items in Harddrives</p>
 <hr>
 <br>
 <div class="row">
 
  <%
  if (request.getParameter ("itemId") == null)
-		return;
+	 response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
 
 try {
 Class.forName(DBConstants.DRIVER);
@@ -75,7 +74,7 @@ try
 }
 catch (NumberFormatException format)
 {
-	format.printStackTrace ();
+	response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
 }
 
 statement.setLong (1, itemId);
@@ -87,21 +86,9 @@ while(resultSet.next()){
 
 
  <div class="col-sm-6">
-		    <div class="panel panel-danger" style = "height: 30.5em;">
-		      <div class="panel-heading"><%=resultSet.getString("harddrive_name") %><p style = "font-size: 0.7em;"><%=resultSet.getString("harddrive_model") %></p></div>
-		      <div class="preview_img" style="min-width:200px;min-height:100px;padding:3px;">
-				<a href="javascript:popupWindow('/popup_image.php?pID=077305','750','100','100','no','yes')"> <img src="<%=resultSet.getString("harddrive_imagepath")%>" border="0"  width="200" height="200" vspace="5" hspace="5" border="0"  name="imgShow" class="preview_item"> </a>
-				<noscript>
-				<a href="/popup_image.php?pID=077305"><img src="http://img.canadacomputers.com/Products/200x200/077/077305/82308.jpg" border="0" width="200" height="200" hspace="5" vspace="5" name="imgShow" class="preview_item"></a></noscript>
-				 <div class="prod_thumb">
-        <ul >
-        	<li><a href="javascript:popupWindow('/popup_image.php?pID=077305','750','100','100','no','yes')"> <img src="<%=resultSet.getString("harddrive_imagepath")%>" width="40" height="40" border="0" onMouseOver="document.imgShow.src='<%=resultSet.getString("harddrive_imagepath")%>';keepRatio('.preview_item');"> </a></li>
-              <li><a href="javascript:popupWindow('/popup_image.php?pID=077305','750','100','100','no','yes')"> <img src="<%=resultSet.getString("harddrive_path2") %>" width="40" height="40" border="0" onMouseOver="document.imgShow.src='<%=resultSet.getString("harddrive_path2") %>';keepRatio('.preview_item');"> </a></li>
-         </ul> 
-		 </div>
-				</div>
+		    <img src = "<%= resultSet.getString ("hddImagePath") %>" alt = "No Image Uploaded"></img>
 		     
-		      <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p><button type="button" class="btn pull-right">Add to cart</button><h5>$<%=resultSet.getString("harddrive_price") %></h5></div>
+		      <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p><h5>$<%=resultSet.getString("hddPrice") %></h5></div>
 		    </div>
 		  </div>
 
@@ -125,25 +112,19 @@ while(resultSet.next()){
 					<td width="25%" valign="top" class="specification" >
                     <tr>
                     <td width="25%" align="left" valign="top" class="specification">Brand</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("harddrive_brand") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddBrand") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Model</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("harddrive_modelnum") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddModelNumber") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Series</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp; <%=resultSet.getString("harddrive_series") %></td></tr>
-                    
-                    <tr><td width="25%" align="left" valign="top" class="specification">Type</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("harddrive_type") %></td></tr>
-                    
-                    <tr><td width="25%" align="left" valign="top" class="specification">Form</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("harddrive_form") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp; <%=resultSet.getString("hddSeries") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Capacity</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("harddrive_capacity") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddCapacity") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Interface</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("harddrive_interface") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddInterface") %></td></tr>
                     
 					 </table>
 					</td>
@@ -153,6 +134,11 @@ while(resultSet.next()){
 				</tr>
 			 </table>
 
+    <form action = "/PCBulid/AddItemServlet" method = "POST">
+    	<input type = "hidden" value = "<%=resultSet.getLong("hddID") %>" name = "itemID">
+    	<input type = "hidden" value = "Harddrive" name = "categoryName">
+    	<input type="submit" class="btn submit" value = "Add to Cart">
+    </form>
 		      </div>
 		      
 		    </div>
@@ -160,7 +146,7 @@ while(resultSet.next()){
 		    <div class="col-sm-6">
 		    <div class="panel panel-danger" style = "height: 13.5em;">
 		      <div class="panel-heading"><p style = "font-size: 0.7em;">Overview</p></div>
-		      <div class="panel-body"><p><%=resultSet.getString("description") %></p></div>	
+		      <div class="panel-body"><p><%=resultSet.getString("hddDescription") %></p></div>	
 		    </div>
 		  </div>
 

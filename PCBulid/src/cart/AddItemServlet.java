@@ -47,14 +47,17 @@ public class AddItemServlet extends HttpServlet
 	@Override
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		if (request.getParameter ("categoryName") == null || request.getParameter ("itemID") == null)
+			response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
+		
 		HttpSession session = request.getSession ();
 		
-		if (session.getAttribute ("cart") == null || request.getAttribute ("category") == null || request.getAttribute ("id") == null)
-			return;
-		
-		final String categoryName = (String) request.getAttribute ("category");
-		final int itemID = (int) request.getAttribute ("id");
+		final String categoryName = request.getParameter ("categoryName");
+		final int itemID = Integer.parseInt (request.getParameter ("itemID"));
         
+		if (session.getAttribute ("cart") == null)
+			session.setAttribute("cart", new Cart ());
+		
     	try 
     	{
     		Class.forName (DBConstants.DRIVER).newInstance ();
@@ -161,7 +164,7 @@ public class AddItemServlet extends HttpServlet
 			connection.close ();
 			item.close ();
 			
-			request.getRequestDispatcher ("cart.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "cart.jsp");
 		} 
     	catch (InstantiationException e) 
     	{
@@ -179,5 +182,21 @@ public class AddItemServlet extends HttpServlet
     	{
 			e.printStackTrace ();
 		}  
+	}
+	
+	/**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
 	}
 }

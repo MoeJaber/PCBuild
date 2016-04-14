@@ -17,7 +17,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;  
 import javax.servlet.ServletException;  
 import javax.servlet.http.HttpServlet;  
 import javax.servlet.http.HttpServletRequest;  
@@ -80,15 +79,13 @@ public class LoginServlet extends HttpServlet
         	
 	        	//System.out.println ("User Logged In: " + ((User) session.getAttribute ("user")).toString ());
 	        	session.setAttribute("warning", null);
-	        	RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
-	        	dispatcher.forward (request, response);    
+	        	response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
         	}    
         	//Incorrect username/password shitty markup right now
         	else
         	{    
         		session.setAttribute("warning","Invalid username or password.");
-        		RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
-        		dispatcher.include (request, response);    
+        		response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
         	}   
         	results.close();
         	connection.close ();
@@ -110,5 +107,21 @@ public class LoginServlet extends HttpServlet
         {
 			e.printStackTrace();
 		}
-    }    
+    }
+    
+    /**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
+	}
 }   

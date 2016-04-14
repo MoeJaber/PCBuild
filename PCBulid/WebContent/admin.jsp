@@ -2,7 +2,7 @@
 <%@ page import = "cart.Item" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "user.User" %>
-
+<% %>
 <!-- 
 	Admin home page, displays all items and allows removing them.
 	
@@ -66,7 +66,7 @@ body {
 			<a href="index.jsp">Home</a> >> <a href="admin.jsp">Admin Home</a>
 		</h2>
 		<% if (session.getAttribute ("user") == null || !((User) session.getAttribute ("user")).getAdmin ()) 
-		   		request.getRequestDispatcher ("index.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
 		%>
 		
 		<jsp:include page = "/AdminListItemsServlet"></jsp:include>
@@ -89,7 +89,7 @@ body {
 						</div>
 						<div class="panel-body">
 							<img
-								src="<%out.print(items.get (itemIndex).getImagePath ().substring (6));%>" style = "height: 6em;" />
+								src="<%out.print(items.get (itemIndex).getImagePath ());%>" style = "height: 6em;" />
 						</div>
 						<div class="panel-footer" style="height: 5.35em;">
 							<form action = "/PCBulid/AdminRemoveItemServlet" method = "post">
@@ -99,7 +99,7 @@ body {
 								<input type="hidden" name="imagePath" value="<%out.print(items.get (itemIndex).getImagePath ());%>">
 								<input type="submit" value="Remove" class="btn pull-right"/>
 							</form>
-							<h5>$<%items.get (itemIndex).getPrice ();%></h5>
+							<h5>$<%out.print (items.get (itemIndex).getPrice ());%></h5>
 						</div>
 					</div>
 				</div>

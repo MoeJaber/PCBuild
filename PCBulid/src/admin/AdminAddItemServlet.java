@@ -60,7 +60,7 @@ public class AdminAddItemServlet extends HttpServlet
 		HttpSession session = request.getSession ();
 		
 		if (session.getAttribute ("items") == null || request.getParameter ("categoryName") == null || request.getParameter ("itemName") == null || request.getParameter ("itemModel") == null || request.getParameter ("itemBrand") == null || request.getParameter ("itemSeries") == null || request.getParameter ("itemModelNumber") == null || request.getParameter ("itemType") == null || request.getParameter ("itemCapacity") == null || request.getParameter ("itemInterface") == null || request.getParameter ("itemDescription") == null || request.getParameter ("itemPrice") == null)
-			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "addItem.jsp");
 		
 		//Session attributes and request parameters
 		final ArrayList <Item> items = (ArrayList <Item>) session.getAttribute ("items");
@@ -71,7 +71,6 @@ public class AdminAddItemServlet extends HttpServlet
 		final String itemBrand = request.getParameter ("itemBrand");
 		final String itemSeries = request.getParameter ("itemSeries");
 		final String itemModelNumber = request.getParameter ("itemModelNumber");
-		final String itemType = request.getParameter ("itemType");
 		final String itemCapacity = request.getParameter ("itemCapacity");
 		final String itemInterface = request.getParameter ("itemInterface");
 		final String itemDescription = request.getParameter ("itemDescription");
@@ -83,29 +82,29 @@ public class AdminAddItemServlet extends HttpServlet
 		}
 		catch (NumberFormatException format)
 		{
-			request.getRequestDispatcher ("addItem.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "addItem.jsp");
 		}
 
-		String itemImagePath = "No Image";
+		String itemImagePath = "No Image"; //Default no image
 		
 		if (request.getPart ("image") != null && request.getPart ("image").getSize () > 0)
 		{
 			//Image file parameters
 			final Part image = request.getPart ("image");
 			
-			itemImagePath = "/PCBulid/public/img/" + image.getName ();
-			final File uploadLocation = new File (itemImagePath);
+			//Get upload directory path
+			String appPath = request.getServletContext ().getRealPath ("");
+			itemImagePath = appPath + "public" + File.separator + "img" + File.separator + "Uploaded Images" + File.separator;
 			
-			//Create new file with image name
-			File newImage = new File (uploadLocation, itemImagePath);
+			//Get uploaded file name and remove path from the beginning
+			String imagePath = image.getSubmittedFileName ();
+			String imageName = imagePath.substring (imagePath.lastIndexOf (File.separator) + 1);
 			
-			//Copy file
-			try (InputStream imageContent = image.getInputStream ())
-			{
-			    Files.copy (imageContent, newImage.toPath ());
-			}
+			itemImagePath = itemImagePath.concat (imageName); //Add filename to image path for full path to upload to
+			
+			image.write (itemImagePath); //Write image to path
 		}
-				
+		
 		try 
 		{
 			Class.forName (DBConstants.DRIVER).newInstance ();
@@ -185,7 +184,7 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "Harddrive":
-					insert = connection.prepareStatement ("insert into hdd (hddModel, hddName, hddImagePath, hddPrice, hddBrand, hddSeries, hddModelNumber, hddCapacity, hddInterface, hddDescription) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into hdd (hddModel, hddName, hddImagePath, hddPrice, hddBrand, hddSeries, hddModelNumber, hddCapacity, hddInterface, hddDescription) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
@@ -194,14 +193,13 @@ public class AdminAddItemServlet extends HttpServlet
 					insert.setString (5, itemBrand);
 					insert.setString (6, itemSeries);
 					insert.setString (7, itemModelNumber);
-					insert.setString (8, itemType);
-					insert.setString (9, itemCapacity);
-					insert.setString (10, itemInterface);
-					insert.setString (11, itemDescription);
+					insert.setString (8, itemCapacity);
+					insert.setString (9, itemInterface);
+					insert.setString (10, itemDescription);
 
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select max(hddID) as hddID from harddrive");
+					select = connection.prepareStatement ("select max(hddID) as hddID from hdd");
 					reader = select.executeQuery (); 
 					reader.next ();
 					
@@ -321,11 +319,27 @@ public class AdminAddItemServlet extends HttpServlet
 			connection.close ();
 			
 			//Redirect back to admin page
-			request.getRequestDispatcher ("admin.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "admin.jsp");
 		}
 		catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException exception)
 		{
 			exception.printStackTrace ();
 		}
+	}
+	
+	/**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
 	}
 }

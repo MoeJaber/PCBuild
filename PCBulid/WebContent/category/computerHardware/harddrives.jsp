@@ -41,7 +41,6 @@ body{
 	<br>
 	<div class="container">
 <h2><a href = "../../index.jsp">Home</a> >> <a href = "../computerhardware.jsp">Computer Hardware</a> >> <a href = "harddrives.jsp">Harddrives</a></h2>
-<p>Showing 2 items in Harddrives</p>
 <hr>
 <br>
 <div class="row">
@@ -66,7 +65,7 @@ statement=connection.createStatement();
 String sql ="SELECT * FROM hdd";
 
 resultSet = statement.executeQuery(sql);
-
+ 
 while(resultSet.next()){
 %>
 
@@ -79,15 +78,25 @@ while(resultSet.next()){
 
 	<form action="specs.jsp" method="GET" >
 	
-	<input type="hidden" name="itemId" value="<%=resultSet.getString("harddrive_ID") %>">
+	<input type="hidden" name="itemId" value="<%=resultSet.getString("hddID") %>">
 		  <div class="col-sm-6">
 		    <div class="panel panel-danger" style = "height: 13.5em;">
-		      <div class="panel-heading"><%=resultSet.getString("harddrive_name") %><p style = "font-size: 0.7em;"><%=resultSet.getString("harddrive_model") %></p></div>
-		      <div class="panel-body"><img src="<%=resultSet.getString("harddrive_imagepath")%>"  style = "height: 6em;" alt=""></div>
-		      <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p><input type="submit" value="More Info" class="btn pull-right" /><button type="button" class="btn pull-right">Add to cart</button><h5>$<%=resultSet.getString("harddrive_price") %></h5></div>
+		      <div class="panel-heading"><%=resultSet.getString("hddName") %><p style = "font-size: 0.7em;"><%=resultSet.getString("hddModel") %></p></div>
+		      <div class="panel-body"><img src="<%=resultSet.getString("hddImagePath")%>"  style = "height: 6em;" alt=""></div>
+		   
+		   <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p><input type="submit" value="More Info" class="btn pull-right" /><h5>$<%= resultSet.getDouble("hddPrice") %></h5></div>
+		   </form>
+		 
+    <form action = "/PCBulid/AddItemServlet" method = "POST">
+    	<input type = "hidden" value = "<%=resultSet.getLong("hddID") %>" name = "itemID">
+    	<input type = "hidden" value = "Harddrive" name = "categoryName">
+    	<input type="submit" class="btn submit" value = "Add to Cart">
+    </form>
+    
 		    </div>
 		  </div>
-    </form>
+<br /> <br /> <br /> <br />
+
 		
 <% 
 }

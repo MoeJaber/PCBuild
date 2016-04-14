@@ -48,6 +48,22 @@ public class RemoveItemServlet extends HttpServlet
 		//Remove the item at the index request parameter
 		((Cart) session.getAttribute ("cart")).removeItem (itemIndex);
 		
-		request.getRequestDispatcher ("cart.jsp").forward (request, response);
+		response.sendRedirect (request.getContextPath () + "/" + "cart.jsp");
+	}
+	
+	/**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
 	}
 }

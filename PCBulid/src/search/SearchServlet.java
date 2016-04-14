@@ -74,6 +74,22 @@ public class SearchServlet extends HttpServlet
 		
 		session.setAttribute ("searchResults", results);
 		
-		request.getRequestDispatcher ("search.jsp").forward (request, response);
+		response.sendRedirect (request.getContextPath () + "/" + "search.jsp");
+	}
+	
+	/**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page import = "admin.*" %>
 <%@ page import = "cart.Item" %>
+<%@page import = "user.User" %>
 
 <!-- 
 	Admin add item page, contains a form to add a new item to the store.
@@ -58,6 +59,10 @@ body {
 <body>
   	<jsp:include page="components/navbar.jsp"/>
 
+	<% if (session.getAttribute ("user") == null || !((User) session.getAttribute ("user")).getAdmin ()) 
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
+		%>
+		
 	<!--- Main --->
 	<div class="container">
 		<h2>
@@ -86,14 +91,14 @@ body {
 		    <div class="form-group"><input name = "itemPrice" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Price" required = "required"></div>
 		    <div class="form-group"><input name = "itemBrand" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Brand" required = "required"></div>
 		    <div class="form-group"><input name = "itemSeries" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Series" required = "required"></div>
-		    <div class="form-group"><input name = "itemModelNumber" type="number" class="form-control"  class="form-control input-sm" placeholder="Item Model Number" required = "required"></div>
+		    <div class="form-group"><input name = "itemModelNumber" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Model Number" required = "required"></div>
 		    <div class="form-group"><input name = "itemType" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Type" required = "required"></div>
-		    <div class="form-group"><input name = "itemCapacity" type="number" class="form-control"  class="form-control input-sm" placeholder="Item Capacity" required = "required"></div>
+		    <div class="form-group"><input name = "itemCapacity" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Capacity" required = "required"></div>
 		    <div class="form-group"><input name = "itemInterface" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Interface" required = "required"></div>
 		    <div class="form-group"><input name = "itemDescription" type="text" class="form-control"  class="form-control input-sm" placeholder="Item Description" required = "required"></div>
 		    <div>Select an image to upload:</div><div class="form-group"><input name = "image" type="file" class="form-control" accept = ".png, .jpg, .jpeg, .bmp, .gif, image/*" class="form-control input-sm" placeholder="Item Image"></div>
-		    <div class="form-group"><button type="submit" class="btn btn-info btn-block">Add Item</button></div>
-		</form>
+		    <button type="submit" class="btn btn-info btn-block">Add Item</button>
+		</form> <br /> <br />
 		
 		<a type="button" class="btn btn-info" href = "admin.jsp">Admin Home</a> <br /> <br />
 		<a type="button" class="btn btn-info" href = "index.jsp">Home Page</a>

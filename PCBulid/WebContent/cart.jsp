@@ -69,7 +69,7 @@ body {
 						</div>
 						<div class="panel-body">
 							<img
-								src="<%out.print(item.getImagePath().substring(6));%>" style = "height: 6em;" />
+								src="<%out.print(item.getImagePath ());%>" style = "height: 6em;" />
 						</div>
 						<div class="panel-footer" style="height: 5.35em;">
 
@@ -82,7 +82,7 @@ body {
 					</div>
 				</div>
 			<% }
-			out.print("Total: $" + String.format ("%.2d", cart.getTotal ()));%>
+			out.print("Total: $" + String.format ("%.2f", cart.getTotal ()));%>
 			<hr>
 			<form action = "/PCBulid/EmptyCartServlet" method = "post">
 				<input type="submit" value="Empty Cart" class="btn btn-danger pull-right"/>
@@ -94,7 +94,7 @@ body {
 		<% if(cart!=null) {
 			if(cart.getProductCount() > 0){ %>
 		<hr>
-		<a type="button" class="btn btn-info btn-block" href = "index.jsp">Checkout</a>
+		<a type="button" class="btn btn-info" href = "checkout.jsp">Checkout</a>
 		<% }
 			} %>
 	</div>

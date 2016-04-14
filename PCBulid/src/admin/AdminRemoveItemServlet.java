@@ -9,6 +9,7 @@
 
 package admin;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -52,7 +53,7 @@ public class AdminRemoveItemServlet extends HttpServlet
     {
 		HttpSession session = request.getSession ();
 		if (session.getAttribute ("items") == null || request.getParameter ("categoryName") == null || request.getParameter ("imagePath") == null || request.getParameter ("removeIndex") == null || request.getParameter ("removeID") == null)
-			request.getRequestDispatcher ("admin.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "admin.jsp");
 		
 		final ArrayList <Item> items = (ArrayList <Item>) session.getAttribute ("items");
 		final String categoryName = request.getParameter ("categoryName");
@@ -81,39 +82,39 @@ public class AdminRemoveItemServlet extends HttpServlet
 			switch (categoryName)
 			{
 				case "Cases":
-					remove = connection.prepareStatement ("delete from cases where cases_ID = ?");
+					remove = connection.prepareStatement ("delete from cases where casesID = ?");
 				break;
 	
 				case "CPU":
-					remove = connection.prepareStatement ("delete from cpu where cpu_ID = ?");
+					remove = connection.prepareStatement ("delete from cpu where cpuID = ?");
 				break;
 	
 				case "GPU":
-					remove = connection.prepareStatement ("delete from gpu where gpu_ID = ?");
+					remove = connection.prepareStatement ("delete from gpu where gpuID = ?");
 				break;
 	
 				case "Harddrive":
-					remove = connection.prepareStatement ("delete from pc_harddrive where harddrive_ID = ?");
+					remove = connection.prepareStatement ("delete from hdd where hddID = ?");
 				break;
 	
 				case "Headset":
-					remove = connection.prepareStatement ("delete from headset where headset_ID = ?");
+					remove = connection.prepareStatement ("delete from headset where headsetID = ?");
 				break;
 	
 				case "Memory":
-					remove = connection.prepareStatement ("delete from memory where memory_ID = ?");
+					remove = connection.prepareStatement ("delete from memory where memoryID = ?");
 				break;
 	
 				case "Motherboard":
-					remove = connection.prepareStatement ("delete from motherboard where motherboard_ID = ?");
+					remove = connection.prepareStatement ("delete from motherboard where motherboardID = ?");
 				break;
 	
 				case "PSU":
-					remove = connection.prepareStatement ("delete from psu where psu_ID = ?");
+					remove = connection.prepareStatement ("delete from psu where psuID = ?");
 				break;
 	
 				case "SSD":
-					remove = connection.prepareStatement ("delete from ssd where ssd_ID = ?");
+					remove = connection.prepareStatement ("delete from ssd where ssdID = ?");
 				break;
 			}
 			
@@ -127,14 +128,30 @@ public class AdminRemoveItemServlet extends HttpServlet
 			items.remove (removeIndex);
 			
 			//Delete image
-			Path path = Paths.get (imagePath);
-			Files.deleteIfExists (path);
+			File image = new File (imagePath);
+			image.delete ();
 			
-			request.getRequestDispatcher ("admin.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "admin.jsp");
 		}
 		catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException exception)
 		{
 			exception.printStackTrace ();
 		}
     }
+	
+	/**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
+	}
 }

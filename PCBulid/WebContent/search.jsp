@@ -82,7 +82,7 @@ body {
 						</div>
 						<div class="panel-body">
 							<img
-								src="<%out.print(result.get ("imagePath").substring (6));%>" style = "height: 6em;" />
+								src="<%out.print(result.get ("imagePath"));%>" style = "height: 6em;" />
 						</div>
 						<div class="panel-footer" style="height: 5.35em;">
 

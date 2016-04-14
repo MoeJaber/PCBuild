@@ -55,7 +55,7 @@ public class RegistrationServlet extends HttpServlet
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		if (request.getParameter ("first_name") == null || request.getParameter ("last_name") == null || request.getParameter ("email") == null || request.getParameter ("password") == null || request.getParameter ("password_confirmation") == null)
-			request.getRequestDispatcher ("index.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
 		
 		final String firstName = request.getParameter ("first_name");
 		final String lastName = request.getParameter ("last_name");
@@ -71,7 +71,7 @@ public class RegistrationServlet extends HttpServlet
 		
 		//Check if user is already logged in
 		if (session.getAttribute ("user") != null)
-			request.getRequestDispatcher ("index.jsp").forward (request, response);
+			response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
 		
 		try
         {
@@ -110,8 +110,7 @@ public class RegistrationServlet extends HttpServlet
             
             session.setAttribute ("user", new User (id, email, firstName, lastName, false));
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher ("index.jsp");    
-    		dispatcher.forward (request, response);
+            response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
         }
 		catch (SQLException e)
         {
@@ -137,5 +136,21 @@ public class RegistrationServlet extends HttpServlet
 		{
 			e1.printStackTrace ();
 		}
+	}
+	
+	/**
+	 * Handles an HTTP get request
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * 
+	 * @exception ServletException Bad things might happen
+	 * @exception IOException Bad things might happen
+	 * @author Kieran Gillibrand, Student: 040-756-866
+	 */
+	@Override
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp"); //Not implemented, redirect
 	}
 }
