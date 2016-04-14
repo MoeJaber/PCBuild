@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%
+String language = (String) request.getParameter("lang");
+if (language == null) language = ((String) session.getAttribute("lang")!=null ? (String) session.getAttribute("lang") : "english");
+else session.setAttribute("lang",language);
+%>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -48,25 +53,32 @@ body {
 
 	<!--- Sales --->
 	<div class="container">
+		<% if(language.equals("english")){ %>
 		<h2>
 			<a href="../index.jsp">Home</a> >> <a href="laptoptablet.jsp">Laptops
 				& Tablets</a>
 		</h2>
 		<p>Showing 8 items in Laptops & Tablets</p>
+		<% } %>
+		<% if(language.equals("french")){ %>
+		<h2>
+			<a href="../index.jsp">Accueil</a> >> <a href="laptoptablet.jsp">Ordinateurs portables et tablettes</a>
+		</h2>
+		<p>Affichage de 8 articles dans les ordinateurs portables et tablettes</p>
+		<% } %>
 		<hr>
 		<br>
 		<div class="row">
+			<% if(language.equals("english")){ %>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/businesslaptop.jpg"
-					class="img-responsive center-block" alt="Business Laptop">Business
-					Laptop</a>
+					class="img-responsive center-block" alt="Business Laptop">Business Laptop</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/businessultrabook.jpg"
-					class="img-responsive center-block" alt="Business Ultrabook">Business
-					Ultrabook</a>
+					class="img-responsive center-block" alt="Business Ultrabook">Business Ultrabook</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
@@ -76,20 +88,17 @@ body {
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/gaminglaptop.jpg"
-					class="img-responsive center-block" alt="Gaming Laptop">Gaming
-					Laptop</a>
+					class="img-responsive center-block" alt="Gaming Laptop">Gaming Laptop</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/mainstreamlaptop.jpg"
-					class="img-responsive center-block" alt="Mainstream Laptop">Mainstream
-					Laptop</a>
+					class="img-responsive center-block" alt="Mainstream Laptop">Mainstream Laptop</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/mobileworkstation.jpg"
-					class="img-responsive center-block" alt="Mobile Workstation">Mobile
-					Workstation</a>
+					class="img-responsive center-block" alt="Mobile Workstation">Mobile Workstation</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
@@ -101,18 +110,72 @@ body {
 					src="../public/img/website/categories/ultrabooks.jpg"
 					class="img-responsive center-block" alt="Ultrabooks">Ultrabooks</a>
 			</div>
+			<% } %>
+			<% if(language.equals("french")){ %>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/businesslaptop.jpg"
+					class="img-responsive center-block" alt="Business Laptop">Affaires ordinateur portable</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/businessultrabook.jpg"
+					class="img-responsive center-block" alt="Business Ultrabook">Affaires Ultrabook</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/chromebook.jpg"
+					class="img-responsive center-block" alt="Chromebook">Chromebook</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/gaminglaptop.jpg"
+					class="img-responsive center-block" alt="Gaming Laptop">Ordinateur portable de jeu</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/mainstreamlaptop.jpg"
+					class="img-responsive center-block" alt="Mainstream Laptop">Ordinateur portable Mainstream</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/mobileworkstation.jpg"
+					class="img-responsive center-block" alt="Mobile Workstation">Station de travail mobile</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/tablets.jpg"
+					class="img-responsive center-block" alt="Tablets">Comprimes</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/ultrabooks.jpg"
+					class="img-responsive center-block" alt="Ultrabooks">Ultrabooks</a>
+			</div>
+			<% } %>
 		</div>
 	</div>
 
 	<br>
 	<br>
 	<footer class="container-fluid text-center">
+		<% if(language.equals("english")){ %>
 		<p>Copyright 2016, Prestige Computers</p>
 		<form class="form-inline">
 			Get deals: <input type="email" class="form-control" size="50"
 				placeholder="Email Address">
 			<button type="button" class="btn btn-danger">Sign Up</button>
 		</form>
+		<% } %>
+		
+		<% if(language.equals("french")){ %>
+		<p>Droit d'auteur 2016, Prestige Ordinateurs</p>
+		<form class="form-inline">
+			Obtenez les offres: <input type="email" class="form-control" size="50"
+				placeholder="Email Address">
+			<button type="button" class="btn btn-danger">S'inscrire</button>
+		</form>
+		<% } %>
 	</footer>
 
 </body>

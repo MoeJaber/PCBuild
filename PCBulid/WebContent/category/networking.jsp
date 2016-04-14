@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+
+<%
+String language = (String) request.getParameter("lang");
+if (language == null) language = ((String) session.getAttribute("lang")!=null ? (String) session.getAttribute("lang") : "english");
+else session.setAttribute("lang",language);
+%>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -48,73 +54,128 @@ body {
 
 	<!--- Sales --->
 	<div class="container">
+		<% if(language.equals("english")){ %>
 		<h2>
 			<a href="../index.jsp">Home</a> >> <a href="networking.jsp">Networking</a>
 		</h2>
 		<p>Showing 8 items in Networking</p>
+		<% } %>
+		<% if(language.equals("french")){ %>
+		<h2>
+			<a href="../index.jsp">Accueil</a> >> <a href="networking.jsp">La mise en reseau</a>
+		</h2>
+		<p>Affichage de 8 articles en reseau</p>
+		<% } %>
 		<hr>
 		<br>
 		<div class="row">
+			<% if(language.equals("english")){ %>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/networkadapters.jpg"
-					class="img-responsive center-block" alt="Network Adapters">Network
-					Adapters</a>
+					class="img-responsive center-block" alt="Network Adapters">Network Adapters</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/networkswitches.jpg"
-					class="img-responsive center-block" alt="Network Switches">Network
-					Switches</a>
+					class="img-responsive center-block" alt="Network Switches">Network Switches</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/networktransceivers.jpg"
-					class="img-responsive center-block" alt="Network Transceivers">Network
-					Transceivers</a>
+					class="img-responsive center-block" alt="Network Transceivers">Network Transceivers</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/powerlineethernet.jpg"
-					class="img-responsive center-block" alt="Powerline Ethernet">Powerline
-					Ethernet</a>
+					class="img-responsive center-block" alt="Powerline Ethernet">Powerline Ethernet</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/securityfirewall.jpg"
-					class="img-responsive center-block" alt="Security Firewall">Security
-					Firewall</a>
+					class="img-responsive center-block" alt="Security Firewall">Security Firewall</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/wifirouters.jpg"
-					class="img-responsive center-block" alt="Wi-Fi Routers">Wi-Fi
-					Routers</a>
+					class="img-responsive center-block" alt="Wi-Fi Routers">Wi-Fi Routers</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/wirelessaccesspoint.jpg"
-					class="img-responsive center-block" alt="Wireless Access Points">Wireless
-					Access Points</a>
+					class="img-responsive center-block" alt="Wireless Access Points">Wireless Access Points</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
 				<a href="#"><img
 					src="../public/img/website/categories/wirelessaccessories.jpg"
-					class="img-responsive center-block" alt="Wireless Accessories">Wireless
-					Accessories</a>
+					class="img-responsive center-block" alt="Wireless Accessories">Wireless Accessories</a>
 			</div>
+			<% } %>
+			<% if(language.equals("french")){ %>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/networkadapters.jpg"
+					class="img-responsive center-block" alt="Network Adapters">Adaptateurs reseau</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/networkswitches.jpg"
+					class="img-responsive center-block" alt="Network Switches">Commutateurs reseau</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/networktransceivers.jpg"
+					class="img-responsive center-block" alt="Network Transceivers">Transceivers reseau</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/powerlineethernet.jpg"
+					class="img-responsive center-block" alt="Powerline Ethernet">Ligne electrique Ethernet</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/securityfirewall.jpg"
+					class="img-responsive center-block" alt="Security Firewall">Pare-feu de securite</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/wifirouters.jpg"
+					class="img-responsive center-block" alt="Wi-Fi Routers">Wifi Routeurs</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/wirelessaccesspoint.jpg"
+					class="img-responsive center-block" alt="Wireless Access Points">Points d'acces sans fil</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
+				<a href="#"><img
+					src="../public/img/website/categories/wirelessaccessories.jpg"
+					class="img-responsive center-block" alt="Wireless Accessories">Accessoires sans fil</a>
+			</div>
+			<% } %>
 		</div>
 	</div>
 
 	<br>
 	<br>
 	<footer class="container-fluid text-center">
+		<% if(language.equals("english")){ %>
 		<p>Copyright 2016, Prestige Computers</p>
 		<form class="form-inline">
 			Get deals: <input type="email" class="form-control" size="50"
 				placeholder="Email Address">
 			<button type="button" class="btn btn-danger">Sign Up</button>
 		</form>
+		<% } %>
+		
+		<% if(language.equals("french")){ %>
+		<p>Droit d'auteur 2016, Prestige Ordinateurs</p>
+		<form class="form-inline">
+			Obtenez les offres: <input type="email" class="form-control" size="50"
+				placeholder="Email Address">
+			<button type="button" class="btn btn-danger">S'inscrire</button>
+		</form>
+		<% } %>
 	</footer>
 
 </body>
