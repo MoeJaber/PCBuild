@@ -167,35 +167,35 @@ body {
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/intel.jsp"><img
+				<img
 					src="public/img/brands/intel.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/asus.jsp"><img src="public/img/brands/asus.gif"
+				<img src="public/img/brands/asus.gif"
 					class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/lenovo.jsp"><img
+				<img
 					src="public/img/brands/lenovo.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/samsung.jsp"><img
+				<img
 					src="public/img/brands/samsung.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/amd.jsp"><img src="public/img/brands/amd.gif"
+				<img src="public/img/brands/amd.gif"
 					class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/corsair.jsp"><img
+				<img
 					src="public/img/brands/corsair.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/nvidia.jsp"><img
+				<img
 					src="public/img/brands/nvidia.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="brands/logitech.jsp"><img
+				<img
 					src="public/img/brands/logitech.gif" class="img-center"></a>
 			</div>
 		</div>
@@ -219,7 +219,7 @@ body {
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="category/accessories/headsets.jsp"><img
+				<img
 					src="public/img/website/categories/headsets.png" class="img-center">
 					<%if(language.equals("english")){%><p>Headsets</a>
 				<% } %>
