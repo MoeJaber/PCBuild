@@ -82,7 +82,7 @@ public class AdminListItemsServlet extends HttpServlet
         results = select.executeQuery ();
         
         while (results.next ())
-        	items.add (new Item (results.getLong ("gpuID"), results.getString ("gpuNaame"), "GPU", results.getString ("gpuModel"), results.getString ("gpuImagePath"), results.getDouble ("gpuPrice")));
+        	items.add (new Item (results.getLong ("gpuID"), results.getString ("gpuName"), "GPU", results.getString ("gpuModel"), results.getString ("gpuImagePath"), results.getDouble ("gpuPrice")));
         
         select.close ();
         results.close ();

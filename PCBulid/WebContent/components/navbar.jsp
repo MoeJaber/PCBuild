@@ -37,45 +37,7 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Department<span class="caret"></span></a>
 	          <ul class="dropdown-menu" style = "padding-top: 1em;">
 	            <li><a href="/PCBulid/category/computerhardware.jsp">Computer Hardware</a></li>
-	            <li><a href="/PCBulid/category/laptoptablet.jsp">Laptop & Tablet</a></li>
-	            <li><a href="/PCBulid/category/networking.jsp">Networking</a></li>
-	            <li><a href="/PCBulid/category/hometheatre.jsp">TV & Home Theatre</a></li>
-	            <li><a href="/PCBulid/category/mobilephones.jsp">Mobile Phones</a></li>
-	            <li><a href="/PCBulid/category/electronics.jsp">Electronics</a></li>
-	            <li><a href="/PCBulid/category/monitors.jsp">Monitors</a></li>
-	            <li><a href="/PCBulid/category/desktop.jsp">Desktop</a></li>
-	            <li><a href="/PCBulid/category/accessories.jsp">Accessories</a></li>
-	            <li><a href="/PCBulid/category/gadget.jsp">Gadget & Toys</a></li>
-	            <li><a href="/PCBulid/category/consoles.jsp">Game Consoles</a></li>
-	            <li><a href="/PCBulid/category/printers.jsp">Printers</a></li>
-	            <li><a href="/PCBulid/category/pointofsale.jsp">Point of Sale</a></li>
-	            <li><a href="/PCBulid/category/software.jsp">Software</a></li>
 	          </ul>
-	        </li>
-	        <!--- Brands --->
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands<span class="caret"></span></a>
-	          <div class="dropdown-menu" style = "width: 50em !important;">
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/adata.jsp"><img src="/PCBulid/public/img/brands/adata.gif" class="img-responsive" alt="ADATA"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/amd.jsp"><img src="/PCBulid/public/img/brands/amd.gif" class="img-responsive" alt="AMD"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/asus.jsp"><img src="/PCBulid/public/img/brands/asus.gif" class="img-responsive" alt="ASUS"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/benq.jsp"><img src="/PCBulid/public/img/brands/benq.gif" class="img-responsive" alt="BENQ"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/corsair.jsp"><img src="/PCBulid/public/img/brands/corsair.gif" class="img-responsive" alt="Corsair"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/evga.jsp"><img src="/PCBulid/public/img/brands/evga.gif" class="img-responsive" alt="EVGA"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/gigabyte.jsp"><img src="/PCBulid/public/img/brands/gigabyte.gif" class="img-responsive" alt="Gigabyte"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/gopro.jsp"><img src="/PCBulid/public/img/brands/gopro.gif" class="img-responsive" alt="GoPro"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/intel.jsp"><img src="/PCBulid/public/img/brands/intel.gif" class="img-responsive" alt="Intel"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/kingston.jsp"><img src="/PCBulid/public/img/brands/kingston.gif" class="img-responsive" alt="Kingston"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/lenovo.jsp"><img src="/PCBulid/public/img/brands/lenovo.gif" class="img-responsive" alt="Lenovo"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/linksys.jsp"><img src="/PCBulid/public/img/brands/linksys.gif" class="img-responsive" alt="Linksys"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/logitech.jsp"><img src="/PCBulid/public/img/brands/logitech.gif" class="img-responsive" alt="Logitech"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/microsoft.jsp"><img src="/PCBulid/public/img/brands/microsoft.gif" class="img-responsive" alt="Microsoft"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/msi.jsp"><img src="/PCBulid/public/img/brands/msi.gif" class="img-responsive" alt="MSi"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/nvidia.jsp"><img src="/PCBulid/public/img/brands/nvidia.gif" class="img-responsive" alt="nVidia"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/samsung.jsp"><img src="/PCBulid/public/img/brands/samsung.gif" class="img-responsive" alt="Samsung"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/sandisk.jsp"><img src="/PCBulid/public/img/brands/sandisk.gif" class="img-responsive" alt="SanDisk"></a></div>
-	            <div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan"><a href="/PCBulid/brands/seagate.jsp"><img src="/PCBulid/public/img/brands/seagate.gif" class="img-responsive" alt="Seagate"></a></div>
-	          </div>
 	        </li>
 	      </ul>
 	      

@@ -84,7 +84,7 @@ body {
 				
 				<div class="col-sm-12">
 					<div class="panel panel-danger">
-						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%out.print (items.get (itemIndex).getID ());%>"><%out.print(items.get (itemIndex).getName ());%></a>
+						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemID=<%out.print (items.get (itemIndex).getID ());%>&categoryName=<%out.print (items.get (itemIndex).getCategoryName ());%>"><%out.print(items.get (itemIndex).getName ());%></a>
 						<p style="font-size: 0.7em;"><%out.print(items.get (itemIndex).getModel ());%></p>
 						</div>
 						<div class="panel-body">

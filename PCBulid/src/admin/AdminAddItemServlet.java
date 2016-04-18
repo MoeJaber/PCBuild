@@ -39,7 +39,7 @@ import dbconstants.DBConstants;
  * @see HttpServlet
  * @see Item
  */
-@MultipartConfig
+@MultipartConfig //Required to use enctype = "multipart/form-data" (which is required for file uploading)
 public class AdminAddItemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -142,12 +142,18 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "CPU":
-					insert = connection.prepareStatement ("insert into cpu (cpuModel, cpuName, cpuImagePath, cpuPrice) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into cpu (cpuModel, cpuName, cpuImagePath, cpuPrice, cpuBrand, cpuSeries, cpuModelNumber, cpuCapacity, cpuInterface, cpuDescription) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
 					insert.setString (3, itemImagePath);
 					insert.setDouble (4, itemPrice);
+					insert.setString (5, itemBrand);
+					insert.setString (6, itemSeries);
+					insert.setString (7, itemModelNumber);
+					insert.setString (8, itemCapacity);
+					insert.setString (9, itemInterface);
+					insert.setString (10, itemDescription);
 				
 					insert.execute ();
 					
@@ -163,16 +169,22 @@ public class AdminAddItemServlet extends HttpServlet
 				break;
 	
 				case "GPU":
-					insert = connection.prepareStatement ("insert into gpu (gpuModel, gpuName, gpuImagePath, gpuPrice) values (?, ?, ?, ?)");
+					insert = connection.prepareStatement ("insert into gpu (gpuModel, gpuName, gpuImagePath, gpuPrice, gpuBrand, gpuSeries, gpuModelNumber, gpuCapacity, gpuInterface, gpuDescription) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 					insert.setString (1, itemModel);
 					insert.setString (2, itemName);
 					insert.setString (3, itemImagePath);
 					insert.setDouble (4, itemPrice);
+					insert.setString (5, itemBrand);
+					insert.setString (6, itemSeries);
+					insert.setString (7, itemModelNumber);
+					insert.setString (8, itemCapacity);
+					insert.setString (9, itemInterface);
+					insert.setString (10, itemDescription);
 				
 					insert.execute ();
 					
-					select = connection.prepareStatement ("select max(gpu_ID) as gpuID from gpu");
+					select = connection.prepareStatement ("select max(gpuID) as gpuID from gpu");
 					reader = select.executeQuery (); 
 					reader.next ();
 					

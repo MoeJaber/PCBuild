@@ -45,9 +45,14 @@ body{
 <div class="row">
 
  <%
- if (request.getParameter ("itemId") == null)
+ if (request.getParameter ("itemID") == null || request.getParameter ("categoryName") == null)
+ {
 	 response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
-
+	 return;
+ }
+ 
+final String categoryName = request.getParameter ("categoryName");
+ 
 try {
 Class.forName(DBConstants.DRIVER);
 } catch (ClassNotFoundException e) {
@@ -63,14 +68,31 @@ ResultSet resultSet = null;
 <%
 try{ 
 connection = DriverManager.getConnection(DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
-statement=connection.prepareStatement("SELECT * FROM hdd where hddID = ?");
 
+switch (categoryName)
+{
+	case "CPU":
+		statement=connection.prepareStatement("SELECT cpuID as ID, cpuImagePath as imagePath, cpuPrice as price, cpuImagePath as imagePath, cpuBrand as brand, cpuSeries as series, cpuModelNumber as modelNumber, cpuCapacity as capacity, cpuInterface as interface, cpuDescription as description FROM cpu where cpuID = ?");
+	break;
+	
+	case "GPU":
+		statement=connection.prepareStatement("SELECT gpuID as ID, gpuImagePath as imagePath, gpuPrice as price, gpuImagePath as imagePath, gpuBrand as brand, gpuSeries as series, gpuModelNumber as modelNumber, gpuCapacity as capacity, gpuInterface as interface, gpuDescription as description FROM gpu where gpuID = ?");
+	break;
+	
+	case "Harddrive":
+		statement=connection.prepareStatement("SELECT hddID as ID, hddModel as model, hddName as name, hddPrice as price, hddImagePath as imagePath, hddBrand as brand, hddSeries as series, hddModelNumber as modelNumber, hddCapacity as capacity, hddInterface as interface, hddDescription as description FROM hdd where hddID = ?");
+	break;
+	
+	default:
+		response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
+	break;
+}
 
 long itemId = 0;
 
 try
 {
-	itemId = Long.parseLong (request.getParameter ("itemId"));
+	itemId = Long.parseLong (request.getParameter ("itemID"));
 }
 catch (NumberFormatException format)
 {
@@ -86,9 +108,9 @@ while(resultSet.next()){
 
 
  <div class="col-sm-6">
-		    <img src = "<%= resultSet.getString ("hddImagePath") %>" alt = "No Image Uploaded"></img>
+		    <img src = "<%= resultSet.getString ("imagePath") %>" alt = "No Image Uploaded"></img>
 		     
-		      <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p><h5>$<%=resultSet.getString("hddPrice") %></h5></div>
+		      <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p><h5>$<%=resultSet.getString("price") %></h5></div>
 		    </div>
 		  </div>
 
@@ -112,19 +134,19 @@ while(resultSet.next()){
 					<td width="25%" valign="top" class="specification" >
                     <tr>
                     <td width="25%" align="left" valign="top" class="specification">Brand</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddBrand") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("brand") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Model</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddModelNumber") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("modelNumber") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Series</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp; <%=resultSet.getString("hddSeries") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp; <%=resultSet.getString("series") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Capacity</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddCapacity") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("capacity") %></td></tr>
                     
                     <tr><td width="25%" align="left" valign="top" class="specification">Interface</td>
-                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("hddInterface") %></td></tr>
+                    <td width="75%" class="spec_contend">&nbsp;&nbsp;  <%=resultSet.getString("interface") %></td></tr>
                     
 					 </table>
 					</td>
@@ -135,8 +157,8 @@ while(resultSet.next()){
 			 </table>
 
     <form action = "/PCBulid/AddItemServlet" method = "POST">
-    	<input type = "hidden" value = "<%=resultSet.getLong("hddID") %>" name = "itemID">
-    	<input type = "hidden" value = "Harddrive" name = "categoryName">
+    	<input type = "hidden" value = "<%=resultSet.getLong("ID") %>" name = "itemID">
+    	<input type = "hidden" value = "<%=categoryName%>" name = "categoryName">
     	<input type="submit" class="btn submit" value = "Add to Cart">
     </form>
 		      </div>
@@ -146,7 +168,7 @@ while(resultSet.next()){
 		    <div class="col-sm-6">
 		    <div class="panel panel-danger" style = "height: 13.5em;">
 		      <div class="panel-heading"><p style = "font-size: 0.7em;">Overview</p></div>
-		      <div class="panel-body"><p><%=resultSet.getString("hddDescription") %></p></div>	
+		      <div class="panel-body"><p><%=resultSet.getString("description") %></p></div>	
 		    </div>
 		  </div>
 

@@ -62,7 +62,7 @@ ResultSet resultSet = null;
 try{ 
 connection = DriverManager.getConnection(DBConstants.URL, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
 statement=connection.createStatement();
-String sql ="SELECT * FROM hdd";
+String sql ="SELECT * FROM cpu";
 
 resultSet = statement.executeQuery(sql);
  
@@ -74,24 +74,24 @@ while(resultSet.next()){
 
 		  <div class="col-sm-6">
 		    <div class="panel panel-danger" style = "height: 13.5em;">
-		      <div class="panel-heading"><%=resultSet.getString("hddName") %><p style = "font-size: 0.7em;"><%=resultSet.getString("hddModel") %></p></div>
-		      <div class="panel-body"><img src="<%=resultSet.getString("hddImagePath")%>"  style = "height: 6em;" alt=""></div>
+		      <div class="panel-heading"><%=resultSet.getString("cpuName") %><p style = "font-size: 0.7em;"><%=resultSet.getString("cpuModel") %></p></div>
+		      <div class="panel-body"><img src="<%=resultSet.getString("cpuImagePath")%>"  style = "height: 6em;" alt=""></div>
 		      <div class="panel-footer" style = "height: 5.35em;"><span class = "pull-right" style = "color:red;  font-size: 0.8em;">	</span><p style = "text-decoration: line-through; font-size: 0.6em;">	</p>
 		      
 		      <form action="specs.jsp" method="GET" >
-				<input type="hidden" name="itemID" value="<%=resultSet.getString("hddID") %>">
-				<input type="hidden" name="categoryName" value="Harddrive">
+				<input type="hidden" name="itemID" value="<%=resultSet.getString("cpuID") %>">
+				<input type="hidden" name="categoryName" value="CPU">
 		      	<input type="submit" value="More Info" class="btn pull-right" />
 		      </form>
 		      
 		      
 		      <form action="/PCBulid/AddItemServlet" method="POST" >
-				<input type="hidden" name="itemID" value="<%=resultSet.getString("hddID") %>">
-				<input type="hidden" name="categoryName" value="Harddrive">
+				<input type="hidden" name="itemID" value="<%=resultSet.getString("cpuID") %>">
+				<input type="hidden" name="categoryName" value="CPU">
 		      	<input type="submit" value="Add to Cart" class="btn pull-right" />
 		      </form>
 		      
-		      <h5>$<%=resultSet.getString("hddPrice") %></h5></div>
+		      <h5>$<%=resultSet.getString("cpuPrice") %></h5></div>
 		    </div>
 		  </div>
 		<br /> <br />
