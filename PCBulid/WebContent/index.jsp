@@ -281,7 +281,7 @@ body {
 				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img src="public/img/website/categories/videocards.png"
+				<img src="public/img/website/categories/video-cards.png"
 					class="img-center">
 				<%if(language.equals("english")){%><p>
 					Video Cards</a>

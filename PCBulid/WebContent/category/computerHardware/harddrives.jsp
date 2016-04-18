@@ -40,7 +40,7 @@ body{
 	
 	<br>
 	<div class="container">
-<h2><a href = "../../index.jsp">Home</a> >> <a href = "../computerhardware.jsp">Computer Hardware</a> >> <a href = "cpu.jsp">CPU</a></h2>
+<h2><a href = "../../index.jsp">Home</a> >> <a href = "../computerhardware.jsp">Computer Hardware</a> >> <a href = "harddrives.jsp">Harddrives</a></h2>
 <hr>
 <br>
 <div class="row">
