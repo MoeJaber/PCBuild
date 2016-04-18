@@ -124,8 +124,13 @@ public class SearchSet
         	record.add (new IntField ("id", results.getInt ("cpuID"), Field.Store.YES));
         	record.add (new TextField ("model", results.getString ("cpuModel"), Field.Store.YES));
         	record.add (new TextField ("name", results.getString ("cpuName"), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("cpuImagePath"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("cpuPrice")), Field.Store.YES));
+        	record.add (new TextField ("brand", results.getString ("cpuBrand"), Field.Store.YES));
+        	record.add (new TextField ("series", results.getString ("cpuSeries"), Field.Store.YES));
+        	record.add (new TextField ("modelnum", results.getString ("cpuModelNumber"), Field.Store.YES));
+        	record.add (new TextField ("capacity", results.getString ("cpuCapacity"), Field.Store.YES));
+        	record.add (new TextField ("interface", results.getString ("cpuInterface"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("cpuImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -150,8 +155,13 @@ public class SearchSet
         	record.add (new IntField ("id", results.getInt ("gpuID"), Field.Store.YES));
         	record.add (new TextField ("model", results.getString ("gpuModel"), Field.Store.YES));
         	record.add (new TextField ("name", results.getString ("gpuName"), Field.Store.YES));
-        	record.add (new StringField ("imagePath", results.getString ("gpuImagePath"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("gpuPrice")), Field.Store.YES));
+        	record.add (new TextField ("brand", results.getString ("gpuBrand"), Field.Store.YES));
+        	record.add (new TextField ("series", results.getString ("gpuSeries"), Field.Store.YES));
+        	record.add (new TextField ("modelnum", results.getString ("gpuModelNumber"), Field.Store.YES));
+        	record.add (new TextField ("capacity", results.getString ("gpuCapacity"), Field.Store.YES));
+        	record.add (new TextField ("interface", results.getString ("gpuInterface"), Field.Store.YES));
+        	record.add (new StringField ("imagePath", results.getString ("gpuImagePath"), Field.Store.YES));
         	
         	try 
         	{
@@ -178,7 +188,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("hddName"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("hddPrice")), Field.Store.YES));
         	record.add (new TextField ("brand", results.getString ("hddBrand"), Field.Store.YES));
-        	record.add (new TextField ("series", results.getString ("hddSerues"), Field.Store.YES));
+        	record.add (new TextField ("series", results.getString ("hddSeries"), Field.Store.YES));
         	record.add (new TextField ("modelnum", results.getString ("hddModelNumber"), Field.Store.YES));
         	record.add (new TextField ("capacity", results.getString ("hddCapacity"), Field.Store.YES));
         	record.add (new TextField ("interface", results.getString ("hddInterface"), Field.Store.YES));
