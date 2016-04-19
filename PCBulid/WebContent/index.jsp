@@ -167,35 +167,35 @@ body {
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="brands/intel.jsp"><img
 					src="public/img/brands/intel.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img src="public/img/brands/asus.gif"
+				<a href="brands/asus.jsp"><img src="public/img/brands/asus.gif"
 					class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="brands/lenovo.jsp"><img
 					src="public/img/brands/lenovo.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="brands/samsung.jsp"><img
 					src="public/img/brands/samsung.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img src="public/img/brands/amd.gif"
+				<a href="brands/amd.jsp"><img src="public/img/brands/amd.gif"
 					class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="brands/corsair.jsp"><img
 					src="public/img/brands/corsair.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="brands/nvidia.jsp"><img
 					src="public/img/brands/nvidia.gif" class="img-center"></a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="brands/logitech.jsp"><img
 					src="public/img/brands/logitech.gif" class="img-center"></a>
 			</div>
 		</div>
@@ -219,7 +219,7 @@ body {
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img
+				<a href="category/accessories/headsets.jsp"><img
 					src="public/img/website/categories/headsets.png" class="img-center">
 					<%if(language.equals("english")){%><p>Headsets</a>
 				<% } %>
@@ -281,7 +281,7 @@ body {
 				
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<img src="public/img/website/categories/video-cards.png"
+				<img src="public/img/website/categories/videocards.png"
 					class="img-center">
 				<%if(language.equals("english")){%><p>
 					Video Cards</a>
@@ -394,14 +394,24 @@ body {
 	</div>
 
 	<br>
-	<br>
-	<footer class="container-fluid text-center">
+	<br><footer class="container-fluid text-center">
+		<% if(language.equals("english")){ %>
 		<p>Copyright 2016, Prestige Computers</p>
 		<form class="form-inline">
 			Get deals: <input type="email" class="form-control" size="50"
 				placeholder="Email Address">
 			<button type="button" class="btn btn-danger">Sign Up</button>
 		</form>
+		<% } %>
+		
+		<% if(language.equals("french")){ %>
+		<p>Droit d'auteur 2016, Prestige Ordinateurs</p>
+		<form class="form-inline">
+			Obtenez les offres: <input type="email" class="form-control" size="50"
+				placeholder="Email Address">
+			<button type="button" class="btn btn-danger">S'inscrire</button>
+		</form>
+		<% } %>
 	</footer>
 
 </body>

@@ -1,4 +1,9 @@
 <%@ page import = "cart.*" %>
+<%
+String language = (String) request.getParameter("lang");
+if (language == null) language = ((String) session.getAttribute("lang")!=null ? (String) session.getAttribute("lang") : "english");
+else session.setAttribute("lang",language);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,21 +55,41 @@ body {
 	<!--- Main --->
 	<div class="container">
 		<h2>
-			<a href="index.jsp">Home</a> >> <a href="cart.jsp">My Shopping Cart</a>
+			<% if(language.equals("english")){ %>
+				<a href="index.jsp">Home</a> >> <a href="cart.jsp">My Shopping Cart</a>
+			<% } %>
+			<% if(language.equals("french")){ %>
+				<a href="index.jsp">Accueil</a> >> <a href="cart.jsp">Mon Panier</a>
+			<% } %>
 		</h2>
 		<% Cart cart = ((Cart)session.getAttribute("cart"));
 		if(cart == null){ %>
-		<p>Your shopping cart is empty!</p>
+			<% if(language.equals("english")){ %>
+				<p>Your shopping cart is empty!</p>
+			<% } %>
+			<% if(language.equals("french")){ %>
+				<p>Votre panier est vide!</p>
+			<% } %>
 		<% } else if( cart.getProductCount() <= 0 ){ %>
-		<p>Your shopping cart is empty!</p>
+			<% if(language.equals("english")){ %>
+				<p>Your shopping cart is empty!</p>
+			<% } %>
+			<% if(language.equals("french")){ %>
+				<p>Votre panier est vide!</p>
+			<% } %>
 		<% } else if(cart.getProductCount() > 0){ 
-			out.print("Items: <hr>");
+			if(language.equals("english")){
+				out.print("Items: <hr>");
+			}
+			if(language.equals("french")){
+				out.print("Articles: <hr>");
+			}
 			for(int i = 0; i < cart.getProductCount(); i++){
 				Item item = cart.getItem(i);%>
 				
 				<div class="col-sm-12">
 					<div class="panel panel-danger">
-						<div class="panel-heading"><a href = "/PCBulid/category/computerHardware/specs.jsp?itemID=<%out.print (item.getID ());%>&categoryName=<%out.print (item.getCategoryName ());%>"><%out.print(item.getName ());%></a>
+						<div class="panel-heading"><%out.print(item.getName());%>
 						<p style="font-size: 0.7em;"><%out.print(item.getModel());%></p>
 						</div>
 						<div class="panel-body">
@@ -75,7 +100,12 @@ body {
 
 							<form action = "/PCBulid/RemoveItemServlet" method = "post">
 								<input type="hidden" name="index" value="<%out.print(i);%>">
-								<input type="submit" value="Remove" class="btn pull-right"/>
+								<% if(language.equals("english")){ %>
+									<input type="submit" value="Remove" class="btn pull-right"/>
+								<% } %>
+								<% if(language.equals("french")){ %>
+									<input type="submit" value="Retirer" class="btn pull-right"/>
+								<% } %>
 							</form>
 							<h5>$<%out.print(item.getPrice());%></h5>
 						</div>
@@ -85,30 +115,55 @@ body {
 			out.print("Total: $" + String.format ("%.2f", cart.getTotal ()));%>
 			<hr>
 			<form action = "/PCBulid/EmptyCartServlet" method = "post">
-				<input type="submit" value="Empty Cart" class="btn btn-danger pull-right"/>
+				<% if(language.equals("english")){ %>
+					<input type="submit" value="Empty Cart" class="btn btn-danger pull-right"/>
+				<% } %>
+				<% if(language.equals("french")){ %>
+				
+					<input type="submit" value="Panier vide" class="btn btn-danger pull-right"/>
+				<% } %>
 			</form>
 		<% } %>
 		
-		<a type="button" class="btn btn-info" href = "index.jsp">Continue Shopping</a>
+		<% if(language.equals("english")){ %>
+			<a type="button" class="btn btn-info" href = "index.jsp">Continue Shopping</a>
+		<% } %>
+		<% if(language.equals("french")){ %>
+			<a type="button" class="btn btn-info" href = "index.jsp">Continuer vos achats</a>
+		<% } %>
 		<br>
 		<% if(cart!=null) {
 			if(cart.getProductCount() > 0){ %>
 		<hr>
-		<%if (session.getAttribute ("user") != null) {%>)
+		<% if(language.equals("english")){ %>
 			<a type="button" class="btn btn-info" href = "checkout.jsp">Checkout</a>
-		<%} }
+		<% } %>
+		<% if(language.equals("french")){ %>
+			<a type="button" class="btn btn-info" href = "checkout.jsp">Check-out</a>
+		<% } %>
+		<% }
 			} %>
 	</div>
 
 	<br>
-	<br>
-	<footer class="container-fluid text-center">
+	<br><footer class="container-fluid text-center">
+		<% if(language.equals("english")){ %>
 		<p>Copyright 2016, Prestige Computers</p>
 		<form class="form-inline">
 			Get deals: <input type="email" class="form-control" size="50"
 				placeholder="Email Address">
 			<button type="button" class="btn btn-danger">Sign Up</button>
 		</form>
+		<% } %>
+		
+		<% if(language.equals("french")){ %>
+		<p>Droit d'auteur 2016, Prestige Ordinateurs</p>
+		<form class="form-inline">
+			Obtenez les offres: <input type="email" class="form-control" size="50"
+				placeholder="Email Address">
+			<button type="button" class="btn btn-danger">S'inscrire</button>
+		</form>
+		<% } %>
 	</footer>
 
 </body>
