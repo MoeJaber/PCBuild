@@ -51,14 +51,10 @@ else session.setAttribute("lang",language);
 	          <ul class="dropdown-menu" style = "padding-top: 1em;">
 	          	<% if(language.equals("english")){ %>
 	            <li><a href="/PCBulid/category/computerhardware.jsp">Computer Hardware</a></li>
-	            <li><a href="/PCBulid/category/laptoptablet.jsp">Laptop & Tablet</a></li>
-	            <li><a href="/PCBulid/category/networking.jsp">Networking</a></li>
 	            <% }
 	          	if(language.equals("french")) {%>
 	          	
 	            <li><a href="/PCBulid/category/computerhardware.jsp">Materiel Informatique</a></li>
-	            <li><a href="/PCBulid/category/laptoptablet.jsp">Ordinateur portable et Tablet</a></li>
-	            <li><a href="/PCBulid/category/networking.jsp">La mise en reseau</a></li>
 	            
 	          	<% } %>
 	          </ul>
