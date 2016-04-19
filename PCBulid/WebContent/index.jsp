@@ -1,8 +1,8 @@
 
 <%
-	String language = (String) request.getParameter("lang");
-	if (language == null)
-		language = "english";
+String language = (String) request.getParameter("lang");
+if (language == null) language = ((String) session.getAttribute("lang")!=null ? (String) session.getAttribute("lang") : "english");
+else session.setAttribute("lang",language);
 %>
 
 <!DOCTYPE html>
