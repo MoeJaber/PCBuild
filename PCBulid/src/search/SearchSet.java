@@ -354,8 +354,12 @@ public class SearchSet
 	 */
 	public ArrayList <Document> search (final String [] fields, final String searchQuery) throws IOException
 	{
-		if (fields == null || fields.length == 0 || searchQuery == null || searchQuery.length () == 0)
+		if (fields == null || fields.length == 0 || searchQuery == null)
 			throw new InvalidParameterException ();
+		
+		if (searchQuery.length () == 0)
+			return new ArrayList <Document>  (0); //Return empty results
+		
 		
 		StandardAnalyzer analyzer = new StandardAnalyzer();
 		
