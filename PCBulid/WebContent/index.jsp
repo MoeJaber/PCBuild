@@ -219,7 +219,7 @@ body {
 		<hr>
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-3 text-center leftspan">
-				<a href="category/accessories/headsets.jsp"><img
+				<img
 					src="public/img/website/categories/headsets.png" class="img-center">
 					<%if(language.equals("english")){%><p>Headsets</a>
 				<% } %>
