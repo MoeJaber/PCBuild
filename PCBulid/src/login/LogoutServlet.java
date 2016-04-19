@@ -42,6 +42,7 @@ public class LogoutServlet extends HttpServlet
 		HttpSession session = request.getSession ();
 		
 		session.setAttribute ("user", null);
+		session.invalidate ();
 		
 		response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
 	}

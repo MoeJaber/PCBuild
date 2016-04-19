@@ -108,6 +108,11 @@ public class AdminAddItemServlet extends HttpServlet
 			itemImagePath = itemImagePath.concat (imageName); //Add filename to image path for full path to upload to
 			
 			image.write (itemImagePath); //Write image to path
+			
+			//Remove the first part of the path before the project directory
+			itemImagePath = itemImagePath.substring (itemImagePath.lastIndexOf ("\\PCBulid"));
+			
+			//System.out.println ("Storing URL: " + itemImagePath);
 		}
 		
 		try 

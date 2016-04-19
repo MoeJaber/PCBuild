@@ -2,7 +2,7 @@
 <%@ page import = "cart.Item" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "user.User" %>
-<% %>
+
 <!-- 
 	Admin home page, displays all items and allows removing them.
 	
