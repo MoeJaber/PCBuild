@@ -96,6 +96,11 @@ public class AdminAddItemServlet extends HttpServlet
 			String appPath = request.getServletContext ().getRealPath ("");
 			itemImagePath = appPath + "public" + File.separator + "img" + File.separator + "Uploaded Images" + File.separator;
 			
+			//If the upload directory does not exist on the server then create it
+			File directory = new File (itemImagePath);
+			if (!directory.exists ())
+				directory.mkdir ();
+			
 			//Get uploaded file name and remove path from the beginning
 			String imagePath = image.getSubmittedFileName ();
 			String imageName = imagePath.substring (imagePath.lastIndexOf (File.separator) + 1);

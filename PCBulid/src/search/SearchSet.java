@@ -50,11 +50,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 public class SearchSet 
 {
 	/**
-	 * Constant path to store the Lucene document cache in: <br /> <br />
-	 * <b>Program Directory</b>/PCBuild/lucene-index
-	 */
-	final static Path INDEX_PATH = Paths.get (Paths.get ("").toAbsolutePath ().toString () + "/PCBuild/lucene-index");
-	/**
 	 * Max amount of results to display per page
 	 */
 	final static int PAGE_RESULTS = 30;
@@ -99,6 +94,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("casesName"), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("casesImagePath"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("casesPrice")), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "Cases", Field.Store.YES));
         	
         	//Add document
         	try 
@@ -131,6 +127,7 @@ public class SearchSet
         	record.add (new TextField ("capacity", results.getString ("cpuCapacity"), Field.Store.YES));
         	record.add (new TextField ("interface", results.getString ("cpuInterface"), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("cpuImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "CPU", Field.Store.YES));
         	
         	try 
         	{
@@ -162,6 +159,7 @@ public class SearchSet
         	record.add (new TextField ("capacity", results.getString ("gpuCapacity"), Field.Store.YES));
         	record.add (new TextField ("interface", results.getString ("gpuInterface"), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("gpuImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "GPU", Field.Store.YES));
         	
         	try 
         	{
@@ -193,6 +191,7 @@ public class SearchSet
         	record.add (new TextField ("capacity", results.getString ("hddCapacity"), Field.Store.YES));
         	record.add (new TextField ("interface", results.getString ("hddInterface"), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("hddImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "Harddrive", Field.Store.YES));
         	
         	try 
         	{
@@ -219,6 +218,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("headsetName"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("headsetPrice")), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("headsetImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "Headset", Field.Store.YES));
         	
         	try 
         	{
@@ -245,6 +245,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("memoryName"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("memoryPrice")), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("memoryImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "Memory", Field.Store.YES));
         	
         	try 
         	{
@@ -271,6 +272,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("motherboardName"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("motherboardPrice")), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("motherboardImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "Motherboard", Field.Store.YES));
         	
         	try 
         	{
@@ -297,6 +299,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("psuName"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("psuPrice")), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("psuImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "PSU", Field.Store.YES));
         	
         	try 
         	{
@@ -323,6 +326,7 @@ public class SearchSet
         	record.add (new TextField ("name", results.getString ("ssdName"), Field.Store.YES));
         	record.add (new TextField ("price", Double.toString (results.getDouble ("ssdPrice")), Field.Store.YES));
         	record.add (new StringField ("imagePath", results.getString ("ssdImagePath"), Field.Store.YES));
+        	record.add (new StringField ("categoryName", "SSD", Field.Store.YES));
         	
         	try 
         	{
@@ -397,16 +401,16 @@ public class SearchSet
 	 * @throws IOException If things go wrong
 	 * @author Kieran Gillibrand, Student: 040-756-866
 	 */
-	public SearchSet (final String url, final String driver, final String dbUserName, final String dbPassword) throws IOException
+	public SearchSet (final String url, final String driver, final String dbUserName, final String dbPassword, final Path indexPath) throws IOException
 	{
 		if (url == null || driver == null || dbUserName == null || dbPassword == null)
 			throw new InvalidParameterException ();
 		
 		//Recreate the index if it exists (DB might have changed)
-		if (Files.exists (INDEX_PATH))
-			FileUtils.deleteDirectory (new File (INDEX_PATH.toString ()));
+		if (Files.exists (indexPath))
+			FileUtils.deleteDirectory (new File (indexPath.toString ()));
 		
-		items = FSDirectory.open (INDEX_PATH);
+		items = FSDirectory.open (indexPath);
 		
 		IndexWriter writer = new IndexWriter (items, new IndexWriterConfig (new StandardAnalyzer ()));
 

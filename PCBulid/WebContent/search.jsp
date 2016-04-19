@@ -77,7 +77,7 @@ body {
 				
 				<div class="col-sm-12">
 					<div class="panel panel-danger">
-						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemId=<%result.get ("id");%>"><%out.print(result.get("name"));%></a>
+						<div class="panel-heading"> <a href = "/PCBulid/category/computerHardware/specs.jsp?itemID=<%out.print (result.get ("id"));%>&categoryName=<%out.print (result.get ("categoryName"));%>"><%out.print(result.get("name"));%></a>
 						<p style="font-size: 0.7em;"><%out.print(result.get("model"));%></p>
 						</div>
 						<div class="panel-body">
@@ -87,6 +87,13 @@ body {
 						<div class="panel-footer" style="height: 5.35em;">
 
 							<h5>$<%out.print(result.get ("price"));%></h5>
+							
+							<form action = "/PCBulid/AddItemServlet" method = "POST">
+								<input type="submit" value="Add to Cart" class="btn pull-right"/>
+								<input type="hidden" name="itemID" value="<%out.print (result.get ("id"));%>">
+								<input type="hidden" name="categoryName" value="<%out.print (result.get ("categoryName"));%>">
+							</form>
+							
 						</div>
 					</div>
 				</div>

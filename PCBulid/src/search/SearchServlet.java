@@ -9,7 +9,10 @@
 
 package search;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -53,12 +56,18 @@ public class SearchServlet extends HttpServlet
 		 */
 		final String [] FIELDS = {"model", "name", "price", "brand", "series", "modelnum", "type", "capacity", "interface"};
 		
+		/**
+		 * Constant path to store the Lucene document cache in: <br /> <br />
+		 * <b>Program Directory</b>/PCBuild/lucene-index
+		 */
+		final Path indexPath = Paths.get (request.getServletContext ().getRealPath ("") + File.separator + "Lucene Index" + File.separator);
+		
 		if (request.getParameter ("search") == null)
 			return;
 		
 		if (session.getAttribute ("searchSet") == null)
 		{
-			searchSet = new SearchSet (DBConstants.URL, DBConstants.DRIVER, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD);
+			searchSet = new SearchSet (DBConstants.URL, DBConstants.DRIVER, DBConstants.DB_USER_NAME, DBConstants.DB_PASSWORD, indexPath);
 			session.setAttribute ("searchSet", searchSet);
 		}
 		else

@@ -39,7 +39,7 @@ body{
 	
 	<br>
 	<div class="container">
-<h2><a href = "../../index.jsp">Home</a> >> <a href = "../computerhardware.jsp">Computer Hardware</a> >> <a href = "harddrives.jsp">Harddrives</a></h2>
+<h2><a href = "../../index.jsp">Home</a> >> <a href = "../computerhardware.jsp">Computer Hardware</a> >> <a href = "specs.jsp?itemID=<%request.getParameter ("itemID");%>&categoryName=<%request.getParameter ("categoryName");%>">Specifications</a></h2>
 <hr>
 <br>
 <div class="row">
@@ -85,7 +85,7 @@ switch (categoryName)
 	
 	default:
 		response.sendRedirect (request.getContextPath () + "/" + "index.jsp");
-	break;
+		return;
 }
 
 long itemId = 0;
